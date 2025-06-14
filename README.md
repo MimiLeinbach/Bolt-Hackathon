@@ -12,7 +12,7 @@ AI Itinerary is designed to make group trip planning effortless, transparent, an
 
 * Launch a fully functional responsive web MVP for the hackathon, demonstrating seamless group trip coordination.  
 * Validate demand by targeting 10+ active groups using the platform post-hackathon.  
-* Garner positive user feedback (80%+ satisfaction rate from initial testers). “Easier than building a Google Sheet”
+* Garner positive user feedback (80%+ satisfaction rate from initial testers). "Easier than building a Google Sheet"
 
 ### User Goals
 
@@ -33,32 +33,22 @@ AI Itinerary is designed to make group trip planning effortless, transparent, an
 
 ## User Stories
 
-**Persona 1:** “The Planner” (e.g., Jess—Organizational Enthusiast, takes charge of details)
+**Persona 1:** "The Planner" (e.g., Jess—Organizational Enthusiast, takes charge of details)
 
 * As a Planner, I want to create a new group trip and add all participants, so that everyone is on the same page from the start.  
 * As a Planner, I want to pre-fill dates and suggest initial accommodation options, so the group can weigh in.  
-* As a Planner, I want to track each participant’s RSVP and availability, so no one is scheduled for days they can't attend.  
+* As a Planner, I want to track each participant's RSVP and availability, so no one is scheduled for days they can't attend.  
 * As a Planner, I want to assign activities/meals to participants, so the work of organizing is shared.  
-* As a Planner, I want to review all trip costs by person, so I can keep the group’s budget balanced.
+* As a Planner, I want to review all trip costs by person, so I can keep the group's budget balanced.
 
-**Persona 2:** “The Busy Joiner” (e.g., Alex—Wants involvement but limited time)
+**Persona 2:** "The Busy Joiner" (e.g., Alex—Wants involvement but limited time)
 
 * As a Joiner, I want an easy way to sign in and see all my upcoming trips, so I never lose track.  
 * As a Joiner, I want to quickly update my availability, so the group has accurate info.  
-* As a Joiner, I want to view the trip’s accommodations, activities, and meals, so I am prepared and feel included.  
-* As a Joiner, I want to see exactly what I owe (and pay it easily), so I’m never surprised by costs.
+* As a Joiner, I want to view the trip's accommodations, activities, and meals, so I am prepared and feel included.  
+* As a Joiner, I want to see exactly what I owe (and pay it easily), so I'm never surprised by costs.
 
 ---
-
-## 
-
-## 
-
-## 
-
-## 
-
-## 
 
 ## Technical Scope for Bolt MVP
 
@@ -66,9 +56,9 @@ AI Itinerary is designed to make group trip planning effortless, transparent, an
 
 ## 1\. Home/Welcome Screen
 
-* ## Create Trip” button
+* ## Create Trip" button
 
-* Create “I already have an account” Button
+* Create "I already have an account" Button
 
 ## 2\. Create Trip Form
 
@@ -80,17 +70,17 @@ AI Itinerary is designed to make group trip planning effortless, transparent, an
 
 * ## Days auto-generated based on date range
 
-* ## “Add Activity” button per day
+* ## "Add Activity" button per day
 
-* ## “Add Accomodation” button per day
+* ## "Add Accomodation" button per day
 
-* “Add Meal button” per day
+* "Add Meal button" per day
 
 ## 4\. Add Activity Modal
 
 * ## Inputs: Description, Location, Date, Cost (optional)
 
-* ## Auto-tag “Added by \[name\]
+* ## Auto-tag "Added by \[name\]
 
 ## 5\. \*\*Invite Screen\*\*
 
@@ -102,7 +92,7 @@ AI Itinerary is designed to make group trip planning effortless, transparent, an
 
 * **Onboarding & Access (Priority: Critical)**  
   * Sign-in capability for trip participants  
-  * Personalized landing page displaying user’s upcoming trips  
+  * Personalized landing page displaying user's upcoming trips  
   * Content visibility restricted to authenticated participants  
   * Create new trip: enter trip name, date range, and number of people  
   * Itinerary split by days based on selected range  
@@ -146,7 +136,7 @@ AI Itinerary is designed to make group trip planning effortless, transparent, an
   
 **Core Experience**
 
-* Step 1: User selects a trip from “My Trips.”  
+* Step 1: User selects a trip from "My Trips."  
   * Clean dashboard with participant bubbles and trip details up top.  
   * UI echoes across devices for ease of use.  
 * Step 2: Review and manage participant info.  
@@ -164,7 +154,7 @@ AI Itinerary is designed to make group trip planning effortless, transparent, an
 
 **Advanced Features & Edge Cases**
 
-* Error handling: If a participant’s date range doesn’t cover a scheduled item, prompt to adjust.  
+* Error handling: If a participant's date range doesn't cover a scheduled item, prompt to adjust.  
 * Handling trip overflows (more than, e.g., 12 participants shown as \+N bubble).
 
 **UI/UX Highlights**
@@ -181,7 +171,7 @@ AI Itinerary is designed to make group trip planning effortless, transparent, an
 
 ## Narrative
 
-Jess, the go-to planner in her friend group, is done juggling spreadsheets. She opens the app, creates a trip, adds trip name, dates, and starts entering activities that all her friends have already agreed on during the last potluck. After 2–3 entries, she invites friends via link or email. Alex, who’s busy at work, joins from the link, immediately sees the trip’s essentials: who’s coming, the exact dates, and the latest plan for cabins, hikes, and shared dinners, and adds his favorite hike. Everyone contributes—no confusion, no stress
+Jess, the go-to planner in her friend group, is done juggling spreadsheets. She opens the app, creates a trip, adds trip name, dates, and starts entering activities that all her friends have already agreed on during the last potluck. After 2–3 entries, she invites friends via link or email. Alex, who's busy at work, joins from the link, immediately sees the trip's essentials: who's coming, the exact dates, and the latest plan for cabins, hikes, and shared dinners, and adds his favorite hike. Everyone contributes—no confusion, no stress
 
 ---
 
@@ -191,7 +181,7 @@ Jess, the go-to planner in her friend group, is done juggling spreadsheets. She 
 
 * % of invited participants who sign in and join a trip (Target: \>85%)  
 * Number of trips fully planned (all sections filled, costs split) per week   
-* User satisfaction score from post-trip survey (Target: \>80% of test users say it’s easier to plan a trip with our app then creating a Google Sheet)
+* User satisfaction score from post-trip survey (Target: \>80% of test users say it's easier to plan a trip with our app then creating a Google Sheet)
 
 ### Business Metrics
 
@@ -225,7 +215,7 @@ Jess, the go-to planner in her friend group, is done juggling spreadsheets. She 
 
 * Store all content in secure, privacy-compliant storage (encrypted personal info, images, audit logs).  
 * Restrict trip data visibility to authenticated, added participants only.  
-* Simple “delete my account/data” option in product.
+* Simple "delete my account/data" option in product.
 
 ### Scalability & Performance
 
@@ -239,45 +229,75 @@ Jess, the go-to planner in her friend group, is done juggling spreadsheets. She 
 
 ---
 
-## **3-Person Team Division**
+## **3-Person Team Division (Updated)**
 
-### **Mimi \- Person 1: Authentication & Trip Management**
+### **Mimi - Person 1: Authentication & Trip Management Foundation**
 
 **Responsibilities:**
 
-* User authentication system (Google OAuth)  
+* User authentication system (Google OAuth + email/password)  
 * "My Trips" dashboard  
-* Trip creation flow  
+* Trip creation flow and basic trip data management
 * User profile management  
-* Database schema design
+* Database schema design and setup
+* Initial project architecture and shared state setup
 
 **Key Screens:** Landing/Sign-in, Dashboard, Create Trip, Profile
 
-### **Avril \- Person 2: Trip Details & Line Items**
+**Deliverables for Team:**
+* Supabase setup with auth and core database schema
+* Zustand stores for auth and trip data
+* Base component library structure
+* Trip creation and basic trip management
+
+### **Avril - Person 2: Trip Content & Line Item Management**
 
 **Responsibilities:**
 
-* Trip detail page with tabbed interface  
-* Line item CRUD (Create, Read, Update, Delete)  
-* Cost calculation logic  
-* Participant display and basic management
+* Trip detail page with tabbed interface (Accommodations, Activities, Meals)
+* Line item CRUD operations (Create, Read, Update, Delete)
+* Line item data management and organization
+* Content editing and reordering functionality
 
 **Key Screens:** Trip Overview, Add/Edit Line Item modals, all 3 tab views
 
-### **Emily \- Person 3: UI/UX & Integration**
+**Dependencies from Mimi:** 
+* Trip data structure and API
+* Participant data access
+* Base UI components
+
+**Deliverables for Emily:**
+* Line item data for cost calculations
+* Content structure for participant filtering
+
+### **Emily - Person 3: Collaboration Features & User Experience**
 
 **Responsibilities:**
 
-* Responsive design system and components  
-* State management and API integration  
-* Basic expense summary and totals  
-* Polish and bug fixes
+* Trip invitation and sharing system (shareable links, email invites)
+* Participant management within trips (editing dates, avatars, participant display)
+* Real-time cost calculations and expense summaries
+* Participant filtering and assignment for line items
+* Overall UI/UX polish and responsive design
+* Cross-component state coordination
 
-**Key Focus:** Overall user experience, component library, API coordination
+**Key Features:** Invite system, Participant management, Cost calculations, UI polish
 
-# **Requirements** {#requirements}
+**Dependencies:** 
+* **From Mimi:** User auth state, trip ownership, base components
+* **From Avril:** Line item data structure for cost calculations
 
-* # Provide a simple, clear way for groups to coordinate trips together. 
+**Integration Points:**
+* **Mimi → Avril:** Trip data, participant list, auth state
+* **Mimi → Emily:** User auth state, trip ownership, participant data
+* **Avril → Emily:** Line item data for cost calculations and participant assignments
+* **Emily → Both:** Shared UI components, participant updates, cost totals
+
+---
+
+## **Requirements** {#requirements}
+
+* Provide a simple, clear way for groups to coordinate trips together. 
 
 * Landing page shows upcoming trips  
 * New trips can be added on trips page  
@@ -292,4 +312,3 @@ Jess, the go-to planner in her friend group, is done juggling spreadsheets. She 
 * The following content entries are associated with each line item: Description (unlimited length), Date, Location, Cost, Participants (default to all trip participants)  
 * The Cost per person is calculated and displayed with each line item  
 * Line items can be reordered, edited, or deleted
-
