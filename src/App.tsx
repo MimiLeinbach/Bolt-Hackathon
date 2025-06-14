@@ -11,6 +11,7 @@ import { DashboardPage } from './pages/DashboardPage'
 import { CreateTripPage } from './pages/CreateTripPage'
 import { TripDetailPage } from './pages/TripDetailPage'
 import { ProfilePage } from './pages/ProfilePage'
+import { TestPage } from './pages/TestPage'
 
 function App() {
   const { user, loading, initialize } = useAuthStore()
@@ -36,6 +37,9 @@ function App() {
       <Route path="/" element={user ? <Navigate to="/dashboard" /> : <LandingPage />} />
       <Route path="/signin" element={user ? <Navigate to="/dashboard" /> : <SignInPage />} />
       <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <SignUpPage />} />
+      
+      {/* Test route - accessible without auth for database verification */}
+      <Route path="/test" element={<TestPage />} />
       
       {/* Protected routes */}
       <Route path="/" element={user ? <Layout /> : <Navigate to="/" />}>
