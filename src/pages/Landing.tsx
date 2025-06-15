@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { useAuthStore } from '../stores/authStore'
 import { Button } from '../components/ui/Button'
 import { Card, CardContent } from '../components/ui/Card'
 import { MapPin, Users, DollarSign, Calendar } from 'lucide-react'
 
 export const Landing: React.FC = () => {
-  const [loading, setLoading] = useState(false)
+  const loading = false
 
   const handleGetStarted = () => {
     // Navigate to auth page or show auth modal
