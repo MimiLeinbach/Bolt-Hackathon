@@ -1,59 +1,55 @@
-import React, { useEffect } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { useAuthStore } from './stores/authStore'
-import { Layout } from './components/layout/Layout'
-
-// Pages - these will be created by each team member
-import { LandingPage } from './pages/LandingPage'
-import { SignInPage } from './pages/SignInPage'
-import { SignUpPage } from './pages/SignUpPage'
-import { DashboardPage } from './pages/DashboardPage'
-import { CreateTripPage } from './pages/CreateTripPage'
-import { TripDetailPage } from './pages/TripDetailPage'
-import { ProfilePage } from './pages/ProfilePage'
-import { TestPage } from './pages/TestPage'
-import { DiagnosticsPage } from './pages/DiagnosticsPage'
+import { useState } from 'react'
+import './App.css'
 
 function App() {
-  const { user, loading, initialize } = useAuthStore()
+  const [count, setCount] = useState(0)
+  const [showMessage, setShowMessage] = useState(false)
 
-  useEffect(() => {
-    initialize()
-  }, [initialize])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-neutral-600">Loading...</p>
-        </div>
-      </div>
-    )
+  const handleClick = () => {
+    setCount(count + 1)
+    setShowMessage(true)
+    
+    // Hide the message after 2 seconds
+    setTimeout(() => setShowMessage(false), 2000)
   }
 
   return (
-    <Routes>
-      {/* Public routes */}
-      <Route path="/" element={user ? <Navigate to="/dashboard" /> : <LandingPage />} />
-      <Route path="/signin" element={user ? <Navigate to="/dashboard" /> : <SignInPage />} />
-      <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <SignUpPage />} />
-      
-      {/* Diagnostic routes - accessible without auth */}
-      <Route path="/test" element={<TestPage />} />
-      <Route path="/diagnostics" element={<DiagnosticsPage />} />
-      
-      {/* Protected routes */}
-      <Route path="/" element={user ? <Layout /> : <Navigate to="/" />}>
-        <Route path="dashboard" element={<DashboardPage />} />
-        <Route path="create-trip" element={<CreateTripPage />} />
-        <Route path="trip/:tripId" element={<TripDetailPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-      </Route>
-      
-      {/* Catch all */}
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+    <div className="app">
+      <div className="container">
+        <h1 className="title">
+          Hello, World! 🌍
+        </h1>
+        
+        <p className="subtitle">
+          Welcome to your new React site
+        </p>
+        
+        <div className="interactive-section">
+          <button 
+            className="button"
+            onClick={handleClick}
+          >
+            Click me! ({count})
+          </button>
+          
+          {showMessage && (
+            <div className="message">
+              ✨ Thanks for clicking! ✨
+            </div>
+          )}
+        </div>
+        
+        <div className="info-section">
+          <h2>What's included:</h2>
+          <ul>
+            <li>⚡ Vite for fast development</li>
+            <li>⚛️ React with TypeScript</li>
+            <li>🎨 Clean, modern styling</li>
+            <li>🔥 Hot reload for instant updates</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   )
 }
 
