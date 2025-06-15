@@ -28,7 +28,7 @@ export const useTripStore = create<TripState>((set, get) => ({
           *,
           trip_participants (
             *,
-            profiles (*)
+            profiles (id, full_name, avatar_url, email)
           )
         `)
         .order('created_at', { ascending: false })

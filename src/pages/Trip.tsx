@@ -34,7 +34,7 @@ export default function Trip() {
           *,
           trip_participants (
             *,
-            profiles (*)
+            profiles (id, full_name, avatar_url, email)
           )
         `)
         .eq('id', id)
