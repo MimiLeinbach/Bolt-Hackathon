@@ -4,7 +4,7 @@ import { useAuthStore } from './stores/authStore'
 import Auth from './pages/Auth'
 import Dashboard from './pages/Dashboard'
 import Trip from './pages/Trip'
-import Layout from './components/layout/Layout'
+import { Layout } from './components/layout/Layout'
 
 function App() {
   const { user, loading, initialize } = useAuthStore()

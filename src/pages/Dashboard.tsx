@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Plus, Calendar, Users, MapPin } from 'lucide-react'
 import { useAuthStore } from '../stores/authStore'
 import { useTripStore } from '../stores/tripStore'
-import Button from '../components/ui/Button'
+import { Button } from '../components/ui/Button'
 import CreateTripModal from '../components/CreateTripModal'
 
 export default function Dashboard() {
