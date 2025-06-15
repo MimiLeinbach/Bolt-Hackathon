@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { checkEnvironment, getEnvironmentSummary } from '../utils/environmentCheck'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
-import { ArrowLeft, RefreshCw, ExternalLink } from 'lucide-react'
+import { ArrowLeft, RefreshCw, ExternalLink, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
 
 export function DiagnosticsPage() {
   const [results, setResults] = useState<string[]>([])
@@ -26,6 +26,14 @@ export function DiagnosticsPage() {
     runDiagnostics()
   }, [])
 
+  const getStatusIcon = (status: boolean) => {
+    return status ? (
+      <CheckCircle className="w-5 h-5 text-green-600" />
+    ) : (
+      <XCircle className="w-5 h-5 text-red-600" />
+    )
+  }
+
   return (
     <div className="min-h-screen bg-neutral-50 p-4 sm:p-8">
       <div className="max-w-4xl mx-auto">
@@ -34,48 +42,59 @@ export function DiagnosticsPage() {
             <ArrowLeft className="w-4 h-4" />
             Back to App
           </Link>
-          <h1 className="text-3xl font-bold text-neutral-900 mb-2">Environment Diagnostics</h1>
+          <h1 className="text-3xl font-bold text-neutral-900 mb-2">System Diagnostics</h1>
           <p className="text-neutral-600">
             Checking if all required dependencies and configurations are working properly.
           </p>
         </div>
 
-        {/* Quick Summary */}
+        {/* Quick Status Overview */}
         <Card className="mb-6">
-          <h3 className="text-lg font-semibold text-neutral-900 mb-4">Quick Summary</h3>
-          <div className="grid md:grid-cols-2 gap-4 text-sm">
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span>Environment:</span>
-                <span className={summary.isWebContainer ? 'text-blue-600' : 'text-neutral-600'}>
-                  {summary.isWebContainer ? 'WebContainer' : 'Standard Browser'}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span>Mode:</span>
-                <span className={summary.isDev ? 'text-green-600' : 'text-orange-600'}>
-                  {summary.isDev ? 'Development' : 'Production'}
-                </span>
+          <h3 className="text-lg font-semibold text-neutral-900 mb-4">System Status</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg">
+              {getStatusIcon(summary.hasSupabaseConfig)}
+              <div>
+                <div className="font-medium text-sm">Database</div>
+                <div className="text-xs text-neutral-600">
+                  {summary.hasSupabaseConfig ? 'Connected' : 'Not configured'}
+                </div>
               </div>
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span>Supabase Config:</span>
-                <span className={summary.hasSupabaseConfig ? 'text-green-600' : 'text-red-600'}>
-                  {summary.hasSupabaseConfig ? 'Configured' : 'Missing'}
-                </span>
+            
+            <div className="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg">
+              {getStatusIcon(summary.isDev)}
+              <div>
+                <div className="font-medium text-sm">Environment</div>
+                <div className="text-xs text-neutral-600">
+                  {summary.isDev ? 'Development' : 'Production'}
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>Current URL:</span>
-                <span className="text-neutral-600 truncate ml-2">
-                  {summary.currentUrl}
-                </span>
+            </div>
+            
+            <div className="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg">
+              {getStatusIcon(window.location.protocol === 'http:')}
+              <div>
+                <div className="font-medium text-sm">Protocol</div>
+                <div className="text-xs text-neutral-600">
+                  {window.location.protocol}
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg">
+              {getStatusIcon(window.location.port === '5173')}
+              <div>
+                <div className="font-medium text-sm">Port</div>
+                <div className="text-xs text-neutral-600">
+                  {window.location.port || '80'}
+                </div>
               </div>
             </div>
           </div>
         </Card>
 
-        {/* Action Buttons */}
+        {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           <Card padding="sm">
             <div className="text-center">
@@ -113,23 +132,37 @@ export function DiagnosticsPage() {
             <div className="text-center">
               <Button 
                 variant="accent"
-                onClick={() => window.open('http://localhost:5173', '_blank')}
+                onClick={() => window.open(`${window.location.protocol}//${window.location.hostname}:5173`, '_blank')}
                 className="w-full mb-2"
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
-                Open Localhost
+                Open Direct Link
               </Button>
               <p className="text-xs text-neutral-600">
-                Direct link
+                Try direct access
               </p>
             </div>
           </Card>
         </div>
 
+        {/* Connection Test */}
+        <Card className="mb-6">
+          <h3 className="text-lg font-semibold text-neutral-900 mb-4">Connection Information</h3>
+          <div className="bg-neutral-900 text-neutral-100 p-4 rounded-lg font-mono text-sm">
+            <div className="space-y-1">
+              <div>Current URL: <span className="text-blue-400">{window.location.href}</span></div>
+              <div>Protocol: <span className="text-green-400">{window.location.protocol}</span></div>
+              <div>Host: <span className="text-yellow-400">{window.location.host}</span></div>
+              <div>Port: <span className="text-purple-400">{window.location.port || 'default'}</span></div>
+              <div>User Agent: <span className="text-neutral-400">{navigator.userAgent.substring(0, 80)}...</span></div>
+            </div>
+          </div>
+        </Card>
+
         {/* Diagnostic Results */}
         {results.length > 0 && (
           <Card className="mb-6">
-            <h3 className="text-lg font-semibold text-neutral-900 mb-4">Diagnostic Results</h3>
+            <h3 className="text-lg font-semibold text-neutral-900 mb-4">Detailed Diagnostic Results</h3>
             <div className="bg-neutral-900 text-neutral-100 p-4 rounded-lg font-mono text-sm space-y-1 max-h-96 overflow-y-auto">
               {results.map((result, index) => (
                 <div 
@@ -149,72 +182,53 @@ export function DiagnosticsPage() {
           </Card>
         )}
 
-        {/* Visual Tests */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <Card>
-            <h3 className="text-lg font-semibold text-neutral-900 mb-3">Styling Test</h3>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-4 h-4 bg-primary-600 rounded-full"></div>
-                <span className="text-sm">Primary Color</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-4 h-4 bg-secondary-500 rounded-full"></div>
-                <span className="text-sm">Secondary Color</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-4 h-4 bg-accent-500 rounded-full"></div>
-                <span className="text-sm">Accent Color</span>
-              </div>
-              <Button size="sm" className="mt-2">Test Button</Button>
-            </div>
-          </Card>
-
-          <Card>
-            <h3 className="text-lg font-semibold text-neutral-900 mb-3">Component Test</h3>
-            <div className="space-y-3">
-              <div className="p-3 bg-primary-50 border border-primary-200 rounded-lg">
-                <p className="text-sm text-primary-800">This is a styled component</p>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="primary" size="sm">Primary</Button>
-                <Button variant="secondary" size="sm">Secondary</Button>
-                <Button variant="accent" size="sm">Accent</Button>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Troubleshooting Tips */}
+        {/* Troubleshooting Guide */}
         <Card>
-          <h3 className="text-lg font-semibold text-neutral-900 mb-4">Troubleshooting Tips</h3>
+          <h3 className="text-lg font-semibold text-neutral-900 mb-4">Troubleshooting Guide</h3>
           <div className="space-y-4 text-sm">
-            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <h4 className="font-medium text-blue-900 mb-1">If the preview isn't working:</h4>
-              <ul className="text-blue-800 space-y-1 ml-4">
-                <li>• Try clicking "Open Localhost" button above</li>
-                <li>• Check if the Vite server is running in terminal</li>
-                <li>• Try refreshing the preview window</li>
-                <li>• Use the direct localhost:5173 link</li>
-              </ul>
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                <div>
+                  <h4 className="font-medium text-blue-900 mb-2">If the app isn't loading:</h4>
+                  <ul className="text-blue-800 space-y-1 ml-4">
+                    <li>• Check that you're accessing the correct URL</li>
+                    <li>• Try the "Open Direct Link" button above</li>
+                    <li>• Clear your browser cache and reload</li>
+                    <li>• Try a different browser or incognito mode</li>
+                  </ul>
+                </div>
+              </div>
             </div>
             
-            <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-              <h4 className="font-medium text-green-900 mb-1">If Supabase isn't working:</h4>
-              <ul className="text-green-800 space-y-1 ml-4">
-                <li>• Check that .env file has correct VITE_SUPABASE_URL</li>
-                <li>• Check that .env file has correct VITE_SUPABASE_ANON_KEY</li>
-                <li>• Restart the dev server after changing .env</li>
-              </ul>
+            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
+                <div>
+                  <h4 className="font-medium text-green-900 mb-2">If Supabase isn't working:</h4>
+                  <ul className="text-green-800 space-y-1 ml-4">
+                    <li>• Verify .env file has correct VITE_SUPABASE_URL</li>
+                    <li>• Verify .env file has correct VITE_SUPABASE_ANON_KEY</li>
+                    <li>• Restart the development server after changing .env</li>
+                    <li>• Check Supabase project status in dashboard</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
-            <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <h4 className="font-medium text-yellow-900 mb-1">If styles aren't loading:</h4>
-              <ul className="text-yellow-800 space-y-1 ml-4">
-                <li>• Check that Tailwind CSS is properly configured</li>
-                <li>• Verify that index.css is being imported</li>
-                <li>• Try clearing browser cache</li>
-              </ul>
+            <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
+                <div>
+                  <h4 className="font-medium text-yellow-900 mb-2">If styles aren't loading:</h4>
+                  <ul className="text-yellow-800 space-y-1 ml-4">
+                    <li>• Verify Tailwind CSS is properly configured</li>
+                    <li>• Check that index.css is being imported in main.tsx</li>
+                    <li>• Try hard refresh (Ctrl+F5 or Cmd+Shift+R)</li>
+                    <li>• Check browser developer tools for CSS errors</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </Card>
