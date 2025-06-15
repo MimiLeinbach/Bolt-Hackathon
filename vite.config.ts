@@ -23,11 +23,17 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
   define: {
     global: 'globalThis',
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom']
-  }
+  },
+  base: '/'
 })
