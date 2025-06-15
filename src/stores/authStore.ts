@@ -7,7 +7,8 @@ interface AuthState {
   user: User | null
   profile: Profile | null
   loading: boolean
-  signInWithGoogle: () => Promise<void>
+  signUp: (email: string, password: string, fullName?: string) => Promise<void>
+  signIn: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
   initialize: () => Promise<void>
 }
@@ -17,17 +18,39 @@ export const useAuthStore = create<AuthState>((set) => ({
   profile: null,
   loading: true,
 
-  signInWithGoogle: async () => {
+  signUp: async (email: string, password: string, fullName?: string) => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
         options: {
-          redirectTo: `${window.location.origin}/dashboard`
+          data: {
+            full_name: fullName
+          }
         }
+      })
+      
+      if (error) throw error
+      
+      // Note: User will need to confirm email if email confirmation is enabled
+      if (data.user && !data.user.email_confirmed_at) {
+        throw new Error('Please check your email and click the confirmation link to complete registration.')
+      }
+    } catch (error) {
+      console.error('Error signing up:', error)
+      throw error
+    }
+  },
+
+  signIn: async (email: string, password: string) => {
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
       })
       if (error) throw error
     } catch (error) {
-      console.error('Error signing in with Google:', error)
+      console.error('Error signing in:', error)
       throw error
     }
   },
