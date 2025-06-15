@@ -1,55 +1,41 @@
-import { useState } from 'react'
-import './App.css'
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { useAuthStore } from './stores/authStore'
+import { Landing } from './pages/Landing'
+import { Dashboard } from './pages/Dashboard'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [showMessage, setShowMessage] = useState(false)
+  const { user, loading, initialize } = useAuthStore()
 
-  const handleClick = () => {
-    setCount(count + 1)
-    setShowMessage(true)
-    
-    // Hide the message after 2 seconds
-    setTimeout(() => setShowMessage(false), 2000)
+  useEffect(() => {
+    initialize()
+  }, [initialize])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="app">
-      <div className="container">
-        <h1 className="title">
-          Hello, World! 🌍
-        </h1>
-        
-        <p className="subtitle">
-          Welcome to your new React site
-        </p>
-        
-        <div className="interactive-section">
-          <button 
-            className="button"
-            onClick={handleClick}
-          >
-            Click me! ({count})
-          </button>
-          
-          {showMessage && (
-            <div className="message">
-              ✨ Thanks for clicking! ✨
-            </div>
-          )}
-        </div>
-        
-        <div className="info-section">
-          <h2>What's included:</h2>
-          <ul>
-            <li>⚡ Vite for fast development</li>
-            <li>⚛️ React with TypeScript</li>
-            <li>🎨 Clean, modern styling</li>
-            <li>🔥 Hot reload for instant updates</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route 
+          path="/" 
+          element={user ? <Navigate to="/dashboard" replace /> : <Landing />} 
+        />
+        <Route 
+          path="/dashboard" 
+          element={user ? <Dashboard /> : <Navigate to="/" replace />} 
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   )
 }
 
