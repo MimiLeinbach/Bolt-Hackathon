@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { X, Calendar, Users, MapPin } from 'lucide-react'
+import { X, Calendar, Users, MapPin, Compass, Sparkles } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { Button } from './ui/Button'
 import { Card, CardContent } from './ui/Card'
@@ -68,78 +68,91 @@ export default function CreateTripModal({ isOpen = false, onClose }: CreateTripM
     }))
   }
 
+  const getRandomAdventureEmoji = () => {
+    const emojis = ['🏔️', '🏖️', '🏕️', '🗻', '🌊', '🌲', '🏝️', '🎿', '🚁', '⛵']
+    return emojis[Math.floor(Math.random() * emojis.length)]
+  }
+
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-md animate-scale-in">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Create New Trip</h2>
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <Card variant="whimsical" className="w-full max-w-md animate-scale-in shadow-whimsical">
+        <div className="flex items-center justify-between p-6 border-b border-adventure-200">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-adventure-500 to-adventure-600 rounded-xl flex items-center justify-center animate-bounce-gentle">
+              <Compass className="w-5 h-5 text-white" />
+            </div>
+            <h2 className="text-xl font-bold bg-gradient-to-r from-adventure-700 to-adventure-600 bg-clip-text text-transparent">
+              Create New Adventure
+            </h2>
+          </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-earth-400 hover:text-earth-600 transition-colors p-1 hover:bg-earth-100 rounded-lg"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <CardContent className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Trip Name
+              <label className="block text-sm font-semibold text-earth-700 mb-2">
+                <Sparkles className="w-4 h-4 inline mr-2 text-adventure-500" />
+                Adventure Name
               </label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                placeholder="e.g. Tahoe Skiing Weekend"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                placeholder="e.g. Epic Tahoe Skiing Adventure 🎿"
+                className="w-full px-4 py-3 border-2 border-adventure-200 rounded-xl focus:ring-2 focus:ring-adventure-500 focus:border-adventure-400 transition-all duration-300 bg-white/80 backdrop-blur-sm"
                 required
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Calendar className="w-4 h-4 inline mr-1" />
+                <label className="block text-sm font-semibold text-earth-700 mb-2">
+                  <Calendar className="w-4 h-4 inline mr-1 text-adventure-500" />
                   Start Date
                 </label>
                 <input
                   type="date"
                   value={formData.start_date}
                   onChange={(e) => setFormData(prev => ({ ...prev, start_date: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-3 border-2 border-adventure-200 rounded-xl focus:ring-2 focus:ring-adventure-500 focus:border-adventure-400 transition-all duration-300 bg-white/80 backdrop-blur-sm"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Calendar className="w-4 h-4 inline mr-1" />
+                <label className="block text-sm font-semibold text-earth-700 mb-2">
+                  <Calendar className="w-4 h-4 inline mr-1 text-adventure-500" />
                   End Date
                 </label>
                 <input
                   type="date"
                   value={formData.end_date}
                   onChange={(e) => setFormData(prev => ({ ...prev, end_date: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-3 border-2 border-adventure-200 rounded-xl focus:ring-2 focus:ring-adventure-500 focus:border-adventure-400 transition-all duration-300 bg-white/80 backdrop-blur-sm"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                <Users className="w-4 h-4 inline mr-1" />
-                Add Participants
+              <label className="block text-sm font-semibold text-earth-700 mb-2">
+                <Users className="w-4 h-4 inline mr-2 text-sunset-500" />
+                Invite Fellow Adventurers
               </label>
               <div className="flex gap-2">
                 <input
                   type="email"
                   value={participantEmail}
                   onChange={(e) => setParticipantEmail(e.target.value)}
-                  placeholder="Enter email address..."
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="friend@email.com"
+                  className="flex-1 px-4 py-3 border-2 border-adventure-200 rounded-xl focus:ring-2 focus:ring-adventure-500 focus:border-adventure-400 transition-all duration-300 bg-white/80 backdrop-blur-sm"
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addParticipant())}
                 />
                 <Button
@@ -147,6 +160,7 @@ export default function CreateTripModal({ isOpen = false, onClose }: CreateTripM
                   variant="outline"
                   onClick={addParticipant}
                   disabled={!participantEmail}
+                  className="px-4"
                 >
                   Add
                 </Button>
@@ -155,12 +169,12 @@ export default function CreateTripModal({ isOpen = false, onClose }: CreateTripM
               {formData.participants.length > 0 && (
                 <div className="mt-3 space-y-2">
                   {formData.participants.map((email) => (
-                    <div key={email} className="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
-                      <span className="text-sm text-gray-700">{email}</span>
+                    <div key={email} className="flex items-center justify-between bg-adventure-50 border border-adventure-200 px-4 py-2 rounded-xl">
+                      <span className="text-sm text-earth-700 font-medium">👤 {email}</span>
                       <button
                         type="button"
                         onClick={() => removeParticipant(email)}
-                        className="text-gray-400 hover:text-red-500 transition-colors"
+                        className="text-earth-400 hover:text-red-500 transition-colors p-1 hover:bg-red-50 rounded-lg"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -171,10 +185,12 @@ export default function CreateTripModal({ isOpen = false, onClose }: CreateTripM
             </div>
 
             <div className="text-center pt-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-primary-200 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                <MapPin className="w-8 h-8 text-primary-600" />
+              <div className="w-20 h-20 bg-gradient-to-br from-adventure-100 via-adventure-200 to-sunset-200 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-adventure animate-bounce-gentle">
+                <div className="text-3xl">
+                  {getRandomAdventureEmoji()}
+                </div>
               </div>
-              <p className="text-sm text-gray-500">AI-generated trip image will be added</p>
+              <p className="text-sm text-earth-500 font-medium">✨ AI will generate a perfect adventure image</p>
             </div>
 
             <div className="flex gap-3 pt-4">
@@ -188,11 +204,12 @@ export default function CreateTripModal({ isOpen = false, onClose }: CreateTripM
               </Button>
               <Button
                 type="submit"
+                variant="adventure"
                 loading={loading}
-                className="flex-1"
+                className="flex-1 shadow-adventure"
                 disabled={!formData.name || !formData.start_date || !formData.end_date}
               >
-                Create Trip
+                {loading ? 'Creating...' : '🚀 Create Adventure'}
               </Button>
             </div>
           </form>
