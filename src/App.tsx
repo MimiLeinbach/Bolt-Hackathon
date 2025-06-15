@@ -1,55 +1,35 @@
-import { useState } from 'react'
-import './App.css'
+import { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { useAuthStore } from './stores/authStore'
+import Auth from './pages/Auth'
+import Dashboard from './pages/Dashboard'
+import Trip from './pages/Trip'
+import { Layout } from './components/layout/Layout'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [showMessage, setShowMessage] = useState(false)
+  const { user, loading, initialize } = useAuthStore()
 
-  const handleClick = () => {
-    setCount(count + 1)
-    setShowMessage(true)
-    
-    // Hide the message after 2 seconds
-    setTimeout(() => setShowMessage(false), 2000)
+  useEffect(() => {
+    initialize()
+  }, [initialize])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    )
   }
 
   return (
-    <div className="app">
-      <div className="container">
-        <h1 className="title">
-          Hello, World! 🌍
-        </h1>
-        
-        <p className="subtitle">
-          Welcome to your new React site
-        </p>
-        
-        <div className="interactive-section">
-          <button 
-            className="button"
-            onClick={handleClick}
-          >
-            Click me! ({count})
-          </button>
-          
-          {showMessage && (
-            <div className="message">
-              ✨ Thanks for clicking! ✨
-            </div>
-          )}
-        </div>
-        
-        <div className="info-section">
-          <h2>What's included:</h2>
-          <ul>
-            <li>⚡ Vite for fast development</li>
-            <li>⚛️ React with TypeScript</li>
-            <li>🎨 Clean, modern styling</li>
-            <li>🔥 Hot reload for instant updates</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={user ? <Layout><Dashboard /></Layout> : <Navigate to="/auth" />} />
+        <Route path="/trip/:id" element={user ? <Layout><Trip /></Layout> : <Navigate to="/auth" />} />
+        <Route path="/" element={<Navigate to={user ? "/dashboard" : "/auth"} />} />
+      </Routes>
+    </Router>
   )
 }
 
