@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
-import { Landing } from './pages/Landing'
-import { Dashboard } from './pages/Dashboard'
+import Auth from './pages/Auth'
+import Dashboard from './pages/Dashboard'
+import Trip from './pages/Trip'
+import Layout from './components/layout/Layout'
 
 function App() {
   const { user, loading, initialize } = useAuthStore()
@@ -13,11 +15,8 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     )
   }
@@ -25,15 +24,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route 
-          path="/" 
-          element={user ? <Navigate to="/dashboard" replace /> : <Landing />} 
-        />
-        <Route 
-          path="/dashboard" 
-          element={user ? <Dashboard /> : <Navigate to="/" replace />} 
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={user ? <Layout><Dashboard /></Layout> : <Navigate to="/auth" />} />
+        <Route path="/trip/:id" element={user ? <Layout><Trip /></Layout> : <Navigate to="/auth" />} />
+        <Route path="/" element={<Navigate to={user ? "/dashboard" : "/auth"} />} />
       </Routes>
     </Router>
   )
