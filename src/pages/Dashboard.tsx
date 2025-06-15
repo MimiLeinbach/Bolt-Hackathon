@@ -8,7 +8,7 @@ import CreateTripModal from '../components/CreateTripModal'
 export default function Dashboard() {
   const { user } = useAuthStore()
   const { trips, loading, fetchTrips } = useTripStore()
-  const [setShowCreateModal] = useState(false)
+  const [showCreateModal, setShowCreateModal] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -86,7 +86,7 @@ export default function Dashboard() {
                 </div>
                 <div className="flex items-center text-gray-600">
                   <Users className="h-4 w-4 mr-2" />
-                  <span className="text-sm">{trip.participant_count || 1} participants</span>
+                  <span className="text-sm">{trip.trip_participants?.length || 1} participants</span>
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <CreateTripModal />
+      <CreateTripModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
     </div>
   )
 }

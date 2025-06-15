@@ -1,3 +1,30 @@
+export interface Database {
+  public: {
+    Tables: {
+      profiles: {
+        Row: Profile
+        Insert: Omit<Profile, 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Omit<Profile, 'id' | 'created_at' | 'updated_at'>>
+      }
+      trips: {
+        Row: Trip
+        Insert: Omit<Trip, 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Omit<Trip, 'id' | 'created_at' | 'updated_at'>>
+      }
+      trip_participants: {
+        Row: TripParticipant
+        Insert: Omit<TripParticipant, 'id' | 'joined_at'>
+        Update: Partial<Omit<TripParticipant, 'id' | 'joined_at'>>
+      }
+      line_items: {
+        Row: LineItem
+        Insert: Omit<LineItem, 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Omit<LineItem, 'id' | 'created_at' | 'updated_at'>>
+      }
+    }
+  }
+}
+
 export interface Profile {
   id: string
   email: string
@@ -49,4 +76,5 @@ export interface TripWithParticipants extends Trip {
   trip_participants: (TripParticipant & {
     profiles: Profile
   })[]
+  participant_count?: number
 }

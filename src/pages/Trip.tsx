@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Calendar, Users, MapPin, Plus, Edit3, DollarSign } from 'lucide-react'
 import { supabase } from '../lib/supabase'
@@ -6,7 +6,7 @@ import { useAuthStore } from '../stores/authStore'
 import { Button } from '../components/ui/Button'
 import { Card, CardContent, CardHeader } from '../components/ui/Card'
 import { Avatar } from '../components/ui/Avatar'
-import type { TripWithParticipants, LineItem, Profile } from '../types/database'
+import type { TripWithParticipants, LineItem } from '../types/database'
 
 export default function Trip() {
   const { id } = useParams<{ id: string }>()

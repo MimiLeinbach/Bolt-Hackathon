@@ -12,7 +12,7 @@ interface AuthState {
   initialize: () => Promise<void>
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   profile: null,
   loading: true,
@@ -62,7 +62,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       }
 
       // Listen for auth changes
-      supabase.auth.onAuthStateChange(async (event, session) => {
+      supabase.auth.onAuthStateChange(async (_event, session) => {
         if (session?.user) {
           const { data: profile } = await supabase
             .from('profiles')

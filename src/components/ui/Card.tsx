@@ -5,13 +5,15 @@ interface CardProps {
   className?: string
   hover?: boolean
   onClick?: () => void
+  style?: React.CSSProperties
 }
 
 export const Card: React.FC<CardProps> = ({ 
   children, 
   className = '', 
   hover = false,
-  onClick 
+  onClick,
+  style 
 }) => {
   const baseClasses = 'bg-white rounded-xl border border-gray-200 shadow-soft'
   const hoverClasses = hover ? 'hover:shadow-medium hover:border-gray-300 transition-all duration-200 cursor-pointer' : ''
@@ -20,6 +22,7 @@ export const Card: React.FC<CardProps> = ({
     <div 
       className={`${baseClasses} ${hoverClasses} ${className}`}
       onClick={onClick}
+      style={style}
     >
       {children}
     </div>
