@@ -8,8 +8,8 @@ export interface Activity {
   title: string
   description?: string
   location?: string
+  time?: string
   cost?: number
-  participantCount?: number
   notes?: string
   createdAt: string
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { format, addDays, differenceInDays } from 'date-fns'
-import { ChevronDown, ChevronRight, Plus, Calendar, MapPin, Users, DollarSign, Clock, Edit, Trash2 } from 'lucide-react'
+import { ChevronDown, ChevronRight, Plus, Calendar, MapPin, DollarSign, Clock, Edit, Trash2 } from 'lucide-react'
 import { useTripStore, Activity } from '../../stores/tripStore'
 import ActivityModal from './ActivityModal'
 
@@ -266,17 +266,17 @@ function ActivityCard({ activity, onEdit, onDelete }: ActivityCardProps) {
       </div>
 
       <div className="flex items-center space-x-4 text-xs text-gray-500">
+        {activity.time && (
+          <div className="flex items-center space-x-1">
+            <Clock className="w-3 h-3" />
+            <span>{activity.time}</span>
+          </div>
+        )}
+        
         {activity.location && (
           <div className="flex items-center space-x-1">
             <MapPin className="w-3 h-3" />
             <span>{activity.location}</span>
-          </div>
-        )}
-        
-        {activity.participantCount && (
-          <div className="flex items-center space-x-1">
-            <Users className="w-3 h-3" />
-            <span>{activity.participantCount} people</span>
           </div>
         )}
         

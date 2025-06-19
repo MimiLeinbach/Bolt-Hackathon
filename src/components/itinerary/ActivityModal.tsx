@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { X, MapPin, Users, DollarSign, FileText, Calendar, Sparkles } from 'lucide-react'
+import { X, MapPin, DollarSign, FileText, Calendar, Sparkles, Clock } from 'lucide-react'
 import { useTripStore, Activity } from '../../stores/tripStore'
 import { format, addDays } from 'date-fns'
 
@@ -28,8 +28,8 @@ export default function ActivityModal({
     title: '',
     description: '',
     location: '',
+    time: '',
     cost: '',
-    participantCount: '',
     notes: '',
     dayIndex: selectedDayIndex,
   })
@@ -46,8 +46,8 @@ export default function ActivityModal({
           title: editActivity.title,
           description: editActivity.description || '',
           location: editActivity.location || '',
+          time: editActivity.time || '',
           cost: editActivity.cost ? editActivity.cost.toString() : '',
-          participantCount: editActivity.participantCount ? editActivity.participantCount.toString() : '',
           notes: editActivity.notes || '',
           dayIndex: editActivity.dayIndex,
         })
@@ -57,8 +57,8 @@ export default function ActivityModal({
           title: '',
           description: '',
           location: '',
+          time: '',
           cost: '',
-          participantCount: '',
           notes: '',
           dayIndex: selectedDayIndex,
         })
@@ -106,8 +106,8 @@ export default function ActivityModal({
       newErrors.cost = 'Cost must be a valid number'
     }
     
-    if (formData.participantCount && (isNaN(Number(formData.participantCount)) || Number(formData.participantCount) < 1)) {
-      newErrors.participantCount = 'Participant count must be a positive number'
+    if (formData.time && !/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(formData.time)) {
+      newErrors.time = 'Time must be in HH:MM format (e.g., 14:30)'
     }
     
     setErrors(newErrors)
@@ -129,8 +129,8 @@ export default function ActivityModal({
         title: formData.title.trim(),
         description: formData.description.trim() || undefined,
         location: formData.location.trim() || undefined,
+        time: formData.time.trim() || undefined,
         cost: formData.cost ? Number(formData.cost) : undefined,
-        participantCount: formData.participantCount ? Number(formData.participantCount) : undefined,
         notes: formData.notes.trim() || undefined,
         dayIndex: Number(formData.dayIndex),
       }
@@ -245,12 +245,12 @@ export default function ActivityModal({
               />
             </div>
 
-            {/* Location and Cost Row */}
+            {/* Location and Time Row */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
                   <MapPin className="w-4 h-4 mr-2 text-wanderlust-500" />
-                  Location
+                  Location (optional)
                 </label>
                 <input
                   type="text"
@@ -264,42 +264,40 @@ export default function ActivityModal({
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                  <DollarSign className="w-4 h-4 mr-2 text-forest-500" />
-                  Cost per person
+                  <Clock className="w-4 h-4 mr-2 text-forest-500" />
+                  Time
                 </label>
                 <input
-                  type="number"
-                  name="cost"
-                  value={formData.cost}
+                  type="time"
+                  name="time"
+                  value={formData.time}
                   onChange={handleInputChange}
-                  placeholder="0"
-                  min="0"
-                  step="0.01"
-                  className={`input-field ${errors.cost ? 'border-red-300 focus:ring-red-400' : ''}`}
+                  className={`input-field ${errors.time ? 'border-red-300 focus:ring-red-400' : ''}`}
                 />
-                {errors.cost && (
-                  <p className="mt-2 text-sm text-red-600 animate-slide-up">{errors.cost}</p>
+                {errors.time && (
+                  <p className="mt-2 text-sm text-red-600 animate-slide-up">{errors.time}</p>
                 )}
               </div>
             </div>
 
-            {/* Participant Count */}
+            {/* Cost */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                <Users className="w-4 h-4 mr-2 text-wanderlust-500" />
-                How many people?
+                <DollarSign className="w-4 h-4 mr-2 text-forest-500" />
+                Cost per person
               </label>
               <input
                 type="number"
-                name="participantCount"
-                value={formData.participantCount}
+                name="cost"
+                value={formData.cost}
                 onChange={handleInputChange}
-                placeholder="Leave empty to include everyone"
-                min="1"
-                className={`input-field ${errors.participantCount ? 'border-red-300 focus:ring-red-400' : ''}`}
+                placeholder="0"
+                min="0"
+                step="0.01"
+                className={`input-field ${errors.cost ? 'border-red-300 focus:ring-red-400' : ''}`}
               />
-              {errors.participantCount && (
-                <p className="mt-2 text-sm text-red-600 animate-slide-up">{errors.participantCount}</p>
+              {errors.cost && (
+                <p className="mt-2 text-sm text-red-600 animate-slide-up">{errors.cost}</p>
               )}
             </div>
 
