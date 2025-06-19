@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { format, addDays, differenceInDays } from 'date-fns'
-import { ChevronDown, ChevronRight, Plus, Calendar, MapPin, Users, DollarSign, Clock } from 'lucide-react'
+import { ChevronDown, ChevronRight, Plus, Calendar, MapPin, Users, DollarSign, Clock, Edit, Trash2 } from 'lucide-react'
 import { useTripStore, Activity } from '../../stores/tripStore'
+import ActivityModal from './ActivityModal'
 
 interface ItineraryViewProps {
   trip: {
@@ -21,8 +22,11 @@ interface DayData {
 }
 
 export default function ItineraryView({ trip }: ItineraryViewProps) {
-  const { getActivitiesForDay } = useTripStore()
+  const { getActivitiesForDay, deleteActivity } = useTripStore()
   const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([0])) // First day expanded by default
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedDayIndex, setSelectedDayIndex] = useState(0)
+  const [editingActivity, setEditingActivity] = useState<Activity | null>(null)
 
   // Generate all days for the trip
   const generateDays = (): DayData[] => {
@@ -59,6 +63,29 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
     return trip.activities?.length || 0
   }
 
+  const handleAddActivity = (dayIndex?: number) => {
+    setSelectedDayIndex(dayIndex ?? 0)
+    setEditingActivity(null)
+    setIsModalOpen(true)
+  }
+
+  const handleEditActivity = (activity: Activity) => {
+    setEditingActivity(activity)
+    setSelectedDayIndex(activity.dayIndex)
+    setIsModalOpen(true)
+  }
+
+  const handleDeleteActivity = (activityId: string) => {
+    if (window.confirm('Are you sure you want to delete this activity?')) {
+      deleteActivity(trip.id, activityId)
+    }
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setEditingActivity(null)
+  }
+
   return (
     <div className="space-y-6">
       {/* Header with Add Activity Button */}
@@ -73,7 +100,10 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
           </p>
         </div>
         
-        <button className="btn-primary flex items-center space-x-2">
+        <button 
+          onClick={() => handleAddActivity()}
+          className="btn-primary flex items-center space-x-2"
+        >
           <Plus className="w-4 h-4" />
           <span>Add Activity</span>
         </button>
@@ -135,7 +165,12 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
                 {day.activities.length > 0 ? (
                   <div className="space-y-3 mt-4">
                     {day.activities.map((activity) => (
-                      <ActivityCard key={activity.id} activity={activity} />
+                      <ActivityCard 
+                        key={activity.id} 
+                        activity={activity} 
+                        onEdit={() => handleEditActivity(activity)}
+                        onDelete={() => handleDeleteActivity(activity.id)}
+                      />
                     ))}
                   </div>
                 ) : (
@@ -145,7 +180,10 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
                     </div>
                     <h4 className="text-sm font-medium text-gray-700 mb-1">No activities planned</h4>
                     <p className="text-xs text-gray-500 mb-4">Add your first activity for this day</p>
-                    <button className="btn-secondary text-sm px-4 py-2 flex items-center space-x-2 mx-auto">
+                    <button 
+                      onClick={() => handleAddActivity(day.dayIndex)}
+                      className="btn-secondary text-sm px-4 py-2 flex items-center space-x-2 mx-auto"
+                    >
                       <Plus className="w-3 h-3" />
                       <span>Add Activity</span>
                     </button>
@@ -169,6 +207,17 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
           </p>
         </div>
       )}
+
+      {/* Activity Modal */}
+      <ActivityModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        tripId={trip.id}
+        tripStartDate={trip.startDate}
+        tripEndDate={trip.endDate}
+        selectedDayIndex={selectedDayIndex}
+        editActivity={editingActivity}
+      />
     </div>
   )
 }
@@ -176,11 +225,19 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
 // Activity Card Component
 interface ActivityCardProps {
   activity: Activity
+  onEdit: () => void
+  onDelete: () => void
 }
 
-function ActivityCard({ activity }: ActivityCardProps) {
+function ActivityCard({ activity, onEdit, onDelete }: ActivityCardProps) {
+  const [showActions, setShowActions] = useState(false)
+
   return (
-    <div className="bg-white/60 rounded-lg p-4 border border-gray-100 hover:shadow-md transition-shadow">
+    <div 
+      className="bg-white/60 rounded-lg p-4 border border-gray-100 hover:shadow-md transition-shadow relative"
+      onMouseEnter={() => setShowActions(true)}
+      onMouseLeave={() => setShowActions(false)}
+    >
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
           <h4 className="font-semibold text-gray-800 mb-1">{activity.title}</h4>
@@ -188,11 +245,24 @@ function ActivityCard({ activity }: ActivityCardProps) {
             <p className="text-sm text-gray-600 mb-2">{activity.description}</p>
           )}
         </div>
-        <button className="text-gray-400 hover:text-gray-600 ml-4">
-          <div className="w-2 h-2 bg-current rounded-full"></div>
-          <div className="w-2 h-2 bg-current rounded-full mt-1"></div>
-          <div className="w-2 h-2 bg-current rounded-full mt-1"></div>
-        </button>
+        
+        {/* Action Buttons */}
+        <div className={`flex items-center space-x-2 ml-4 transition-opacity ${showActions ? 'opacity-100' : 'opacity-0'}`}>
+          <button
+            onClick={onEdit}
+            className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-adventure-600 transition-colors"
+            title="Edit activity"
+          >
+            <Edit className="w-4 h-4" />
+          </button>
+          <button
+            onClick={onDelete}
+            className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-red-600 transition-colors"
+            title="Delete activity"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       <div className="flex items-center space-x-4 text-xs text-gray-500">
