@@ -56,7 +56,7 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
   }
 
   const getTotalActivities = () => {
-    return trip.activities.length
+    return trip.activities?.length || 0
   }
 
   return (
