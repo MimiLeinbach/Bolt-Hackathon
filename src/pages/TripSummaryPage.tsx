@@ -126,30 +126,8 @@ export default function TripSummaryPage() {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Trip Dates */}
-          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <h3 className="font-bold text-gray-800 mb-4 flex items-center">
-              <Calendar className="w-5 h-5 mr-2 text-adventure-500" />
-              Dates
-            </h3>
-            <div className="space-y-3">
-              <div>
-                <div className="text-sm text-gray-600">Departure</div>
-                <div className="font-semibold text-gray-800">
-                  {format(new Date(currentTrip.startDate), 'EEEE, MMMM d, yyyy')}
-                </div>
-              </div>
-              <div>
-                <div className="text-sm text-gray-600">Return</div>
-                <div className="font-semibold text-gray-800">
-                  {format(new Date(currentTrip.endDate), 'EEEE, MMMM d, yyyy')}
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Collaboration Placeholder */}
-          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <h3 className="font-bold text-gray-800 mb-4 flex items-center">
               <Users className="w-5 h-5 mr-2 text-wanderlust-500" />
               Travelers
@@ -168,7 +146,7 @@ export default function TripSummaryPage() {
           </div>
 
           {/* Trip Stats */}
-          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
             <h3 className="font-bold text-gray-800 mb-4">Trip Stats</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
