@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, Users, MapPin, Edit3, Share2, Sparkles } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format, differenceInDays } from 'date-fns'
+import ItineraryView from '../components/itinerary/ItineraryView'
 
 export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
@@ -33,6 +34,24 @@ export default function TripSummaryPage() {
 
   const dayCount = differenceInDays(new Date(currentTrip.endDate), new Date(currentTrip.startDate)) + 1
 
+  // Format dates to show month name and day
+  const formatTripDates = () => {
+    const startDate = new Date(currentTrip.startDate)
+    const endDate = new Date(currentTrip.endDate)
+    
+    const startMonth = format(startDate, 'MMMM')
+    const startDay = format(startDate, 'd')
+    const endDay = format(endDate, 'd')
+    
+    // Check if same month
+    if (format(startDate, 'MMMM yyyy') === format(endDate, 'MMMM yyyy')) {
+      return `${startMonth} ${startDay} - ${endDay}`
+    } else {
+      const endMonth = format(endDate, 'MMMM')
+      return `${startMonth} ${startDay} - ${endMonth} ${endDay}`
+    }
+  }
+
   return (
     <div className="animate-fade-in">
       {/* Header */}
@@ -45,8 +64,10 @@ export default function TripSummaryPage() {
             <ArrowLeft className="w-6 h-6 text-gray-600" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">{currentTrip.name}</h1>
-            <p className="text-gray-600 mt-1">Your adventure awaits</p>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">{currentTrip.name}</h1>
+            <p className="text-lg text-gray-600">
+              {formatTripDates()}. Created by Trip Planner
+            </p>
           </div>
         </div>
         
@@ -97,51 +118,16 @@ export default function TripSummaryPage() {
             </div>
           </div>
 
-          {/* Itinerary Placeholder */}
+          {/* Itinerary Section */}
           <div className="glass-card rounded-2xl p-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Itinerary</h2>
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gradient-to-br from-adventure-100 to-wanderlust-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-adventure-500" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">Itinerary Coming Soon</h3>
-              <p className="text-gray-500 mb-6">
-                Avril will build the day-by-day itinerary and activity management here.
-              </p>
-              <div className="inline-flex items-center px-4 py-2 bg-adventure-50 text-adventure-700 rounded-full text-sm font-medium">
-                <Sparkles className="w-4 h-4 mr-2" />
-                Ready for activities & planning
-              </div>
-            </div>
+            <ItineraryView trip={currentTrip} />
           </div>
         </div>
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Trip Dates */}
-          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <h3 className="font-bold text-gray-800 mb-4 flex items-center">
-              <Calendar className="w-5 h-5 mr-2 text-adventure-500" />
-              Dates
-            </h3>
-            <div className="space-y-3">
-              <div>
-                <div className="text-sm text-gray-600">Departure</div>
-                <div className="font-semibold text-gray-800">
-                  {format(new Date(currentTrip.startDate), 'EEEE, MMMM d, yyyy')}
-                </div>
-              </div>
-              <div>
-                <div className="text-sm text-gray-600">Return</div>
-                <div className="font-semibold text-gray-800">
-                  {format(new Date(currentTrip.endDate), 'EEEE, MMMM d, yyyy')}
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Collaboration Placeholder */}
-          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <h3 className="font-bold text-gray-800 mb-4 flex items-center">
               <Users className="w-5 h-5 mr-2 text-wanderlust-500" />
               Travelers
@@ -160,7 +146,7 @@ export default function TripSummaryPage() {
           </div>
 
           {/* Trip Stats */}
-          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
             <h3 className="font-bold text-gray-800 mb-4">Trip Stats</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">

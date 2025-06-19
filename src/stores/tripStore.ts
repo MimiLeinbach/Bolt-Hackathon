@@ -1,6 +1,19 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+export interface Activity {
+  id: string
+  tripId: string
+  dayIndex: number // 0-based index for which day of the trip
+  title: string
+  description?: string
+  location?: string
+  time?: string
+  cost?: number
+  notes?: string
+  createdAt: string
+}
+
 export interface Trip {
   id: string
   name: string
@@ -8,8 +21,7 @@ export interface Trip {
   endDate: string
   participantCount: number
   createdAt: string
-  // Future: activities will be added by Avril
-  // Future: participants will be managed by Emily
+  activities: Activity[]
 }
 
 interface TripStore {
@@ -17,13 +29,20 @@ interface TripStore {
   currentTrip: Trip | null
   
   // Actions for Mimi (Trip Creation)
-  createTrip: (tripData: Omit<Trip, 'id' | 'createdAt'>) => Trip
+  createTrip: (tripData: Omit<Trip, 'id' | 'createdAt' | 'activities'>) => Trip
   updateTrip: (id: string, updates: Partial<Trip>) => void
   getTrip: (id: string) => Trip | undefined
   setCurrentTrip: (trip: Trip | null) => void
   
+  // Actions for Avril (Activities)
+  addActivity: (tripId: string, activity: Omit<Activity, 'id' | 'tripId' | 'createdAt'>) => void
+  updateActivity: (tripId: string, activityId: string, updates: Partial<Activity>) => void
+  deleteActivity: (tripId: string, activityId: string) => void
+  getActivitiesForDay: (tripId: string, dayIndex: number) => Activity[]
+  
   // Utility
   generateTripId: () => string
+  generateActivityId: () => string
 }
 
 export const useTripStore = create<TripStore>()(
@@ -37,6 +56,7 @@ export const useTripStore = create<TripStore>()(
           ...tripData,
           id: get().generateTripId(),
           createdAt: new Date().toISOString(),
+          activities: [],
         }
         
         set((state) => ({
@@ -66,8 +86,80 @@ export const useTripStore = create<TripStore>()(
         set({ currentTrip: trip })
       },
 
+      addActivity: (tripId, activityData) => {
+        const newActivity: Activity = {
+          ...activityData,
+          id: get().generateActivityId(),
+          tripId,
+          createdAt: new Date().toISOString(),
+        }
+
+        set((state) => ({
+          trips: state.trips.map((trip) =>
+            trip.id === tripId
+              ? { ...trip, activities: [...trip.activities, newActivity] }
+              : trip
+          ),
+          currentTrip: state.currentTrip?.id === tripId
+            ? { ...state.currentTrip, activities: [...state.currentTrip.activities, newActivity] }
+            : state.currentTrip,
+        }))
+      },
+
+      updateActivity: (tripId, activityId, updates) => {
+        set((state) => ({
+          trips: state.trips.map((trip) =>
+            trip.id === tripId
+              ? {
+                  ...trip,
+                  activities: trip.activities.map((activity) =>
+                    activity.id === activityId ? { ...activity, ...updates } : activity
+                  ),
+                }
+              : trip
+          ),
+          currentTrip: state.currentTrip?.id === tripId
+            ? {
+                ...state.currentTrip,
+                activities: state.currentTrip.activities.map((activity) =>
+                  activity.id === activityId ? { ...activity, ...updates } : activity
+                ),
+              }
+            : state.currentTrip,
+        }))
+      },
+
+      deleteActivity: (tripId, activityId) => {
+        set((state) => ({
+          trips: state.trips.map((trip) =>
+            trip.id === tripId
+              ? {
+                  ...trip,
+                  activities: trip.activities.filter((activity) => activity.id !== activityId),
+                }
+              : trip
+          ),
+          currentTrip: state.currentTrip?.id === tripId
+            ? {
+                ...state.currentTrip,
+                activities: state.currentTrip.activities.filter((activity) => activity.id !== activityId),
+              }
+            : state.currentTrip,
+        }))
+      },
+
+      getActivitiesForDay: (tripId, dayIndex) => {
+        const trip = get().getTrip(tripId)
+        if (!trip || !trip.activities) return []
+        return trip.activities.filter((activity) => activity.dayIndex === dayIndex)
+      },
+
       generateTripId: () => {
         return `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      },
+
+      generateActivityId: () => {
+        return `activity_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
       },
     }),
     {
