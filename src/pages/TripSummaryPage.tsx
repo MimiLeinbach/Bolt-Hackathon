@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, Users, MapPin, Edit3, Share2, Sparkles } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format, differenceInDays } from 'date-fns'
+import ItineraryView from '../components/itinerary/ItineraryView'
 
 export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
@@ -97,22 +98,9 @@ export default function TripSummaryPage() {
             </div>
           </div>
 
-          {/* Itinerary Placeholder */}
+          {/* Itinerary Section */}
           <div className="glass-card rounded-2xl p-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Itinerary</h2>
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gradient-to-br from-adventure-100 to-wanderlust-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-adventure-500" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">Itinerary Coming Soon</h3>
-              <p className="text-gray-500 mb-6">
-                Avril will build the day-by-day itinerary and activity management here.
-              </p>
-              <div className="inline-flex items-center px-4 py-2 bg-adventure-50 text-adventure-700 rounded-full text-sm font-medium">
-                <Sparkles className="w-4 h-4 mr-2" />
-                Ready for activities & planning
-              </div>
-            </div>
+            <ItineraryView trip={currentTrip} />
           </div>
         </div>
 
