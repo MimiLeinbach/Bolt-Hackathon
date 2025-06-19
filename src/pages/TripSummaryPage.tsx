@@ -46,8 +46,10 @@ export default function TripSummaryPage() {
             <ArrowLeft className="w-6 h-6 text-gray-600" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">{currentTrip.name}</h1>
-            <p className="text-gray-600 mt-1">Your adventure awaits</p>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">{currentTrip.name}</h1>
+            <p className="text-lg text-gray-600">
+              {format(new Date(currentTrip.startDate), 'MM-dd')} - {format(new Date(currentTrip.endDate), 'MM-dd')}. Created by Trip Planner
+            </p>
           </div>
         </div>
         
