@@ -150,7 +150,7 @@ export const useTripStore = create<TripStore>()(
 
       getActivitiesForDay: (tripId, dayIndex) => {
         const trip = get().getTrip(tripId)
-        if (!trip) return []
+        if (!trip || !trip.activities) return []
         return trip.activities.filter((activity) => activity.dayIndex === dayIndex)
       },
 
