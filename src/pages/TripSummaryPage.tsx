@@ -34,6 +34,24 @@ export default function TripSummaryPage() {
 
   const dayCount = differenceInDays(new Date(currentTrip.endDate), new Date(currentTrip.startDate)) + 1
 
+  // Format dates to show month name and day
+  const formatTripDates = () => {
+    const startDate = new Date(currentTrip.startDate)
+    const endDate = new Date(currentTrip.endDate)
+    
+    const startMonth = format(startDate, 'MMMM')
+    const startDay = format(startDate, 'd')
+    const endDay = format(endDate, 'd')
+    
+    // Check if same month
+    if (format(startDate, 'MMMM yyyy') === format(endDate, 'MMMM yyyy')) {
+      return `${startMonth} ${startDay} - ${endDay}`
+    } else {
+      const endMonth = format(endDate, 'MMMM')
+      return `${startMonth} ${startDay} - ${endMonth} ${endDay}`
+    }
+  }
+
   return (
     <div className="animate-fade-in">
       {/* Header */}
@@ -48,7 +66,7 @@ export default function TripSummaryPage() {
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">{currentTrip.name}</h1>
             <p className="text-lg text-gray-600">
-              {format(new Date(currentTrip.startDate), 'MM-dd')} - {format(new Date(currentTrip.endDate), 'MM-dd')}. Created by Trip Planner
+              {formatTripDates()}. Created by Trip Planner
             </p>
           </div>
         </div>
