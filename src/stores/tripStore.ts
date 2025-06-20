@@ -175,14 +175,16 @@ export const useTripStore = create<TripStore>()(
       getTrip: (id) => {
         const state = get()
         
+        console.log(`🔍 Looking for trip ${id}`)
+        
         // First check local trips
         let trip = state.trips.find((trip) => trip.id === id)
         console.log(`Checking local trips for ${id}:`, trip ? 'FOUND' : 'NOT FOUND')
         
-        // If not found locally, check shared trips
+        // If not found locally, check shared trips in memory
         if (!trip) {
           trip = state.sharedTrips[id]
-          console.log(`Checking shared trips for ${id}:`, trip ? 'FOUND' : 'NOT FOUND')
+          console.log(`Checking shared trips in memory for ${id}:`, trip ? 'FOUND' : 'NOT FOUND')
         }
         
         // If still not found, try localStorage as fallback
@@ -193,28 +195,38 @@ export const useTripStore = create<TripStore>()(
             console.log(`Checking localStorage for ${sharedKey}:`, sharedTripData ? 'FOUND' : 'NOT FOUND')
             
             if (sharedTripData) {
-              trip = JSON.parse(sharedTripData)
-              // Add to shared trips cache
+              const parsedTrip = JSON.parse(sharedTripData)
+              trip = parsedTrip
+              
+              // Add to shared trips cache for future access
               set((state) => ({
                 sharedTrips: {
                   ...state.sharedTrips,
-                  [id]: trip!
+                  [id]: parsedTrip
                 }
               }))
+              console.log(`✅ Loaded trip ${id} from localStorage and cached in memory`)
             }
           } catch (error) {
-            console.error('Error loading from localStorage:', error)
+            console.error('❌ Error loading from localStorage:', error)
           }
         }
         
         if (trip) {
           // Always migrate trip when retrieving
           const migratedTrip = get().migrateTrip(trip)
-          console.log(`Trip ${id} found and migrated:`, migratedTrip)
+          console.log(`✅ Trip ${id} found and migrated:`, migratedTrip.name)
+          
+          // If the trip was migrated, update it in storage
+          if (JSON.stringify(migratedTrip) !== JSON.stringify(trip)) {
+            console.log(`🔄 Trip ${id} was migrated, updating storage`)
+            get().shareTrip(id) // This will save the migrated version
+          }
+          
           return migratedTrip
         }
         
-        console.log(`Trip ${id} not found anywhere`)
+        console.log(`❌ Trip ${id} not found anywhere`)
         return undefined
       },
 
@@ -222,9 +234,10 @@ export const useTripStore = create<TripStore>()(
         if (trip) {
           // Migrate trip before setting as current
           const migratedTrip = get().migrateTrip(trip)
+          console.log(`🎯 Setting current trip: ${migratedTrip.name} (${migratedTrip.id})`)
           set({ currentTrip: migratedTrip })
           
-          // Auto-share when setting as current trip
+          // Auto-share when setting as current trip to ensure it's available for sharing
           get().shareTrip(migratedTrip.id)
           
           // Also update the trip in the trips array if it was migrated
@@ -236,6 +249,7 @@ export const useTripStore = create<TripStore>()(
             }))
           }
         } else {
+          console.log('🎯 Clearing current trip')
           set({ currentTrip: null })
         }
       },
@@ -612,7 +626,7 @@ export const useTripStore = create<TripStore>()(
         const trip = state.getTrip(tripId)
         if (trip) {
           try {
-            // Store in both localStorage and in-memory shared trips
+            // Store in localStorage with a consistent key format
             const sharedKey = `ai_itinerary_shared_${tripId}`
             const tripData = JSON.stringify(trip)
             localStorage.setItem(sharedKey, tripData)
@@ -625,7 +639,8 @@ export const useTripStore = create<TripStore>()(
               }
             }))
             
-            console.log(`✅ Trip ${tripId} shared successfully`)
+            console.log(`✅ Trip ${tripId} (${trip.name}) shared successfully`)
+            console.log(`📦 Stored in localStorage as: ${sharedKey}`)
           } catch (error) {
             console.error('❌ Error sharing trip:', error)
           }
@@ -635,7 +650,7 @@ export const useTripStore = create<TripStore>()(
       },
 
       loadSharedTrip: (tripId, tripData) => {
-        console.log(`📥 Loading shared trip ${tripId}:`, tripData)
+        console.log(`📥 Loading shared trip ${tripId}:`, tripData.name)
         set((state) => ({
           sharedTrips: {
             ...state.sharedTrips,

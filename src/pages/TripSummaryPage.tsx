@@ -34,7 +34,10 @@ export default function TripSummaryPage() {
       
       setIsLoading(true)
 
-      // Try to get trip (this will check both local and shared storage)
+      // Small delay to ensure store is fully hydrated
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      // Try to get trip (this will check local, shared memory, and localStorage)
       const trip = getTrip(tripId)
       console.log('🎯 Found trip:', trip ? `${trip.name} (${trip.id})` : 'NOT FOUND')
 
@@ -54,8 +57,13 @@ export default function TripSummaryPage() {
           setShowJoinModal(true)
         }
       } else {
-        // Trip not found
+        // Trip not found - provide detailed error
         console.log('❌ Trip not found, redirecting to homepage')
+        
+        // Check what's actually in localStorage for debugging
+        const allKeys = Object.keys(localStorage).filter(key => key.includes('trip') || key.includes('itinerary'))
+        console.log('🔍 All trip-related localStorage keys:', allKeys)
+        
         navigate('/', { 
           state: { 
             error: `Trip not found (ID: ${tripId}). The link may be invalid or the trip may have been deleted.` 
