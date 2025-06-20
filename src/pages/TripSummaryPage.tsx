@@ -12,7 +12,7 @@ export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip } = useTripStore()
+  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip, shareTrip } = useTripStore()
   
   const [showInviteModal, setShowInviteModal] = useState(false)
   const [showJoinModal, setShowJoinModal] = useState(false)
@@ -23,33 +23,42 @@ export default function TripSummaryPage() {
   useEffect(() => {
     const loadTrip = async () => {
       if (!tripId) {
+        console.log('❌ No trip ID provided')
         navigate('/')
         return
       }
 
-      console.log(`Loading trip ${tripId}, isInviteLink: ${isInviteLink}`)
+      console.log(`🔍 Loading trip ${tripId}, isInviteLink: ${isInviteLink}`)
+      console.log('🌐 Current URL:', window.location.href)
+      console.log('📍 Search params:', Object.fromEntries(searchParams.entries()))
+      
       setIsLoading(true)
 
       // Try to get trip (this will check both local and shared storage)
       const trip = getTrip(tripId)
-      console.log('Found trip:', trip)
+      console.log('🎯 Found trip:', trip ? `${trip.name} (${trip.id})` : 'NOT FOUND')
 
       if (trip) {
+        console.log('✅ Setting current trip:', trip.name)
         setCurrentTrip(trip)
+        
+        // Ensure trip is shared for future access
+        shareTrip(tripId)
         
         // Check if this is an invite link and user isn't already part of the trip
         const currentTraveler = getCurrentTravelerForTrip(tripId)
-        console.log('Current traveler for trip:', currentTraveler)
+        console.log('👤 Current traveler for trip:', currentTraveler ? currentTraveler.name : 'NONE')
         
         if (isInviteLink && !currentTraveler) {
+          console.log('🚪 Showing join modal for invite link')
           setShowJoinModal(true)
         }
       } else {
         // Trip not found
-        console.log('Trip not found')
+        console.log('❌ Trip not found, redirecting to homepage')
         navigate('/', { 
           state: { 
-            error: 'Trip not found. The link may be invalid or the trip may have been deleted.' 
+            error: `Trip not found (ID: ${tripId}). The link may be invalid or the trip may have been deleted.` 
           } 
         })
       }
@@ -58,7 +67,7 @@ export default function TripSummaryPage() {
     }
 
     loadTrip()
-  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink])
+  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink, shareTrip, searchParams])
 
   if (isLoading) {
     return (
@@ -66,6 +75,7 @@ export default function TripSummaryPage() {
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-adventure-200 border-t-adventure-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your adventure...</p>
+          <p className="text-xs text-gray-400 mt-2">Trip ID: {tripId}</p>
         </div>
       </div>
     )
@@ -79,9 +89,10 @@ export default function TripSummaryPage() {
             <MapPin className="w-8 h-8 text-red-500" />
           </div>
           <h3 className="text-xl font-bold text-gray-800 mb-2">Trip Not Found</h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 mb-2">
             The trip you're looking for doesn't exist or may have been deleted.
           </p>
+          <p className="text-xs text-gray-400 mb-6">Trip ID: {tripId}</p>
           <button
             onClick={() => navigate('/')}
             className="btn-primary"

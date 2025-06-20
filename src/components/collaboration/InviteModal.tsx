@@ -19,6 +19,10 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
       await navigator.clipboard.writeText(inviteLink)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
+      
+      // Debug: Log the link being copied
+      console.log('📋 Copied invite link:', inviteLink)
+      console.log('🔗 Trip ID in link:', tripId)
     } catch (error) {
       // Fallback for browsers that don't support clipboard API
       const textArea = document.createElement('textarea')
@@ -29,6 +33,8 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
       document.body.removeChild(textArea)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
+      
+      console.log('📋 Copied invite link (fallback):', inviteLink)
     }
   }
 
@@ -93,6 +99,16 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
                     </>
                   )}
                 </button>
+              </div>
+            </div>
+
+            {/* Debug Info */}
+            <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
+              <h4 className="font-medium text-blue-800 mb-2">🔧 Debug Info</h4>
+              <div className="text-xs text-blue-700 space-y-1">
+                <div>Trip ID: <code className="bg-blue-100 px-1 rounded">{tripId}</code></div>
+                <div>Current URL: <code className="bg-blue-100 px-1 rounded">{window.location.href}</code></div>
+                <div>Invite Link: <code className="bg-blue-100 px-1 rounded break-all">{inviteLink}</code></div>
               </div>
             </div>
 
