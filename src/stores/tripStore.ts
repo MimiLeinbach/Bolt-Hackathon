@@ -38,6 +38,7 @@ interface TripStore {
   trips: Trip[]
   currentTrip: Trip | null
   currentTraveler: Traveler | null
+  sharedTrips: Record<string, Trip> // Store shared trips in memory
   
   // Actions for Mimi (Trip Creation)
   createTrip: (tripData: Omit<Trip, 'id' | 'createdAt' | 'activities' | 'travelers' | 'ownerId'>) => Trip
@@ -63,7 +64,7 @@ interface TripStore {
   
   // Sharing actions
   shareTrip: (tripId: string) => void
-  loadSharedTrip: (tripId: string) => Trip | null
+  loadSharedTrip: (tripId: string, tripData: Trip) => void
   
   // Utility
   generateTripId: () => string
@@ -78,6 +79,7 @@ export const useTripStore = create<TripStore>()(
       trips: [],
       currentTrip: null,
       currentTraveler: null,
+      sharedTrips: {},
 
       // Migration function to handle old trip format
       migrateTrip: (trip: any): Trip => {
@@ -153,17 +155,21 @@ export const useTripStore = create<TripStore>()(
             ? { ...state.currentTrip, ...updates }
             : state.currentTrip
 
+          // Also update in shared trips
+          const updatedSharedTrips = { ...state.sharedTrips }
+          if (updatedSharedTrips[id]) {
+            updatedSharedTrips[id] = { ...updatedSharedTrips[id], ...updates }
+          }
+
           return {
             trips: updatedTrips,
             currentTrip: updatedCurrentTrip,
+            sharedTrips: updatedSharedTrips,
           }
         })
 
-        // Update shared version too
-        const trip = get().getTrip(id)
-        if (trip) {
-          get().shareTrip(id)
-        }
+        // Update shared version
+        get().shareTrip(id)
       },
 
       getTrip: (id) => {
@@ -171,16 +177,44 @@ export const useTripStore = create<TripStore>()(
         
         // First check local trips
         let trip = state.trips.find((trip) => trip.id === id)
+        console.log(`Checking local trips for ${id}:`, trip ? 'FOUND' : 'NOT FOUND')
         
-        // If not found locally, try to load from shared storage
+        // If not found locally, check shared trips
         if (!trip) {
-          trip = get().loadSharedTrip(id)
+          trip = state.sharedTrips[id]
+          console.log(`Checking shared trips for ${id}:`, trip ? 'FOUND' : 'NOT FOUND')
+        }
+        
+        // If still not found, try localStorage as fallback
+        if (!trip) {
+          try {
+            const sharedKey = `ai_itinerary_shared_${id}`
+            const sharedTripData = localStorage.getItem(sharedKey)
+            console.log(`Checking localStorage for ${sharedKey}:`, sharedTripData ? 'FOUND' : 'NOT FOUND')
+            
+            if (sharedTripData) {
+              trip = JSON.parse(sharedTripData)
+              // Add to shared trips cache
+              set((state) => ({
+                sharedTrips: {
+                  ...state.sharedTrips,
+                  [id]: trip!
+                }
+              }))
+            }
+          } catch (error) {
+            console.error('Error loading from localStorage:', error)
+          }
         }
         
         if (trip) {
           // Always migrate trip when retrieving
-          return get().migrateTrip(trip)
+          const migratedTrip = get().migrateTrip(trip)
+          console.log(`Trip ${id} found and migrated:`, migratedTrip)
+          return migratedTrip
         }
+        
+        console.log(`Trip ${id} not found anywhere`)
         return undefined
       },
 
@@ -189,6 +223,9 @@ export const useTripStore = create<TripStore>()(
           // Migrate trip before setting as current
           const migratedTrip = get().migrateTrip(trip)
           set({ currentTrip: migratedTrip })
+          
+          // Auto-share when setting as current trip
+          get().shareTrip(migratedTrip.id)
           
           // Also update the trip in the trips array if it was migrated
           if (migratedTrip !== trip) {
@@ -223,9 +260,19 @@ export const useTripStore = create<TripStore>()(
             ? { ...state.currentTrip, activities: [...state.currentTrip.activities, newActivity] }
             : state.currentTrip
 
+          // Also update in shared trips
+          const updatedSharedTrips = { ...state.sharedTrips }
+          if (updatedSharedTrips[tripId]) {
+            updatedSharedTrips[tripId] = {
+              ...updatedSharedTrips[tripId],
+              activities: [...updatedSharedTrips[tripId].activities, newActivity]
+            }
+          }
+
           return {
             trips: updatedTrips,
             currentTrip: updatedCurrentTrip,
+            sharedTrips: updatedSharedTrips,
           }
         })
 
@@ -255,9 +302,21 @@ export const useTripStore = create<TripStore>()(
               }
             : state.currentTrip
 
+          // Also update shared trips
+          const updatedSharedTrips = { ...state.sharedTrips }
+          if (updatedSharedTrips[tripId]) {
+            updatedSharedTrips[tripId] = {
+              ...updatedSharedTrips[tripId],
+              activities: updatedSharedTrips[tripId].activities.map((activity) =>
+                activity.id === activityId ? { ...activity, ...updates } : activity
+              ),
+            }
+          }
+
           return {
             trips: updatedTrips,
             currentTrip: updatedCurrentTrip,
+            sharedTrips: updatedSharedTrips,
           }
         })
 
@@ -283,9 +342,19 @@ export const useTripStore = create<TripStore>()(
               }
             : state.currentTrip
 
+          // Also update shared trips
+          const updatedSharedTrips = { ...state.sharedTrips }
+          if (updatedSharedTrips[tripId]) {
+            updatedSharedTrips[tripId] = {
+              ...updatedSharedTrips[tripId],
+              activities: updatedSharedTrips[tripId].activities.filter((activity) => activity.id !== activityId),
+            }
+          }
+
           return {
             trips: updatedTrips,
             currentTrip: updatedCurrentTrip,
+            sharedTrips: updatedSharedTrips,
           }
         })
 
@@ -330,9 +399,19 @@ export const useTripStore = create<TripStore>()(
             ? { ...state.currentTrip, travelers: [...state.currentTrip.travelers, newTraveler] }
             : state.currentTrip
 
+          // Also update shared trips
+          const updatedSharedTrips = { ...state.sharedTrips }
+          if (updatedSharedTrips[tripId]) {
+            updatedSharedTrips[tripId] = {
+              ...updatedSharedTrips[tripId],
+              travelers: [...updatedSharedTrips[tripId].travelers, newTraveler]
+            }
+          }
+
           return {
             trips: updatedTrips,
             currentTrip: updatedCurrentTrip,
+            sharedTrips: updatedSharedTrips,
             currentTraveler: newTraveler,
           }
         })
@@ -369,9 +448,23 @@ export const useTripStore = create<TripStore>()(
               }
             : state.currentTrip
 
+          // Also update shared trips
+          const updatedSharedTrips = { ...state.sharedTrips }
+          if (updatedSharedTrips[tripId]) {
+            updatedSharedTrips[tripId] = {
+              ...updatedSharedTrips[tripId],
+              travelers: updatedSharedTrips[tripId].travelers.filter(t => t.id !== travelerId),
+              activities: updatedSharedTrips[tripId].activities.map(activity => ({
+                ...activity,
+                participants: activity.participants.filter(p => p !== travelerId)
+              }))
+            }
+          }
+
           return {
             trips: updatedTrips,
             currentTrip: updatedCurrentTrip,
+            sharedTrips: updatedSharedTrips,
             currentTraveler: state.currentTraveler?.id === travelerId ? null : state.currentTraveler,
           }
         })
@@ -406,9 +499,23 @@ export const useTripStore = create<TripStore>()(
               }
             : state.currentTrip
 
+          // Also update shared trips
+          const updatedSharedTrips = { ...state.sharedTrips }
+          if (updatedSharedTrips[tripId]) {
+            updatedSharedTrips[tripId] = {
+              ...updatedSharedTrips[tripId],
+              activities: updatedSharedTrips[tripId].activities.map((activity) =>
+                activity.id === activityId && !activity.participants.includes(travelerId)
+                  ? { ...activity, participants: [...activity.participants, travelerId] }
+                  : activity
+              ),
+            }
+          }
+
           return {
             trips: updatedTrips,
             currentTrip: updatedCurrentTrip,
+            sharedTrips: updatedSharedTrips,
           }
         })
 
@@ -442,9 +549,23 @@ export const useTripStore = create<TripStore>()(
               }
             : state.currentTrip
 
+          // Also update shared trips
+          const updatedSharedTrips = { ...state.sharedTrips }
+          if (updatedSharedTrips[tripId]) {
+            updatedSharedTrips[tripId] = {
+              ...updatedSharedTrips[tripId],
+              activities: updatedSharedTrips[tripId].activities.map((activity) =>
+                activity.id === activityId
+                  ? { ...activity, participants: activity.participants.filter(p => p !== travelerId) }
+                  : activity
+              ),
+            }
+          }
+
           return {
             trips: updatedTrips,
             currentTrip: updatedCurrentTrip,
+            sharedTrips: updatedSharedTrips,
           }
         })
 
@@ -491,43 +612,36 @@ export const useTripStore = create<TripStore>()(
         const trip = state.getTrip(tripId)
         if (trip) {
           try {
-            // Store trip data with a consistent key format
+            // Store in both localStorage and in-memory shared trips
             const sharedKey = `ai_itinerary_shared_${tripId}`
             const tripData = JSON.stringify(trip)
             localStorage.setItem(sharedKey, tripData)
-            console.log(`Trip ${tripId} shared successfully`)
+            
+            // Also store in memory for immediate access
+            set((state) => ({
+              sharedTrips: {
+                ...state.sharedTrips,
+                [tripId]: trip
+              }
+            }))
+            
+            console.log(`✅ Trip ${tripId} shared successfully`)
           } catch (error) {
-            console.error('Error sharing trip:', error)
+            console.error('❌ Error sharing trip:', error)
           }
+        } else {
+          console.log(`⚠️ Cannot share trip ${tripId} - not found`)
         }
       },
 
-      loadSharedTrip: (tripId) => {
-        try {
-          const sharedKey = `ai_itinerary_shared_${tripId}`
-          const sharedTripData = localStorage.getItem(sharedKey)
-          
-          if (sharedTripData) {
-            const trip = JSON.parse(sharedTripData)
-            console.log(`Loaded shared trip ${tripId}:`, trip)
-            
-            // Add to local trips if not already there
-            set((state) => {
-              const existingTrip = state.trips.find(t => t.id === tripId)
-              if (!existingTrip) {
-                return {
-                  trips: [...state.trips, trip]
-                }
-              }
-              return state
-            })
-            
-            return trip
+      loadSharedTrip: (tripId, tripData) => {
+        console.log(`📥 Loading shared trip ${tripId}:`, tripData)
+        set((state) => ({
+          sharedTrips: {
+            ...state.sharedTrips,
+            [tripId]: tripData
           }
-        } catch (error) {
-          console.error('Error loading shared trip:', error)
-        }
-        return null
+        }))
       },
 
       generateTripId: () => {
@@ -547,6 +661,7 @@ export const useTripStore = create<TripStore>()(
       partialize: (state) => ({ 
         trips: state.trips,
         currentTraveler: state.currentTraveler,
+        sharedTrips: state.sharedTrips, // Also persist shared trips
       }),
     }
   )
