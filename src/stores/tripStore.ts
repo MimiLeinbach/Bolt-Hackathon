@@ -65,6 +65,7 @@ interface TripStore {
   generateTripId: () => string
   generateActivityId: () => string
   generateTravelerId: () => string
+  migrateTrip: (trip: any) => Trip
 }
 
 export const useTripStore = create<TripStore>()(
@@ -73,6 +74,42 @@ export const useTripStore = create<TripStore>()(
       trips: [],
       currentTrip: null,
       currentTraveler: null,
+
+      // Migration function to handle old trip format
+      migrateTrip: (trip: any): Trip => {
+        // If trip already has the new structure, return as is
+        if (trip.travelers && trip.ownerId) {
+          // Ensure activities have participants array
+          const migratedActivities = trip.activities.map((activity: any) => ({
+            ...activity,
+            participants: activity.participants || []
+          }))
+          
+          return {
+            ...trip,
+            activities: migratedActivities
+          }
+        }
+
+        // Migrate old trip structure to new structure
+        const travelerId = get().generateTravelerId()
+        const migratedActivities = trip.activities?.map((activity: any) => ({
+          ...activity,
+          participants: activity.participants || []
+        })) || []
+
+        return {
+          ...trip,
+          activities: migratedActivities,
+          travelers: [{
+            id: travelerId,
+            name: 'Trip Creator',
+            joinedAt: trip.createdAt || new Date().toISOString(),
+            isOwner: true
+          }],
+          ownerId: travelerId,
+        }
+      },
 
       createTrip: (tripData) => {
         const travelerId = get().generateTravelerId()
@@ -111,11 +148,31 @@ export const useTripStore = create<TripStore>()(
       },
 
       getTrip: (id) => {
-        return get().trips.find((trip) => trip.id === id)
+        const trip = get().trips.find((trip) => trip.id === id)
+        if (trip) {
+          // Always migrate trip when retrieving
+          return get().migrateTrip(trip)
+        }
+        return undefined
       },
 
       setCurrentTrip: (trip) => {
-        set({ currentTrip: trip })
+        if (trip) {
+          // Migrate trip before setting as current
+          const migratedTrip = get().migrateTrip(trip)
+          set({ currentTrip: migratedTrip })
+          
+          // Also update the trip in the trips array if it was migrated
+          if (migratedTrip !== trip) {
+            set((state) => ({
+              trips: state.trips.map((t) => 
+                t.id === trip.id ? migratedTrip : t
+              )
+            }))
+          }
+        } else {
+          set({ currentTrip: null })
+        }
       },
 
       addActivity: (tripId, activityData) => {
