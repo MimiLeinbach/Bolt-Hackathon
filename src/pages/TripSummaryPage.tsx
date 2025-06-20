@@ -12,7 +12,7 @@ export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip, loadSharedTrip } = useTripStore()
+  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip } = useTripStore()
   
   const [showInviteModal, setShowInviteModal] = useState(false)
   const [showJoinModal, setShowJoinModal] = useState(false)
@@ -27,37 +27,26 @@ export default function TripSummaryPage() {
         return
       }
 
+      console.log(`Loading trip ${tripId}, isInviteLink: ${isInviteLink}`)
       setIsLoading(true)
 
-      // First try to get trip from store
-      let trip = getTrip(tripId)
-      
-      // If not found and this is an invite link, try to load from shared storage
-      if (!trip && isInviteLink) {
-        try {
-          const sharedKey = `shared_trip_${tripId}`
-          const sharedTripData = localStorage.getItem(sharedKey)
-          
-          if (sharedTripData) {
-            const parsedTrip = JSON.parse(sharedTripData)
-            loadSharedTrip(tripId, parsedTrip)
-            trip = parsedTrip
-          }
-        } catch (error) {
-          console.error('Error loading shared trip:', error)
-        }
-      }
+      // Try to get trip (this will check both local and shared storage)
+      const trip = getTrip(tripId)
+      console.log('Found trip:', trip)
 
       if (trip) {
         setCurrentTrip(trip)
         
         // Check if this is an invite link and user isn't already part of the trip
         const currentTraveler = getCurrentTravelerForTrip(tripId)
+        console.log('Current traveler for trip:', currentTraveler)
+        
         if (isInviteLink && !currentTraveler) {
           setShowJoinModal(true)
         }
       } else {
         // Trip not found
+        console.log('Trip not found')
         navigate('/', { 
           state: { 
             error: 'Trip not found. The link may be invalid or the trip may have been deleted.' 
@@ -69,7 +58,7 @@ export default function TripSummaryPage() {
     }
 
     loadTrip()
-  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink, loadSharedTrip])
+  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink])
 
   if (isLoading) {
     return (
