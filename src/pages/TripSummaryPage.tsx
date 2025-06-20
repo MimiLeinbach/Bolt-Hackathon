@@ -1,25 +1,40 @@
-import React, { useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, Calendar, Users, MapPin, Edit3, Share2, Sparkles } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
+import { ArrowLeft, Calendar, Users, MapPin, Edit3, Share2, Sparkles, UserPlus } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format, differenceInDays } from 'date-fns'
 import ItineraryView from '../components/itinerary/ItineraryView'
+import TravelersList from '../components/collaboration/TravelersList'
+import InviteModal from '../components/collaboration/InviteModal'
+import JoinTripModal from '../components/collaboration/JoinTripModal'
 
 export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
+  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { getTrip, setCurrentTrip, currentTrip } = useTripStore()
+  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip } = useTripStore()
+  
+  const [showInviteModal, setShowInviteModal] = useState(false)
+  const [showJoinModal, setShowJoinModal] = useState(false)
+
+  const isInviteLink = searchParams.get('invite') === 'true'
 
   useEffect(() => {
     if (tripId) {
       const trip = getTrip(tripId)
       if (trip) {
         setCurrentTrip(trip)
+        
+        // Check if this is an invite link and user isn't already part of the trip
+        const currentTraveler = getCurrentTravelerForTrip(tripId)
+        if (isInviteLink && !currentTraveler) {
+          setShowJoinModal(true)
+        }
       } else {
         navigate('/')
       }
     }
-  }, [tripId, getTrip, setCurrentTrip, navigate])
+  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink])
 
   if (!currentTrip) {
     return (
@@ -33,6 +48,7 @@ export default function TripSummaryPage() {
   }
 
   const dayCount = differenceInDays(new Date(currentTrip.endDate), new Date(currentTrip.startDate)) + 1
+  const currentTraveler = getCurrentTravelerForTrip(currentTrip.id)
 
   // Format dates to show month name and day
   const formatTripDates = () => {
@@ -66,22 +82,40 @@ export default function TripSummaryPage() {
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">{currentTrip.name}</h1>
             <p className="text-lg text-gray-600">
-              {formatTripDates()}. Created by Trip Planner
+              {formatTripDates()}
+              {currentTraveler && (
+                <span className="ml-2 text-sm">
+                  • You're {currentTraveler.name}
+                </span>
+              )}
             </p>
           </div>
         </div>
         
         <div className="flex items-center space-x-3">
-          <Link to={`/create-trip?edit=${currentTrip.id}`}>
-            <button className="btn-secondary flex items-center space-x-2">
-              <Edit3 className="w-4 h-4" />
-              <span>Edit</span>
+          {!currentTraveler ? (
+            <button 
+              onClick={() => setShowJoinModal(true)}
+              className="btn-primary flex items-center space-x-2"
+            >
+              <UserPlus className="w-4 h-4" />
+              <span>Join Trip</span>
             </button>
-          </Link>
-          <button className="btn-primary flex items-center space-x-2">
-            <Share2 className="w-4 h-4" />
-            <span>Share</span>
-          </button>
+          ) : (
+            <>
+              <button 
+                onClick={() => setShowInviteModal(true)}
+                className="btn-secondary flex items-center space-x-2"
+              >
+                <Share2 className="w-4 h-4" />
+                <span>Invite</span>
+              </button>
+              <button className="btn-primary flex items-center space-x-2">
+                <Edit3 className="w-4 h-4" />
+                <span>Edit</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -106,8 +140,8 @@ export default function TripSummaryPage() {
               <div className="text-center p-6 bg-gradient-to-br from-wanderlust-50 to-wanderlust-100 rounded-xl">
                 <Users className="w-8 h-8 text-wanderlust-600 mx-auto mb-3" />
                 <div className="text-sm text-gray-600 mb-1">Travelers</div>
-                <div className="text-2xl font-bold text-gray-800">{currentTrip.participantCount}</div>
-                <div className="text-sm text-gray-600">{currentTrip.participantCount === 1 ? 'person' : 'people'}</div>
+                <div className="text-2xl font-bold text-gray-800">{currentTrip.travelers.length}</div>
+                <div className="text-sm text-gray-600">{currentTrip.travelers.length === 1 ? 'person' : 'people'}</div>
               </div>
               
               <div className="text-center p-6 bg-gradient-to-br from-forest-50 to-forest-100 rounded-xl">
@@ -118,31 +152,43 @@ export default function TripSummaryPage() {
             </div>
           </div>
 
-          {/* Itinerary Section */}
-          <div className="glass-card rounded-2xl p-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            <ItineraryView trip={currentTrip} />
-          </div>
+          {/* Itinerary Section - Only show if user has joined */}
+          {currentTraveler && (
+            <div className="glass-card rounded-2xl p-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <ItineraryView trip={currentTrip} />
+            </div>
+          )}
+
+          {/* Join Prompt for non-members */}
+          {!currentTraveler && (
+            <div className="glass-card rounded-2xl p-8 animate-slide-up text-center" style={{ animationDelay: '0.1s' }}>
+              <div className="w-16 h-16 bg-gradient-to-br from-wanderlust-100 to-adventure-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <UserPlus className="w-8 h-8 text-wanderlust-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Join the Adventure!</h3>
+              <p className="text-gray-600 mb-6">
+                Enter your name to join this trip and start collaborating on the itinerary.
+              </p>
+              <button 
+                onClick={() => setShowJoinModal(true)}
+                className="btn-primary flex items-center space-x-2 mx-auto"
+              >
+                <UserPlus className="w-4 h-4" />
+                <span>Join Trip</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Collaboration Placeholder */}
+          {/* Travelers List */}
           <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <h3 className="font-bold text-gray-800 mb-4 flex items-center">
-              <Users className="w-5 h-5 mr-2 text-wanderlust-500" />
-              Travelers
-            </h3>
-            <div className="text-center py-8">
-              <div className="w-12 h-12 bg-gradient-to-br from-wanderlust-100 to-forest-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Users className="w-6 h-6 text-wanderlust-500" />
-              </div>
-              <p className="text-sm text-gray-500 mb-4">
-                Emily will build collaboration features here - participant management, invites, and sharing.
-              </p>
-              <div className="inline-flex items-center px-3 py-1 bg-wanderlust-50 text-wanderlust-700 rounded-full text-xs font-medium">
-                Ready for collaboration features
-              </div>
-            </div>
+            <TravelersList 
+              tripId={currentTrip.id}
+              travelers={currentTrip.travelers}
+              currentTraveler={currentTraveler}
+            />
           </div>
 
           {/* Trip Stats */}
@@ -154,6 +200,10 @@ export default function TripSummaryPage() {
                 <span className="font-medium">{format(new Date(currentTrip.createdAt), 'MMM d, yyyy')}</span>
               </div>
               <div className="flex justify-between">
+                <span className="text-gray-600">Activities</span>
+                <span className="font-medium">{currentTrip.activities.length}</span>
+              </div>
+              <div className="flex justify-between">
                 <span className="text-gray-600">Trip ID</span>
                 <span className="font-mono text-xs text-gray-500">{currentTrip.id.slice(-8)}</span>
               </div>
@@ -161,6 +211,21 @@ export default function TripSummaryPage() {
           </div>
         </div>
       </div>
+
+      {/* Modals */}
+      <InviteModal
+        isOpen={showInviteModal}
+        onClose={() => setShowInviteModal(false)}
+        tripId={currentTrip.id}
+        tripName={currentTrip.name}
+      />
+
+      <JoinTripModal
+        isOpen={showJoinModal}
+        onClose={() => setShowJoinModal(false)}
+        tripId={currentTrip.id}
+        tripName={currentTrip.name}
+      />
     </div>
   )
 }

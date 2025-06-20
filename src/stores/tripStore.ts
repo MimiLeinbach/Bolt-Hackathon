@@ -12,6 +12,14 @@ export interface Activity {
   cost?: number
   notes?: string
   createdAt: string
+  participants: string[] // Array of traveler IDs who joined this activity
+}
+
+export interface Traveler {
+  id: string
+  name: string
+  joinedAt: string
+  isOwner: boolean
 }
 
 export interface Trip {
@@ -22,27 +30,41 @@ export interface Trip {
   participantCount: number
   createdAt: string
   activities: Activity[]
+  travelers: Traveler[]
+  ownerId: string
 }
 
 interface TripStore {
   trips: Trip[]
   currentTrip: Trip | null
+  currentTraveler: Traveler | null
   
   // Actions for Mimi (Trip Creation)
-  createTrip: (tripData: Omit<Trip, 'id' | 'createdAt' | 'activities'>) => Trip
+  createTrip: (tripData: Omit<Trip, 'id' | 'createdAt' | 'activities' | 'travelers' | 'ownerId'>) => Trip
   updateTrip: (id: string, updates: Partial<Trip>) => void
   getTrip: (id: string) => Trip | undefined
   setCurrentTrip: (trip: Trip | null) => void
   
   // Actions for Avril (Activities)
-  addActivity: (tripId: string, activity: Omit<Activity, 'id' | 'tripId' | 'createdAt'>) => void
+  addActivity: (tripId: string, activity: Omit<Activity, 'id' | 'tripId' | 'createdAt' | 'participants'>) => void
   updateActivity: (tripId: string, activityId: string, updates: Partial<Activity>) => void
   deleteActivity: (tripId: string, activityId: string) => void
   getActivitiesForDay: (tripId: string, dayIndex: number) => Activity[]
   
+  // Actions for Emily (Collaboration)
+  joinTrip: (tripId: string, travelerName: string) => Traveler | null
+  leaveTrip: (tripId: string, travelerId: string) => void
+  joinActivity: (tripId: string, activityId: string, travelerId: string) => void
+  leaveActivity: (tripId: string, activityId: string, travelerId: string) => void
+  getTravelerCosts: (tripId: string, travelerId: string) => number
+  getTripTotalCost: (tripId: string) => number
+  setCurrentTraveler: (traveler: Traveler | null) => void
+  getCurrentTravelerForTrip: (tripId: string) => Traveler | null
+  
   // Utility
   generateTripId: () => string
   generateActivityId: () => string
+  generateTravelerId: () => string
 }
 
 export const useTripStore = create<TripStore>()(
@@ -50,18 +72,28 @@ export const useTripStore = create<TripStore>()(
     (set, get) => ({
       trips: [],
       currentTrip: null,
+      currentTraveler: null,
 
       createTrip: (tripData) => {
+        const travelerId = get().generateTravelerId()
         const newTrip: Trip = {
           ...tripData,
           id: get().generateTripId(),
           createdAt: new Date().toISOString(),
           activities: [],
+          travelers: [{
+            id: travelerId,
+            name: 'Trip Creator',
+            joinedAt: new Date().toISOString(),
+            isOwner: true
+          }],
+          ownerId: travelerId,
         }
         
         set((state) => ({
           trips: [...state.trips, newTrip],
           currentTrip: newTrip,
+          currentTraveler: newTrip.travelers[0],
         }))
         
         return newTrip
@@ -92,6 +124,7 @@ export const useTripStore = create<TripStore>()(
           id: get().generateActivityId(),
           tripId,
           createdAt: new Date().toISOString(),
+          participants: [], // Start with no participants
         }
 
         set((state) => ({
@@ -154,6 +187,156 @@ export const useTripStore = create<TripStore>()(
         return trip.activities.filter((activity) => activity.dayIndex === dayIndex)
       },
 
+      // Collaboration Actions
+      joinTrip: (tripId, travelerName) => {
+        const trip = get().getTrip(tripId)
+        if (!trip) return null
+
+        // Check if name already exists
+        const existingTraveler = trip.travelers.find(t => t.name.toLowerCase() === travelerName.toLowerCase())
+        if (existingTraveler) {
+          // Return existing traveler (they're rejoining)
+          set({ currentTraveler: existingTraveler })
+          return existingTraveler
+        }
+
+        const newTraveler: Traveler = {
+          id: get().generateTravelerId(),
+          name: travelerName,
+          joinedAt: new Date().toISOString(),
+          isOwner: false
+        }
+
+        set((state) => ({
+          trips: state.trips.map((trip) =>
+            trip.id === tripId
+              ? { ...trip, travelers: [...trip.travelers, newTraveler] }
+              : trip
+          ),
+          currentTrip: state.currentTrip?.id === tripId
+            ? { ...state.currentTrip, travelers: [...state.currentTrip.travelers, newTraveler] }
+            : state.currentTrip,
+          currentTraveler: newTraveler,
+        }))
+
+        return newTraveler
+      },
+
+      leaveTrip: (tripId, travelerId) => {
+        set((state) => ({
+          trips: state.trips.map((trip) =>
+            trip.id === tripId
+              ? { 
+                  ...trip, 
+                  travelers: trip.travelers.filter(t => t.id !== travelerId),
+                  activities: trip.activities.map(activity => ({
+                    ...activity,
+                    participants: activity.participants.filter(p => p !== travelerId)
+                  }))
+                }
+              : trip
+          ),
+          currentTrip: state.currentTrip?.id === tripId
+            ? { 
+                ...state.currentTrip, 
+                travelers: state.currentTrip.travelers.filter(t => t.id !== travelerId),
+                activities: state.currentTrip.activities.map(activity => ({
+                  ...activity,
+                  participants: activity.participants.filter(p => p !== travelerId)
+                }))
+              }
+            : state.currentTrip,
+          currentTraveler: state.currentTraveler?.id === travelerId ? null : state.currentTraveler,
+        }))
+      },
+
+      joinActivity: (tripId, activityId, travelerId) => {
+        set((state) => ({
+          trips: state.trips.map((trip) =>
+            trip.id === tripId
+              ? {
+                  ...trip,
+                  activities: trip.activities.map((activity) =>
+                    activity.id === activityId && !activity.participants.includes(travelerId)
+                      ? { ...activity, participants: [...activity.participants, travelerId] }
+                      : activity
+                  ),
+                }
+              : trip
+          ),
+          currentTrip: state.currentTrip?.id === tripId
+            ? {
+                ...state.currentTrip,
+                activities: state.currentTrip.activities.map((activity) =>
+                  activity.id === activityId && !activity.participants.includes(travelerId)
+                    ? { ...activity, participants: [...activity.participants, travelerId] }
+                    : activity
+                ),
+              }
+            : state.currentTrip,
+        }))
+      },
+
+      leaveActivity: (tripId, activityId, travelerId) => {
+        set((state) => ({
+          trips: state.trips.map((trip) =>
+            trip.id === tripId
+              ? {
+                  ...trip,
+                  activities: trip.activities.map((activity) =>
+                    activity.id === activityId
+                      ? { ...activity, participants: activity.participants.filter(p => p !== travelerId) }
+                      : activity
+                  ),
+                }
+              : trip
+          ),
+          currentTrip: state.currentTrip?.id === tripId
+            ? {
+                ...state.currentTrip,
+                activities: state.currentTrip.activities.map((activity) =>
+                  activity.id === activityId
+                    ? { ...activity, participants: activity.participants.filter(p => p !== travelerId) }
+                    : activity
+                ),
+              }
+            : state.currentTrip,
+        }))
+      },
+
+      getTravelerCosts: (tripId, travelerId) => {
+        const trip = get().getTrip(tripId)
+        if (!trip) return 0
+
+        return trip.activities
+          .filter(activity => activity.participants.includes(travelerId) && activity.cost)
+          .reduce((total, activity) => total + (activity.cost || 0), 0)
+      },
+
+      getTripTotalCost: (tripId) => {
+        const trip = get().getTrip(tripId)
+        if (!trip) return 0
+
+        // Calculate total of all activities with costs
+        return trip.activities
+          .filter(activity => activity.cost)
+          .reduce((total, activity) => total + (activity.cost || 0), 0)
+      },
+
+      setCurrentTraveler: (traveler) => {
+        set({ currentTraveler: traveler })
+      },
+
+      getCurrentTravelerForTrip: (tripId) => {
+        const state = get()
+        const trip = state.getTrip(tripId)
+        if (!trip || !state.currentTraveler) return null
+        
+        // Check if current traveler is part of this trip
+        const travelerInTrip = trip.travelers.find(t => t.id === state.currentTraveler?.id)
+        return travelerInTrip || null
+      },
+
       generateTripId: () => {
         return `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
       },
@@ -161,10 +344,17 @@ export const useTripStore = create<TripStore>()(
       generateActivityId: () => {
         return `activity_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
       },
+
+      generateTravelerId: () => {
+        return `traveler_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      },
     }),
     {
       name: 'ai-itinerary-trips',
-      partialize: (state) => ({ trips: state.trips }),
+      partialize: (state) => ({ 
+        trips: state.trips,
+        currentTraveler: state.currentTraveler 
+      }),
     }
   )
 )
