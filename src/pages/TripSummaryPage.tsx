@@ -12,16 +12,42 @@ export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip } = useTripStore()
+  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip, loadSharedTrip } = useTripStore()
   
   const [showInviteModal, setShowInviteModal] = useState(false)
   const [showJoinModal, setShowJoinModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const isInviteLink = searchParams.get('invite') === 'true'
 
   useEffect(() => {
-    if (tripId) {
-      const trip = getTrip(tripId)
+    const loadTrip = async () => {
+      if (!tripId) {
+        navigate('/')
+        return
+      }
+
+      setIsLoading(true)
+
+      // First try to get trip from store
+      let trip = getTrip(tripId)
+      
+      // If not found and this is an invite link, try to load from shared storage
+      if (!trip && isInviteLink) {
+        try {
+          const sharedKey = `shared_trip_${tripId}`
+          const sharedTripData = localStorage.getItem(sharedKey)
+          
+          if (sharedTripData) {
+            const parsedTrip = JSON.parse(sharedTripData)
+            loadSharedTrip(tripId, parsedTrip)
+            trip = parsedTrip
+          }
+        } catch (error) {
+          console.error('Error loading shared trip:', error)
+        }
+      }
+
       if (trip) {
         setCurrentTrip(trip)
         
@@ -31,17 +57,48 @@ export default function TripSummaryPage() {
           setShowJoinModal(true)
         }
       } else {
-        navigate('/')
+        // Trip not found
+        navigate('/', { 
+          state: { 
+            error: 'Trip not found. The link may be invalid or the trip may have been deleted.' 
+          } 
+        })
       }
-    }
-  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink])
 
-  if (!currentTrip) {
+      setIsLoading(false)
+    }
+
+    loadTrip()
+  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink, loadSharedTrip])
+
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-adventure-200 border-t-adventure-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your adventure...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!currentTrip) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-4">
+            <MapPin className="w-8 h-8 text-red-500" />
+          </div>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">Trip Not Found</h3>
+          <p className="text-gray-600 mb-6">
+            The trip you're looking for doesn't exist or may have been deleted.
+          </p>
+          <button
+            onClick={() => navigate('/')}
+            className="btn-primary"
+          >
+            Go Home
+          </button>
         </div>
       </div>
     )

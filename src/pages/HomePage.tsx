@@ -1,14 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Plus, MapPin, Users, Calendar, Sparkles } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
+import { Plus, MapPin, Users, Calendar, Sparkles, AlertCircle } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format } from 'date-fns'
 
 export default function HomePage() {
   const trips = useTripStore((state) => state.trips)
+  const location = useLocation()
+  const error = location.state?.error
 
   return (
     <div className="animate-fade-in">
+      {/* Error Message */}
+      {error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center space-x-3">
+          <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+          <p className="text-red-700 text-sm">{error}</p>
+        </div>
+      )}
+
       {/* Hero Section */}
       <div className="text-center mb-12">
         <div className="mb-6">
@@ -62,7 +72,7 @@ export default function HomePage() {
                     <div className="flex items-center space-x-2">
                       <Users className="w-4 h-4 text-wanderlust-500" />
                       <span className="text-sm">
-                        {trip.participantCount} {trip.participantCount === 1 ? 'traveler' : 'travelers'}
+                        {trip.travelers?.length || trip.participantCount} {(trip.travelers?.length || trip.participantCount) === 1 ? 'traveler' : 'travelers'}
                       </span>
                     </div>
                   </div>
