@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { X, Mail, Copy, Check, Share2, Users } from 'lucide-react'
+import { X, Mail, Copy, Check, Share2, Users, Bug } from 'lucide-react'
 
 interface InviteModalProps {
   isOpen: boolean
@@ -36,6 +36,11 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
       
       console.log('📋 Copied invite link (fallback):', inviteLink)
     }
+  }
+
+  const handleTestInvite = () => {
+    // Test the invite flow by navigating to the invite link
+    window.location.href = inviteLink
   }
 
   if (!isOpen) return null
@@ -99,6 +104,25 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
                     </>
                   )}
                 </button>
+              </div>
+            </div>
+
+            {/* Test Invite Button */}
+            <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
+              <div className="flex items-start space-x-3">
+                <Bug className="w-5 h-5 text-yellow-600 mt-0.5" />
+                <div className="flex-1">
+                  <h4 className="font-medium text-yellow-800 mb-2">Test Invite Flow</h4>
+                  <p className="text-sm text-yellow-700 mb-3">
+                    Since we're in a development environment, test the invite flow by clicking below:
+                  </p>
+                  <button
+                    onClick={handleTestInvite}
+                    className="btn-secondary text-sm bg-yellow-100 border-yellow-300 text-yellow-800 hover:bg-yellow-200"
+                  >
+                    Test Invite Link
+                  </button>
+                </div>
               </div>
             </div>
 
