@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Users, Crown, Calendar, MoreVertical, UserMinus } from 'lucide-react'
+import { Users, Crown, Calendar, MoreVertical, UserMinus, Activity } from 'lucide-react'
 import { useTripStore, Traveler } from '../../stores/tripStore'
 import { format } from 'date-fns'
 
@@ -10,8 +10,10 @@ interface TravelersListProps {
 }
 
 export default function TravelersList({ tripId, travelers, currentTraveler }: TravelersListProps) {
-  const { leaveTrip, getTravelerCosts } = useTripStore()
+  const { leaveTrip, getTravelerCosts, getTrip } = useTripStore()
   const [showActions, setShowActions] = useState<string | null>(null)
+
+  const trip = getTrip(tripId)
 
   const handleLeaveTrip = (travelerId: string) => {
     if (window.confirm('Are you sure you want to leave this trip?')) {
@@ -43,6 +45,11 @@ export default function TravelersList({ tripId, travelers, currentTraveler }: Tr
     return colors[index % colors.length]
   }
 
+  const getTravelerActivityCount = (travelerId: string) => {
+    if (!trip) return 0
+    return trip.activities.filter(activity => activity.participants.includes(travelerId)).length
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -55,6 +62,7 @@ export default function TravelersList({ tripId, travelers, currentTraveler }: Tr
       <div className="space-y-3">
         {travelers.map((traveler, index) => {
           const travelerCost = getTravelerCosts(tripId, traveler.id)
+          const activityCount = getTravelerActivityCount(traveler.id)
           const isCurrentTraveler = currentTraveler?.id === traveler.id
           
           return (
@@ -85,6 +93,12 @@ export default function TravelersList({ tripId, travelers, currentTraveler }: Tr
                       <Calendar className="w-3 h-3" />
                       <span>Joined {format(new Date(traveler.joinedAt), 'MMM d')}</span>
                     </div>
+                    {activityCount > 0 && (
+                      <div className="flex items-center space-x-1 text-adventure-600">
+                        <Activity className="w-3 h-3" />
+                        <span>{activityCount} activities</span>
+                      </div>
+                    )}
                     {travelerCost > 0 && (
                       <div className="text-forest-600 font-medium">
                         ${travelerCost.toFixed(2)}

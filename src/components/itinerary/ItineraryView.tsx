@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { format, addDays, differenceInDays } from 'date-fns'
-import { ChevronDown, ChevronRight, Plus, Calendar, MapPin, DollarSign, Clock, Edit, Trash2 } from 'lucide-react'
+import { ChevronDown, ChevronRight, Plus, Calendar, Clock } from 'lucide-react'
 import { useTripStore, Activity } from '../../stores/tripStore'
 import ActivityModal from './ActivityModal'
+import ActivityCard from './ActivityCard'
 
 interface ItineraryViewProps {
   trip: {
@@ -11,6 +12,7 @@ interface ItineraryViewProps {
     startDate: string
     endDate: string
     activities: Activity[]
+    travelers: any[]
   }
 }
 
@@ -22,11 +24,13 @@ interface DayData {
 }
 
 export default function ItineraryView({ trip }: ItineraryViewProps) {
-  const { getActivitiesForDay, deleteActivity } = useTripStore()
+  const { getActivitiesForDay, deleteActivity, getCurrentTravelerForTrip } = useTripStore()
   const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([0])) // First day expanded by default
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedDayIndex, setSelectedDayIndex] = useState(0)
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null)
+
+  const currentTraveler = getCurrentTravelerForTrip(trip.id)
 
   // Generate all days for the trip
   const generateDays = (): DayData[] => {
@@ -63,6 +67,13 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
     return trip.activities?.length || 0
   }
 
+  const getTotalParticipations = () => {
+    if (!currentTraveler) return 0
+    return trip.activities?.filter(activity => 
+      activity.participants.includes(currentTraveler.id)
+    ).length || 0
+  }
+
   const handleAddActivity = (dayIndex?: number) => {
     setSelectedDayIndex(dayIndex ?? 0)
     setEditingActivity(null)
@@ -97,6 +108,11 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
           </h2>
           <p className="text-gray-600 mt-1">
             {days.length} {days.length === 1 ? 'day' : 'days'} • {getTotalActivities()} {getTotalActivities() === 1 ? 'activity' : 'activities'}
+            {currentTraveler && getTotalParticipations() > 0 && (
+              <span className="text-adventure-600 font-medium ml-2">
+                • You're joining {getTotalParticipations()}
+              </span>
+            )}
           </p>
         </div>
         
@@ -153,6 +169,11 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
                       {day.activities.filter(a => a.cost).reduce((sum, a) => sum + (a.cost || 0), 0) > 0 && 
                         `$${day.activities.filter(a => a.cost).reduce((sum, a) => sum + (a.cost || 0), 0)} total`
                       }
+                      {currentTraveler && (
+                        <span className="ml-2 text-adventure-600">
+                          • {day.activities.filter(a => a.participants.includes(currentTraveler.id)).length} joined
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
@@ -167,7 +188,10 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
                     {day.activities.map((activity) => (
                       <ActivityCard 
                         key={activity.id} 
-                        activity={activity} 
+                        activity={activity}
+                        tripId={trip.id}
+                        currentTraveler={currentTraveler}
+                        allTravelers={trip.travelers}
                         onEdit={() => handleEditActivity(activity)}
                         onDelete={() => handleDeleteActivity(activity.id)}
                       />
@@ -218,81 +242,6 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
         selectedDayIndex={selectedDayIndex}
         editActivity={editingActivity}
       />
-    </div>
-  )
-}
-
-// Activity Card Component
-interface ActivityCardProps {
-  activity: Activity
-  onEdit: () => void
-  onDelete: () => void
-}
-
-function ActivityCard({ activity, onEdit, onDelete }: ActivityCardProps) {
-  const [showActions, setShowActions] = useState(false)
-
-  return (
-    <div 
-      className="bg-white/60 rounded-lg p-4 border border-gray-100 hover:shadow-md transition-shadow relative"
-      onMouseEnter={() => setShowActions(true)}
-      onMouseLeave={() => setShowActions(false)}
-    >
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
-          <h4 className="font-semibold text-gray-800 mb-1">{activity.title}</h4>
-          {activity.description && (
-            <p className="text-sm text-gray-600 mb-2">{activity.description}</p>
-          )}
-        </div>
-        
-        {/* Action Buttons */}
-        <div className={`flex items-center space-x-2 ml-4 transition-opacity ${showActions ? 'opacity-100' : 'opacity-0'}`}>
-          <button
-            onClick={onEdit}
-            className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-adventure-600 transition-colors"
-            title="Edit activity"
-          >
-            <Edit className="w-4 h-4" />
-          </button>
-          <button
-            onClick={onDelete}
-            className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-red-600 transition-colors"
-            title="Delete activity"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-
-      <div className="flex items-center space-x-4 text-xs text-gray-500">
-        {activity.time && (
-          <div className="flex items-center space-x-1">
-            <Clock className="w-3 h-3" />
-            <span>{activity.time}</span>
-          </div>
-        )}
-        
-        {activity.location && (
-          <div className="flex items-center space-x-1">
-            <MapPin className="w-3 h-3" />
-            <span>{activity.location}</span>
-          </div>
-        )}
-        
-        {activity.cost && (
-          <div className="flex items-center space-x-1">
-            <DollarSign className="w-3 h-3" />
-            <span>${activity.cost}</span>
-          </div>
-        )}
-      </div>
-
-      {activity.notes && (
-        <div className="mt-3 pt-3 border-t border-gray-100">
-          <p className="text-xs text-gray-600">{activity.notes}</p>
-        </div>
-      )}
     </div>
   )
 }
