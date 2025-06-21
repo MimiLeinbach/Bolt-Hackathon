@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { X, Mail, Copy, Check, Share2, Users, Bug } from 'lucide-react'
 
 interface InviteModalProps {
@@ -9,6 +10,7 @@ interface InviteModalProps {
 }
 
 export default function InviteModal({ isOpen, onClose, tripId, tripName }: InviteModalProps) {
+  const navigate = useNavigate()
   const [copied, setCopied] = useState(false)
   const [showEmailPreview, setShowEmailPreview] = useState(false)
 
@@ -39,8 +41,13 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
   }
 
   const handleTestInvite = () => {
-    // Test the invite flow by navigating to the invite link
-    window.location.href = inviteLink
+    console.log('🧪 Testing invite flow for trip:', tripId)
+    
+    // Close the modal first
+    onClose()
+    
+    // Navigate to the invite link using React Router
+    navigate(`/trip/${tripId}?invite=true`)
   }
 
   if (!isOpen) return null
@@ -114,13 +121,13 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
                 <div className="flex-1">
                   <h4 className="font-medium text-yellow-800 mb-2">Test Invite Flow</h4>
                   <p className="text-sm text-yellow-700 mb-3">
-                    Since we're in a development environment, test the invite flow by clicking below:
+                    Test the invite experience by simulating someone clicking your invite link:
                   </p>
                   <button
                     onClick={handleTestInvite}
                     className="btn-secondary text-sm bg-yellow-100 border-yellow-300 text-yellow-800 hover:bg-yellow-200"
                   >
-                    Test Invite Link
+                    🧪 Test Invite Link
                   </button>
                 </div>
               </div>
