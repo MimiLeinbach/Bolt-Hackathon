@@ -39,6 +39,7 @@ interface TripStore {
   currentTrip: Trip | null
   currentTraveler: Traveler | null
   sharedTrips: Record<string, Trip> // Store shared trips in memory
+  isHydrated: boolean // Track if store has been hydrated from localStorage
   
   // Actions for Mimi (Trip Creation)
   createTrip: (tripData: Omit<Trip, 'id' | 'createdAt' | 'activities' | 'travelers' | 'ownerId'>) => Trip
@@ -71,6 +72,7 @@ interface TripStore {
   generateActivityId: () => string
   generateTravelerId: () => string
   migrateTrip: (trip: any) => Trip
+  setHydrated: (hydrated: boolean) => void
 }
 
 export const useTripStore = create<TripStore>()(
@@ -80,6 +82,11 @@ export const useTripStore = create<TripStore>()(
       currentTrip: null,
       currentTraveler: null,
       sharedTrips: {},
+      isHydrated: false,
+
+      setHydrated: (hydrated: boolean) => {
+        set({ isHydrated: hydrated })
+      },
 
       // Migration function to handle old trip format
       migrateTrip: (trip: any): Trip => {
@@ -176,6 +183,7 @@ export const useTripStore = create<TripStore>()(
         const state = get()
         
         console.log(`🔍 Looking for trip ${id}`)
+        console.log(`📊 Store hydrated: ${state.isHydrated}`)
         
         // First check local trips
         let trip = state.trips.find((trip) => trip.id === id)
@@ -187,28 +195,37 @@ export const useTripStore = create<TripStore>()(
           console.log(`Checking shared trips in memory for ${id}:`, trip ? 'FOUND' : 'NOT FOUND')
         }
         
-        // If still not found, try localStorage as fallback
+        // If still not found, try localStorage with multiple key formats
         if (!trip) {
-          try {
-            const sharedKey = `ai_itinerary_shared_${id}`
-            const sharedTripData = localStorage.getItem(sharedKey)
-            console.log(`Checking localStorage for ${sharedKey}:`, sharedTripData ? 'FOUND' : 'NOT FOUND')
-            
-            if (sharedTripData) {
-              const parsedTrip = JSON.parse(sharedTripData)
-              trip = parsedTrip
+          const possibleKeys = [
+            `ai_itinerary_shared_${id}`,
+            `shared_trip_${id}`,
+            `trip_${id}`,
+            id
+          ]
+          
+          for (const key of possibleKeys) {
+            try {
+              const sharedTripData = localStorage.getItem(key)
+              console.log(`Checking localStorage for ${key}:`, sharedTripData ? 'FOUND' : 'NOT FOUND')
               
-              // Add to shared trips cache for future access
-              set((state) => ({
-                sharedTrips: {
-                  ...state.sharedTrips,
-                  [id]: parsedTrip
-                }
-              }))
-              console.log(`✅ Loaded trip ${id} from localStorage and cached in memory`)
+              if (sharedTripData) {
+                const parsedTrip = JSON.parse(sharedTripData)
+                trip = parsedTrip
+                
+                // Add to shared trips cache for future access
+                set((state) => ({
+                  sharedTrips: {
+                    ...state.sharedTrips,
+                    [id]: parsedTrip
+                  }
+                }))
+                console.log(`✅ Loaded trip ${id} from localStorage key ${key} and cached in memory`)
+                break
+              }
+            } catch (error) {
+              console.error(`❌ Error loading from localStorage key ${key}:`, error)
             }
-          } catch (error) {
-            console.error('❌ Error loading from localStorage:', error)
           }
         }
         
@@ -227,6 +244,7 @@ export const useTripStore = create<TripStore>()(
         }
         
         console.log(`❌ Trip ${id} not found anywhere`)
+        console.log('🔍 Available localStorage keys:', Object.keys(localStorage).filter(k => k.includes('trip') || k.includes('itinerary')))
         return undefined
       },
 
@@ -274,7 +292,7 @@ export const useTripStore = create<TripStore>()(
             ? { ...state.currentTrip, activities: [...state.currentTrip.activities, newActivity] }
             : state.currentTrip
 
-          // Also update in shared trips
+          // Also update shared trips
           const updatedSharedTrips = { ...state.sharedTrips }
           if (updatedSharedTrips[tripId]) {
             updatedSharedTrips[tripId] = {
@@ -626,10 +644,17 @@ export const useTripStore = create<TripStore>()(
         const trip = state.getTrip(tripId)
         if (trip) {
           try {
-            // Store in localStorage with a consistent key format
-            const sharedKey = `ai_itinerary_shared_${tripId}`
+            // Store in localStorage with multiple key formats for compatibility
+            const keys = [
+              `ai_itinerary_shared_${tripId}`,
+              `shared_trip_${tripId}` // Legacy format
+            ]
+            
             const tripData = JSON.stringify(trip)
-            localStorage.setItem(sharedKey, tripData)
+            
+            keys.forEach(key => {
+              localStorage.setItem(key, tripData)
+            })
             
             // Also store in memory for immediate access
             set((state) => ({
@@ -640,7 +665,7 @@ export const useTripStore = create<TripStore>()(
             }))
             
             console.log(`✅ Trip ${tripId} (${trip.name}) shared successfully`)
-            console.log(`📦 Stored in localStorage as: ${sharedKey}`)
+            console.log(`📦 Stored in localStorage with keys:`, keys)
           } catch (error) {
             console.error('❌ Error sharing trip:', error)
           }
@@ -678,6 +703,13 @@ export const useTripStore = create<TripStore>()(
         currentTraveler: state.currentTraveler,
         sharedTrips: state.sharedTrips, // Also persist shared trips
       }),
+      onRehydrateStorage: () => (state) => {
+        // Mark store as hydrated when rehydration is complete
+        if (state) {
+          state.setHydrated(true)
+          console.log('🔄 Store hydrated successfully')
+        }
+      },
     }
   )
 )

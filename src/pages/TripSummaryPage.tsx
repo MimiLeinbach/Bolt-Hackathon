@@ -12,7 +12,7 @@ export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip, shareTrip } = useTripStore()
+  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip, shareTrip, isHydrated } = useTripStore()
   
   const [showInviteModal, setShowInviteModal] = useState(false)
   const [showJoinModal, setShowJoinModal] = useState(false)
@@ -31,11 +31,21 @@ export default function TripSummaryPage() {
       console.log(`🔍 Loading trip ${tripId}, isInviteLink: ${isInviteLink}`)
       console.log('🌐 Current URL:', window.location.href)
       console.log('📍 Search params:', Object.fromEntries(searchParams.entries()))
+      console.log('🏪 Store hydrated:', isHydrated)
       
       setIsLoading(true)
 
-      // Small delay to ensure store is fully hydrated
-      await new Promise(resolve => setTimeout(resolve, 100))
+      // Wait for store to be hydrated if it isn't already
+      if (!isHydrated) {
+        console.log('⏳ Waiting for store to hydrate...')
+        // Wait up to 2 seconds for hydration
+        let attempts = 0
+        while (!useTripStore.getState().isHydrated && attempts < 20) {
+          await new Promise(resolve => setTimeout(resolve, 100))
+          attempts++
+        }
+        console.log(`✅ Store hydration complete after ${attempts * 100}ms`)
+      }
 
       // Try to get trip (this will check local, shared memory, and localStorage)
       const trip = getTrip(tripId)
@@ -75,7 +85,7 @@ export default function TripSummaryPage() {
     }
 
     loadTrip()
-  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink, shareTrip, searchParams])
+  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink, shareTrip, searchParams, isHydrated])
 
   if (isLoading) {
     return (
@@ -84,6 +94,7 @@ export default function TripSummaryPage() {
           <div className="w-16 h-16 border-4 border-adventure-200 border-t-adventure-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your adventure...</p>
           <p className="text-xs text-gray-400 mt-2">Trip ID: {tripId}</p>
+          <p className="text-xs text-gray-400">Store hydrated: {isHydrated ? 'Yes' : 'No'}</p>
         </div>
       </div>
     )
