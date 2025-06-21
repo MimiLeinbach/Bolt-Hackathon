@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, Calendar, Users, MapPin, Edit3, Share2, Sparkles, UserPlus } from 'lucide-react'
+import { ArrowLeft, Calendar, Users, MapPin, Edit3, Share2, Sparkles, UserPlus, Bug } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format, differenceInDays } from 'date-fns'
 import ItineraryView from '../components/itinerary/ItineraryView'
@@ -12,13 +12,15 @@ export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip, shareTrip, isHydrated } = useTripStore()
+  const { getTrip, setCurrentTrip, currentTrip, getCurrentTravelerForTrip, shareTrip, isHydrated, setCurrentTraveler } = useTripStore()
   
   const [showInviteModal, setShowInviteModal] = useState(false)
   const [showJoinModal, setShowJoinModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [testMode, setTestMode] = useState(false)
 
   const isInviteLink = searchParams.get('invite') === 'true'
+  const forceJoin = searchParams.get('test') === 'true'
 
   useEffect(() => {
     const loadTrip = async () => {
@@ -28,7 +30,7 @@ export default function TripSummaryPage() {
         return
       }
 
-      console.log(`🔍 Loading trip ${tripId}, isInviteLink: ${isInviteLink}`)
+      console.log(`🔍 Loading trip ${tripId}, isInviteLink: ${isInviteLink}, forceJoin: ${forceJoin}`)
       console.log('🌐 Current URL:', window.location.href)
       console.log('📍 Search params:', Object.fromEntries(searchParams.entries()))
       console.log('🏪 Store hydrated:', isHydrated)
@@ -59,10 +61,19 @@ export default function TripSummaryPage() {
         shareTrip(tripId)
         
         // Check if this is an invite link and user isn't already part of the trip
-        const currentTraveler = getCurrentTravelerForTrip(tripId)
+        let currentTraveler = getCurrentTravelerForTrip(tripId)
+        
+        // Test mode: temporarily clear current traveler to simulate new user
+        if (forceJoin) {
+          console.log('🧪 TEST MODE: Clearing current traveler to simulate new user')
+          setCurrentTraveler(null)
+          currentTraveler = null
+          setTestMode(true)
+        }
+        
         console.log('👤 Current traveler for trip:', currentTraveler ? currentTraveler.name : 'NONE')
         
-        if (isInviteLink && !currentTraveler) {
+        if ((isInviteLink || forceJoin) && !currentTraveler) {
           console.log('🚪 Showing join modal for invite link')
           // Add a small delay to ensure the page has fully loaded
           setTimeout(() => {
@@ -89,12 +100,21 @@ export default function TripSummaryPage() {
     }
 
     loadTrip()
-  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink, shareTrip, searchParams, isHydrated])
+  }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink, shareTrip, searchParams, isHydrated, forceJoin, setCurrentTraveler])
 
   // Debug effect to track modal state changes
   useEffect(() => {
     console.log('🔄 Modal states changed:', { showJoinModal, showInviteModal })
   }, [showJoinModal, showInviteModal])
+
+  const handleExitTestMode = () => {
+    console.log('🧪 Exiting test mode')
+    setTestMode(false)
+    // Navigate back without test parameter
+    navigate(`/trip/${tripId}`)
+    // Reload the page to restore normal state
+    window.location.reload()
+  }
 
   if (isLoading) {
     return (
@@ -105,6 +125,7 @@ export default function TripSummaryPage() {
           <p className="text-xs text-gray-400 mt-2">Trip ID: {tripId}</p>
           <p className="text-xs text-gray-400">Store hydrated: {isHydrated ? 'Yes' : 'No'}</p>
           <p className="text-xs text-gray-400">Is invite link: {isInviteLink ? 'Yes' : 'No'}</p>
+          {forceJoin && <p className="text-xs text-yellow-600">🧪 TEST MODE ACTIVE</p>}
         </div>
       </div>
     )
@@ -134,7 +155,7 @@ export default function TripSummaryPage() {
   }
 
   const dayCount = differenceInDays(new Date(currentTrip.endDate), new Date(currentTrip.startDate)) + 1
-  const currentTraveler = getCurrentTravelerForTrip(currentTrip.id)
+  const currentTraveler = testMode ? null : getCurrentTravelerForTrip(currentTrip.id)
 
   // Format dates to show month name and day
   const formatTripDates = () => {
@@ -156,13 +177,36 @@ export default function TripSummaryPage() {
 
   return (
     <div className="animate-fade-in">
+      {/* Test Mode Banner */}
+      {testMode && (
+        <div className="mb-4 p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Bug className="w-5 h-5 text-yellow-600" />
+              <div>
+                <h4 className="font-medium text-yellow-800">🧪 Test Mode Active</h4>
+                <p className="text-sm text-yellow-700">You're viewing this as a new user who hasn't joined the trip yet.</p>
+              </div>
+            </div>
+            <button
+              onClick={handleExitTestMode}
+              className="btn-secondary text-sm bg-yellow-100 border-yellow-300 text-yellow-800 hover:bg-yellow-200"
+            >
+              Exit Test Mode
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Debug Info */}
-      {isInviteLink && (
+      {(isInviteLink || testMode) && (
         <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
           <h4 className="font-medium text-blue-800 mb-1">🔧 Debug Info</h4>
           <div className="text-xs text-blue-700 space-y-1">
             <div>Trip ID: <code>{tripId}</code></div>
             <div>Is invite link: <code>{isInviteLink ? 'Yes' : 'No'}</code></div>
+            <div>Force join (test): <code>{forceJoin ? 'Yes' : 'No'}</code></div>
+            <div>Test mode: <code>{testMode ? 'Yes' : 'No'}</code></div>
             <div>Current traveler: <code>{currentTraveler ? currentTraveler.name : 'None'}</code></div>
             <div>Show join modal: <code>{showJoinModal ? 'Yes' : 'No'}</code></div>
             <div>URL: <code className="break-all">{window.location.href}</code></div>
@@ -186,6 +230,11 @@ export default function TripSummaryPage() {
               {currentTraveler && (
                 <span className="ml-2 text-sm">
                   • You're {currentTraveler.name}
+                </span>
+              )}
+              {testMode && (
+                <span className="ml-2 text-sm text-yellow-600">
+                  • 🧪 Test Mode
                 </span>
               )}
             </p>
