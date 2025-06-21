@@ -42,12 +42,17 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
 
   const handleTestInvite = () => {
     console.log('🧪 Testing invite flow for trip:', tripId)
+    console.log('🧪 Current location before navigation:', window.location.href)
+    console.log('🧪 Will navigate to:', `/trip/${tripId}?invite=true`)
     
     // Close the modal first
     onClose()
     
-    // Navigate to the invite link using React Router
-    navigate(`/trip/${tripId}?invite=true`)
+    // Small delay to ensure modal closes before navigation
+    setTimeout(() => {
+      console.log('🧪 Navigating now...')
+      navigate(`/trip/${tripId}?invite=true`)
+    }, 100)
   }
 
   if (!isOpen) return null

@@ -64,7 +64,11 @@ export default function TripSummaryPage() {
         
         if (isInviteLink && !currentTraveler) {
           console.log('🚪 Showing join modal for invite link')
-          setShowJoinModal(true)
+          // Add a small delay to ensure the page has fully loaded
+          setTimeout(() => {
+            console.log('🚪 Actually showing join modal now')
+            setShowJoinModal(true)
+          }, 500)
         }
       } else {
         // Trip not found - provide detailed error
@@ -87,6 +91,11 @@ export default function TripSummaryPage() {
     loadTrip()
   }, [tripId, getTrip, setCurrentTrip, navigate, getCurrentTravelerForTrip, isInviteLink, shareTrip, searchParams, isHydrated])
 
+  // Debug effect to track modal state changes
+  useEffect(() => {
+    console.log('🔄 Modal states changed:', { showJoinModal, showInviteModal })
+  }, [showJoinModal, showInviteModal])
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -95,6 +104,7 @@ export default function TripSummaryPage() {
           <p className="text-gray-600">Loading your adventure...</p>
           <p className="text-xs text-gray-400 mt-2">Trip ID: {tripId}</p>
           <p className="text-xs text-gray-400">Store hydrated: {isHydrated ? 'Yes' : 'No'}</p>
+          <p className="text-xs text-gray-400">Is invite link: {isInviteLink ? 'Yes' : 'No'}</p>
         </div>
       </div>
     )
@@ -146,6 +156,20 @@ export default function TripSummaryPage() {
 
   return (
     <div className="animate-fade-in">
+      {/* Debug Info */}
+      {isInviteLink && (
+        <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <h4 className="font-medium text-blue-800 mb-1">🔧 Debug Info</h4>
+          <div className="text-xs text-blue-700 space-y-1">
+            <div>Trip ID: <code>{tripId}</code></div>
+            <div>Is invite link: <code>{isInviteLink ? 'Yes' : 'No'}</code></div>
+            <div>Current traveler: <code>{currentTraveler ? currentTraveler.name : 'None'}</code></div>
+            <div>Show join modal: <code>{showJoinModal ? 'Yes' : 'No'}</code></div>
+            <div>URL: <code className="break-all">{window.location.href}</code></div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center">
@@ -171,7 +195,10 @@ export default function TripSummaryPage() {
         <div className="flex items-center space-x-3">
           {!currentTraveler ? (
             <button 
-              onClick={() => setShowJoinModal(true)}
+              onClick={() => {
+                console.log('🚪 Manual join button clicked')
+                setShowJoinModal(true)
+              }}
               className="btn-primary flex items-center space-x-2"
             >
               <UserPlus className="w-4 h-4" />
@@ -246,7 +273,10 @@ export default function TripSummaryPage() {
                 Enter your name to join this trip and start collaborating on the itinerary.
               </p>
               <button 
-                onClick={() => setShowJoinModal(true)}
+                onClick={() => {
+                  console.log('🚪 Join prompt button clicked')
+                  setShowJoinModal(true)
+                }}
                 className="btn-primary flex items-center space-x-2 mx-auto"
               >
                 <UserPlus className="w-4 h-4" />
@@ -298,7 +328,10 @@ export default function TripSummaryPage() {
 
       <JoinTripModal
         isOpen={showJoinModal}
-        onClose={() => setShowJoinModal(false)}
+        onClose={() => {
+          console.log('🚪 Join modal closed')
+          setShowJoinModal(false)
+        }}
         tripId={currentTrip.id}
         tripName={currentTrip.name}
       />
