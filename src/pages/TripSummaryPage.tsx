@@ -7,6 +7,7 @@ import ItineraryView from '../components/itinerary/ItineraryView'
 import TravelersList from '../components/collaboration/TravelersList'
 import InviteModal from '../components/collaboration/InviteModal'
 import JoinTripModal from '../components/collaboration/JoinTripModal'
+import ResetUserButton from '../components/collaboration/ResetUserButton'
 
 export default function TripSummaryPage() {
   const { tripId } = useParams<{ tripId: string }>()
@@ -242,6 +243,9 @@ export default function TripSummaryPage() {
         </div>
         
         <div className="flex items-center space-x-3">
+          {/* Reset User Button for Testing */}
+          <ResetUserButton />
+          
           {!currentTraveler ? (
             <button 
               onClick={() => {

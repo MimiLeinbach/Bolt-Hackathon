@@ -67,6 +67,9 @@ interface TripStore {
   shareTrip: (tripId: string) => void
   loadSharedTrip: (tripId: string, tripData: Trip) => void
   
+  // Testing actions
+  resetUserForTesting: () => void
+  
   // Utility
   generateTripId: () => string
   generateActivityId: () => string
@@ -636,6 +639,13 @@ export const useTripStore = create<TripStore>()(
         // Check if current traveler is part of this trip
         const travelerInTrip = trip.travelers.find(t => t.id === state.currentTraveler?.id)
         return travelerInTrip || null
+      },
+
+      // Testing function to reset user state
+      resetUserForTesting: () => {
+        console.log('🧪 Resetting user for testing...')
+        set({ currentTraveler: null })
+        console.log('✅ User reset complete - you are now a "new user"')
       },
 
       // Sharing functions
