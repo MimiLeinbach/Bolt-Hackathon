@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { X, Mail, Copy, Check, Share2, Users, Bug } from 'lucide-react'
+import { X, Mail, Copy, Check, Share2, Users, Bug, ExternalLink } from 'lucide-react'
 
 interface InviteModalProps {
   isOpen: boolean
@@ -40,10 +40,18 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
     }
   }
 
-  const handleTestInvite = () => {
-    console.log('🧪 Testing invite flow for trip:', tripId)
+  const handleTestInviteNewTab = () => {
+    console.log('🧪 Opening invite link in new tab for testing')
+    console.log('🧪 Link:', inviteLink)
+    
+    // Open in new tab so user can test without losing current session
+    window.open(inviteLink, '_blank')
+  }
+
+  const handleTestInviteCurrentTab = () => {
+    console.log('🧪 Testing invite flow in current tab for trip:', tripId)
     console.log('🧪 Current location before navigation:', window.location.href)
-    console.log('🧪 Will navigate to:', `/trip/${tripId}?invite=true`)
+    console.log('🧪 Will navigate to:', `/trip/${tripId}?test=true`)
     
     // Close the modal first
     onClose()
@@ -51,7 +59,8 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
     // Small delay to ensure modal closes before navigation
     setTimeout(() => {
       console.log('🧪 Navigating now...')
-      navigate(`/trip/${tripId}?invite=true`)
+      // Use test=true parameter to force join modal even if user is logged in
+      navigate(`/trip/${tripId}?invite=true&test=true`)
     }, 100)
   }
 
@@ -119,21 +128,33 @@ export default function InviteModal({ isOpen, onClose, tripId, tripName }: Invit
               </div>
             </div>
 
-            {/* Test Invite Button */}
+            {/* Test Invite Section */}
             <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
               <div className="flex items-start space-x-3">
                 <Bug className="w-5 h-5 text-yellow-600 mt-0.5" />
                 <div className="flex-1">
                   <h4 className="font-medium text-yellow-800 mb-2">Test Invite Flow</h4>
                   <p className="text-sm text-yellow-700 mb-3">
-                    Test the invite experience by simulating someone clicking your invite link:
+                    Test how the invite experience works for new users:
                   </p>
-                  <button
-                    onClick={handleTestInvite}
-                    className="btn-secondary text-sm bg-yellow-100 border-yellow-300 text-yellow-800 hover:bg-yellow-200"
-                  >
-                    🧪 Test Invite Link
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <button
+                      onClick={handleTestInviteNewTab}
+                      className="btn-secondary text-sm bg-yellow-100 border-yellow-300 text-yellow-800 hover:bg-yellow-200 flex items-center space-x-2"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      <span>Open in New Tab</span>
+                    </button>
+                    <button
+                      onClick={handleTestInviteCurrentTab}
+                      className="btn-secondary text-sm bg-yellow-100 border-yellow-300 text-yellow-800 hover:bg-yellow-200"
+                    >
+                      🧪 Test Here
+                    </button>
+                  </div>
+                  <p className="text-xs text-yellow-600 mt-2">
+                    💡 "New Tab" preserves your current session, "Test Here" simulates a new user
+                  </p>
                 </div>
               </div>
             </div>
