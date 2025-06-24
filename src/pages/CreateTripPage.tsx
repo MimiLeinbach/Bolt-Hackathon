@@ -108,10 +108,10 @@ export default function CreateTripPage() {
           onClick={() => navigate('/')}
           className="mr-4 p-2 rounded-xl hover:bg-white/50 transition-colors"
         >
-          <ArrowLeft className="w-6 h-6 text-gray-600" />
+          <ArrowLeft className="w-6 h-6 text-charcoal" />
         </button>
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-adventure-600 to-wanderlust-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-forest-600 to-gold-500 bg-clip-text text-transparent">
             Plan Your Adventure
           </h1>
           <p className="text-gray-600 mt-1">Tell us about your upcoming trip</p>
@@ -124,8 +124,8 @@ export default function CreateTripPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Trip Name */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                <MapPin className="w-4 h-4 mr-2 text-adventure-500" />
+              <label className="block text-sm font-semibold text-charcoal mb-2 flex items-center">
+                <MapPin className="w-4 h-4 mr-2 text-forest-500" />
                 Where are you going?
               </label>
               <input
@@ -144,8 +144,8 @@ export default function CreateTripPage() {
             {/* Dates */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                  <Calendar className="w-4 h-4 mr-2 text-wanderlust-500" />
+                <label className="block text-sm font-semibold text-charcoal mb-2 flex items-center">
+                  <Calendar className="w-4 h-4 mr-2 text-gold-500" />
                   Start Date
                 </label>
                 <input
@@ -162,8 +162,8 @@ export default function CreateTripPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                  <Calendar className="w-4 h-4 mr-2 text-wanderlust-500" />
+                <label className="block text-sm font-semibold text-charcoal mb-2 flex items-center">
+                  <Calendar className="w-4 h-4 mr-2 text-gold-500" />
                   End Date
                 </label>
                 <input
@@ -182,7 +182,7 @@ export default function CreateTripPage() {
 
             {/* Participant Count */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+              <label className="block text-sm font-semibold text-charcoal mb-2 flex items-center">
                 <Users className="w-4 h-4 mr-2 text-forest-500" />
                 How many travelers?
               </label>
@@ -215,7 +215,7 @@ export default function CreateTripPage() {
                 <>
                   <Plane className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   <span>Create Trip</span>
-                  <Sparkles className="w-5 h-5 animate-pulse" />
+                  <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
                 </>
               )}
             </button>
@@ -225,33 +225,33 @@ export default function CreateTripPage() {
         {/* Preview */}
         <div className="space-y-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
           <div className="glass-card rounded-2xl p-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
-              <Sparkles className="w-5 h-5 mr-2 text-adventure-500" />
+            <h3 className="text-xl font-bold text-charcoal mb-6 flex items-center">
+              <Sparkles className="w-5 h-5 mr-2 text-gold-500" />
               Trip Preview
             </h3>
             
             <div className="space-y-4">
-              <div className="p-4 bg-gradient-to-r from-adventure-50 to-wanderlust-50 rounded-xl">
-                <h4 className="font-semibold text-gray-800">
+              <div className="p-4 bg-gradient-to-r from-forest-50 to-gold-50 rounded-xl border border-forest-200/50">
+                <h4 className="font-semibold text-charcoal">
                   {formData.name || 'Your Amazing Trip'}
                 </h4>
               </div>
               
               {formData.startDate && formData.endDate && (
-                <div className="p-4 bg-gradient-to-r from-wanderlust-50 to-forest-50 rounded-xl">
+                <div className="p-4 bg-gradient-to-r from-gold-50 to-forest-50 rounded-xl border border-gold-200/50">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-600">Duration</span>
-                    <span className="font-semibold text-gray-800">
+                    <span className="font-semibold text-charcoal">
                       {getDayCount()} {getDayCount() === 1 ? 'day' : 'days'}
                     </span>
                   </div>
                 </div>
               )}
               
-              <div className="p-4 bg-gradient-to-r from-forest-50 to-adventure-50 rounded-xl">
+              <div className="p-4 bg-gradient-to-r from-forest-50 to-gold-50 rounded-xl border border-forest-200/50">
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">Travelers</span>
-                  <span className="font-semibold text-gray-800">
+                  <span className="font-semibold text-charcoal">
                     {formData.participantCount} {formData.participantCount === 1 ? 'person' : 'people'}
                   </span>
                 </div>
@@ -261,7 +261,7 @@ export default function CreateTripPage() {
 
           {/* Quick Date Suggestions */}
           <div className="glass-card rounded-2xl p-6">
-            <h4 className="font-semibold text-gray-800 mb-4">Quick Suggestions</h4>
+            <h4 className="font-semibold text-charcoal mb-4">Quick Suggestions</h4>
             <div className="space-y-2">
               <button
                 type="button"
@@ -270,7 +270,7 @@ export default function CreateTripPage() {
                   startDate: getTomorrowDate(),
                   endDate: format(addDays(new Date(), 3), 'yyyy-MM-dd')
                 }))}
-                className="w-full text-left p-3 rounded-lg hover:bg-adventure-50 transition-colors text-sm"
+                className="w-full text-left p-3 rounded-lg hover:bg-forest-50 transition-colors text-sm border border-forest-200/50"
               >
                 Weekend Trip (3 days)
               </button>
@@ -281,7 +281,7 @@ export default function CreateTripPage() {
                   startDate: getNextWeekDate(),
                   endDate: format(addDays(new Date(), 14), 'yyyy-MM-dd')
                 }))}
-                className="w-full text-left p-3 rounded-lg hover:bg-wanderlust-50 transition-colors text-sm"
+                className="w-full text-left p-3 rounded-lg hover:bg-gold-50 transition-colors text-sm border border-gold-200/50"
               >
                 Week-long Adventure (7 days)
               </button>

@@ -121,12 +121,12 @@ export default function TripSummaryPage() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-adventure-200 border-t-adventure-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your adventure...</p>
-          <p className="text-xs text-gray-400 mt-2">Trip ID: {tripId}</p>
-          <p className="text-xs text-gray-400">Store hydrated: {isHydrated ? 'Yes' : 'No'}</p>
-          <p className="text-xs text-gray-400">Is invite link: {isInviteLink ? 'Yes' : 'No'}</p>
-          {forceJoin && <p className="text-xs text-yellow-600">🧪 TEST MODE ACTIVE</p>}
+          <div className="w-16 h-16 border-4 border-forest-200 border-t-forest-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-charcoal">Loading your adventure...</p>
+          <p className="text-xs text-gray-500 mt-2">Trip ID: {tripId}</p>
+          <p className="text-xs text-gray-500">Store hydrated: {isHydrated ? 'Yes' : 'No'}</p>
+          <p className="text-xs text-gray-500">Is invite link: {isInviteLink ? 'Yes' : 'No'}</p>
+          {forceJoin && <p className="text-xs text-gold-600">🧪 TEST MODE ACTIVE</p>}
         </div>
       </div>
     )
@@ -139,11 +139,11 @@ export default function TripSummaryPage() {
           <div className="w-16 h-16 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-4">
             <MapPin className="w-8 h-8 text-red-500" />
           </div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">Trip Not Found</h3>
+          <h3 className="text-xl font-bold text-charcoal mb-2">Trip Not Found</h3>
           <p className="text-gray-600 mb-2">
             The trip you're looking for doesn't exist or may have been deleted.
           </p>
-          <p className="text-xs text-gray-400 mb-6">Trip ID: {tripId}</p>
+          <p className="text-xs text-gray-500 mb-6">Trip ID: {tripId}</p>
           <button
             onClick={() => navigate('/')}
             className="btn-primary"
@@ -180,18 +180,18 @@ export default function TripSummaryPage() {
     <div className="animate-fade-in">
       {/* Test Mode Banner */}
       {testMode && (
-        <div className="mb-4 p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg">
+        <div className="mb-4 p-4 bg-gold-50 border-2 border-gold-300 rounded-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Bug className="w-5 h-5 text-yellow-600" />
+              <Bug className="w-5 h-5 text-gold-600" />
               <div>
-                <h4 className="font-medium text-yellow-800">🧪 Test Mode Active</h4>
-                <p className="text-sm text-yellow-700">You're viewing this as a new user who hasn't joined the trip yet.</p>
+                <h4 className="font-medium text-gold-800">🧪 Test Mode Active</h4>
+                <p className="text-sm text-gold-700">You're viewing this as a new user who hasn't joined the trip yet.</p>
               </div>
             </div>
             <button
               onClick={handleExitTestMode}
-              className="btn-secondary text-sm bg-yellow-100 border-yellow-300 text-yellow-800 hover:bg-yellow-200"
+              className="btn-secondary text-sm bg-gold-100 border-gold-300 text-gold-800 hover:bg-gold-200"
             >
               Exit Test Mode
             </button>
@@ -222,10 +222,10 @@ export default function TripSummaryPage() {
             onClick={() => navigate('/')}
             className="mr-4 p-2 rounded-xl hover:bg-white/50 transition-colors"
           >
-            <ArrowLeft className="w-6 h-6 text-gray-600" />
+            <ArrowLeft className="w-6 h-6 text-charcoal" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">{currentTrip.name}</h1>
+            <h1 className="text-3xl font-bold text-charcoal mb-2">{currentTrip.name}</h1>
             <p className="text-lg text-gray-600">
               {formatTripDates()}
               {currentTraveler && (
@@ -234,7 +234,7 @@ export default function TripSummaryPage() {
                 </span>
               )}
               {testMode && (
-                <span className="ml-2 text-sm text-yellow-600">
+                <span className="ml-2 text-sm text-gold-600">
                   • 🧪 Test Mode
                 </span>
               )}
@@ -280,30 +280,30 @@ export default function TripSummaryPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* Overview Card */}
           <div className="glass-card rounded-2xl p-8 animate-slide-up">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-              <Sparkles className="w-6 h-6 mr-3 text-adventure-500" />
+            <h2 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
+              <Sparkles className="w-6 h-6 mr-3 text-gold-500" />
               Trip Overview
             </h2>
             
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-6 bg-gradient-to-br from-adventure-50 to-adventure-100 rounded-xl">
-                <Calendar className="w-8 h-8 text-adventure-600 mx-auto mb-3" />
+              <div className="text-center p-6 bg-gradient-to-br from-forest-50 to-forest-100 rounded-xl border border-forest-200/50">
+                <Calendar className="w-8 h-8 text-forest-600 mx-auto mb-3" />
                 <div className="text-sm text-gray-600 mb-1">Duration</div>
-                <div className="text-2xl font-bold text-gray-800">{dayCount}</div>
+                <div className="text-2xl font-bold text-charcoal">{dayCount}</div>
                 <div className="text-sm text-gray-600">{dayCount === 1 ? 'day' : 'days'}</div>
               </div>
               
-              <div className="text-center p-6 bg-gradient-to-br from-wanderlust-50 to-wanderlust-100 rounded-xl">
-                <Users className="w-8 h-8 text-wanderlust-600 mx-auto mb-3" />
+              <div className="text-center p-6 bg-gradient-to-br from-gold-50 to-gold-100 rounded-xl border border-gold-200/50">
+                <Users className="w-8 h-8 text-gold-600 mx-auto mb-3" />
                 <div className="text-sm text-gray-600 mb-1">Travelers</div>
-                <div className="text-2xl font-bold text-gray-800">{currentTrip.travelers.length}</div>
+                <div className="text-2xl font-bold text-charcoal">{currentTrip.travelers.length}</div>
                 <div className="text-sm text-gray-600">{currentTrip.travelers.length === 1 ? 'person' : 'people'}</div>
               </div>
               
-              <div className="text-center p-6 bg-gradient-to-br from-forest-50 to-forest-100 rounded-xl">
+              <div className="text-center p-6 bg-gradient-to-br from-forest-50 to-gold-50 rounded-xl border border-forest-200/50">
                 <MapPin className="w-8 h-8 text-forest-600 mx-auto mb-3" />
                 <div className="text-sm text-gray-600 mb-1">Destination</div>
-                <div className="text-lg font-bold text-gray-800 leading-tight">{currentTrip.name}</div>
+                <div className="text-lg font-bold text-charcoal leading-tight">{currentTrip.name}</div>
               </div>
             </div>
           </div>
@@ -318,10 +318,10 @@ export default function TripSummaryPage() {
           {/* Join Prompt for non-members */}
           {!currentTraveler && (
             <div className="glass-card rounded-2xl p-8 animate-slide-up text-center" style={{ animationDelay: '0.1s' }}>
-              <div className="w-16 h-16 bg-gradient-to-br from-wanderlust-100 to-adventure-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <UserPlus className="w-8 h-8 text-wanderlust-600" />
+              <div className="w-16 h-16 bg-gradient-to-br from-gold-100 to-forest-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <UserPlus className="w-8 h-8 text-forest-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Join the Adventure!</h3>
+              <h3 className="text-xl font-bold text-charcoal mb-2">Join the Adventure!</h3>
               <p className="text-gray-600 mb-6">
                 Enter your name to join this trip and start collaborating on the itinerary.
               </p>
@@ -352,15 +352,15 @@ export default function TripSummaryPage() {
 
           {/* Trip Stats */}
           <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <h3 className="font-bold text-gray-800 mb-4">Trip Stats</h3>
+            <h3 className="font-bold text-charcoal mb-4">Trip Stats</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-600">Created</span>
-                <span className="font-medium">{format(new Date(currentTrip.createdAt), 'MMM d, yyyy')}</span>
+                <span className="font-medium text-charcoal">{format(new Date(currentTrip.createdAt), 'MMM d, yyyy')}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Activities</span>
-                <span className="font-medium">{currentTrip.activities.length}</span>
+                <span className="font-medium text-charcoal">{currentTrip.activities.length}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Trip ID</span>
