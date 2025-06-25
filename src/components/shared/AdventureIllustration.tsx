@@ -128,6 +128,10 @@ export default function AdventureIllustration() {
         <g>
           {/* Person 1 - Hiker with backpack (left side of fire) */}
           <g transform="translate(480, 450)">
+            {/* Hair - Brown wavy hair */}
+            <path d="M-12,-35 Q-15,-40 Q-8,-42 Q0,-45 Q8,-42 Q15,-40 Q12,-35 Q10,-30 Q8,-25 Q-8,-25 Q-10,-30 Z" fill="#8B4513" />
+            <path d="M-10,-38 Q-5,-42 Q0,-40 Q5,-42 Q10,-38" fill="#A0522D" />
+            
             <circle cx="0" cy="-25" r="12" fill="#FDBCB4" />
             <rect x="-8" y="-15" width="16" height="25" fill="#4A90E2" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#2C3E50" rx="2" />
@@ -136,12 +140,14 @@ export default function AdventureIllustration() {
             <ellipse cx="3" cy="32" rx="4" ry="2" fill="#8B4513" />
             {/* Backpack */}
             <rect x="-12" y="-10" width="8" height="15" fill="#E74C3C" rx="4" />
-            {/* Hair */}
-            <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#8B4513" />
           </g>
           
           {/* Person 2 - Taking photos (behind fire, left) */}
           <g transform="translate(520, 430)">
+            {/* Hair - Black short hair */}
+            <path d="M-12,-35 Q-10,-40 Q-5,-42 Q0,-43 Q5,-42 Q10,-40 Q12,-35 Q10,-28 Q8,-25 Q-8,-25 Q-10,-28 Z" fill="#2C3E50" />
+            <path d="M-8,-38 Q-3,-40 Q0,-39 Q3,-40 Q8,-38" fill="#34495E" />
+            
             <circle cx="0" cy="-25" r="12" fill="#D4A574" />
             <rect x="-8" y="-15" width="16" height="25" fill="#27AE60" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#34495E" rx="2" />
@@ -151,12 +157,16 @@ export default function AdventureIllustration() {
             {/* Camera */}
             <rect x="8" y="-20" width="8" height="6" fill="#2C3E50" rx="2" />
             <circle cx="12" cy="-17" r="2" fill="#3498DB" />
-            {/* Hair */}
-            <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#2C3E50" />
           </g>
           
           {/* Person 3 - Pointing at view (behind fire, center) */}
           <g transform="translate(600, 420)">
+            {/* Hair - Blonde/orange curly hair */}
+            <path d="M-12,-35 Q-14,-42 Q-8,-45 Q-3,-43 Q0,-46 Q3,-43 Q8,-45 Q14,-42 Q12,-35 Q10,-30 Q8,-25 Q-8,-25 Q-10,-30 Z" fill="#E67E22" />
+            <circle cx="-6" cy="-38" r="2" fill="#F39C12" />
+            <circle cx="6" cy="-38" r="2" fill="#F39C12" />
+            <circle cx="0" cy="-40" r="1.5" fill="#F39C12" />
+            
             <circle cx="0" cy="-25" r="12" fill="#FDBCB4" />
             <rect x="-8" y="-15" width="16" height="25" fill="#F39C12" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#2C3E50" rx="2" />
@@ -165,12 +175,14 @@ export default function AdventureIllustration() {
             <ellipse cx="3" cy="32" rx="4" ry="2" fill="#8B4513" />
             {/* Pointing arm */}
             <rect x="8" y="-18" width="15" height="4" fill="#FDBCB4" rx="2" transform="rotate(-20)" />
-            {/* Hair */}
-            <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#E67E22" />
           </g>
           
           {/* Person 4 - With hiking stick (right side of fire) */}
           <g transform="translate(720, 445)">
+            {/* Hair - Dark brown straight hair */}
+            <path d="M-11,-35 Q-12,-40 Q-6,-42 Q0,-43 Q6,-42 Q12,-40 Q11,-35 Q9,-30 Q8,-25 Q-8,-25 Q-9,-30 Z" fill="#654321" />
+            <rect x="-9" y="-38" width="18" height="8" fill="#8B4513" rx="4" />
+            
             <circle cx="0" cy="-25" r="12" fill="#C4A484" />
             <rect x="-8" y="-15" width="16" height="25" fill="#8E44AD" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#2C3E50" rx="2" />
@@ -179,12 +191,15 @@ export default function AdventureIllustration() {
             <ellipse cx="3" cy="32" rx="4" ry="2" fill="#2C3E50" />
             {/* Hiking stick */}
             <rect x="-15" y="-30" width="2" height="40" fill="#8B4513" rx="1" />
-            {/* Hair */}
-            <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#2C3E50" />
           </g>
           
           {/* Person 5 - Sitting on rock (right side) */}
           <g transform="translate(750, 460)">
+            {/* Hair - Light brown ponytail */}
+            <path d="M-10,-30 Q-8,-35 Q0,-37 Q8,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#D2691E" />
+            <ellipse cx="12" cy="-28" rx="3" ry="8" fill="#CD853F" transform="rotate(20)" />
+            <circle cx="10" cy="-32" r="1.5" fill="#8B4513" />
+            
             <circle cx="0" cy="-20" r="12" fill="#FDBCB4" />
             <rect x="-8" y="-10" width="16" height="20" fill="#E74C3C" rx="8" />
             <rect x="-8" y="10" width="6" height="15" fill="#2C3E50" rx="3" />
@@ -193,12 +208,14 @@ export default function AdventureIllustration() {
             <ellipse cx="5" cy="27" rx="4" ry="2" fill="#8B4513" />
             {/* Rock */}
             <ellipse cx="0" cy="15" rx="20" ry="8" fill="#95A5A6" />
-            {/* Hair */}
-            <path d="M-10,-25 Q0,-30 Q10,-25 Q8,-20 Q-8,-20 Z" fill="#8B4513" />
           </g>
           
           {/* Person 6 - With map (left side, closer) */}
           <g transform="translate(450, 450)">
+            {/* Hair - Red/auburn hair with bangs */}
+            <path d="M-11,-35 Q-10,-40 Q-5,-42 Q0,-43 Q5,-42 Q10,-40 Q11,-35 Q9,-30 Q8,-25 Q-8,-25 Q-9,-30 Z" fill="#B22222" />
+            <path d="M-8,-32 L8,-32 Q6,-28 Q-6,-28 Z" fill="#CD5C5C" />
+            
             <circle cx="0" cy="-25" r="12" fill="#D4A574" />
             <rect x="-8" y="-15" width="16" height="25" fill="#16A085" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#34495E" rx="2" />
@@ -208,12 +225,14 @@ export default function AdventureIllustration() {
             {/* Map */}
             <rect x="-12" y="-22" width="12" height="8" fill="#F4C542" rx="1" />
             <rect x="-10" y="-20" width="8" height="4" fill="white" rx="0.5" />
-            {/* Hair */}
-            <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#E67E22" />
           </g>
           
           {/* Person 7 - Waving (background left) */}
           <g transform="translate(380, 470)" opacity="0.8">
+            {/* Hair - Blonde pixie cut */}
+            <path d="M-9,-33 Q-8,-37 Q-3,-38 Q0,-39 Q3,-38 Q8,-37 Q9,-33 Q7,-28 Q6,-23 Q-6,-23 Q-7,-28 Z" fill="#FFD700" />
+            <path d="M-6,-35 Q0,-37 Q6,-35" fill="#FFA500" />
+            
             <circle cx="0" cy="-25" r="10" fill="#FDBCB4" />
             <rect x="-6" y="-15" width="12" height="20" fill="#3498DB" rx="6" />
             <rect x="-4" y="5" width="3" height="15" fill="#2C3E50" rx="1.5" />
@@ -222,12 +241,16 @@ export default function AdventureIllustration() {
             <ellipse cx="2" cy="22" rx="3" ry="1.5" fill="#8B4513" />
             {/* Waving arm */}
             <rect x="6" y="-20" width="3" height="12" fill="#FDBCB4" rx="1.5" transform="rotate(-30)" />
-            {/* Hair */}
-            <path d="M-8,-28 Q0,-32 Q8,-28 Q6,-23 Q-6,-23 Z" fill="#2C3E50" />
           </g>
           
           {/* Person 8 - With water bottle (background right) */}
           <g transform="translate(820, 465)" opacity="0.8">
+            {/* Hair - Dark curly hair */}
+            <path d="M-9,-33 Q-10,-38 Q-5,-40 Q0,-41 Q5,-40 Q10,-38 Q9,-33 Q7,-28 Q6,-23 Q-6,-23 Q-7,-28 Z" fill="#2F1B14" />
+            <circle cx="-4" cy="-35" r="1.5" fill="#4A4A4A" />
+            <circle cx="4" cy="-35" r="1.5" fill="#4A4A4A" />
+            <circle cx="0" cy="-37" r="1" fill="#4A4A4A" />
+            
             <circle cx="0" cy="-25" r="10" fill="#C4A484" />
             <rect x="-6" y="-15" width="12" height="20" fill="#E67E22" rx="6" />
             <rect x="-4" y="5" width="3" height="15" fill="#34495E" rx="1.5" />
@@ -237,8 +260,6 @@ export default function AdventureIllustration() {
             {/* Water bottle */}
             <rect x="6" y="-18" width="3" height="8" fill="#3498DB" rx="1.5" />
             <rect x="6.5" y="-20" width="2" height="2" fill="#2C3E50" rx="1" />
-            {/* Hair */}
-            <path d="M-8,-28 Q0,-32 Q8,-28 Q6,-23 Q-6,-23 Z" fill="#8B4513" />
           </g>
         </g>
         
