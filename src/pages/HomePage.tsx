@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { Plus, MapPin, Users, Calendar, Sparkles, AlertCircle } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format } from 'date-fns'
-import AdventureIllustration from '../components/shared/AdventureIllustration'
 
 export default function HomePage() {
   const trips = useTripStore((state) => state.trips)
@@ -11,49 +10,41 @@ export default function HomePage() {
   const error = location.state?.error
 
   return (
-    <div className="animate-fade-in relative">
+    <div className="animate-fade-in">
       {/* Error Message */}
       {error && (
-        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center space-x-3 relative z-20">
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center space-x-3">
           <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
           <p className="text-red-700 text-sm">{error}</p>
         </div>
       )}
 
-      {/* Hero Section with Background Illustration */}
-      <div className="relative">
-        {/* Background Adventure Illustration */}
-        <AdventureIllustration />
-        
-        {/* Hero Content - positioned over the illustration */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-6">
-            <div className="mb-6">
-              <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-500 bg-clip-text text-transparent drop-shadow-sm">
-                Your next adventure
-              </h2>
-              <h3 className="text-5xl font-bold mb-6 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-500 bg-clip-text text-transparent drop-shadow-sm">
-                starts here
-              </h3>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed bg-white/80 backdrop-blur-sm rounded-2xl px-8 py-4 shadow-lg">
-                Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
-              </p>
-            </div>
-            
-            <Link to="/create-trip">
-              <button className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl">
-                <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
-                <span>Start Planning</span>
-                <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
-              </button>
-            </Link>
-          </div>
+      {/* Hero Section */}
+      <div className="text-center mb-12">
+        <div className="mb-6">
+          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-500 bg-clip-text text-transparent">
+            Your next adventure
+          </h2>
+          <h3 className="text-5xl font-bold mb-6 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-500 bg-clip-text text-transparent">
+            starts here
+          </h3>
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
+            Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
+          </p>
         </div>
+        
+        <Link to="/create-trip">
+          <button className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-3 group">
+            <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+            <span>Start Planning</span>
+            <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
+          </button>
+        </Link>
       </div>
 
       {/* Recent Trips */}
       {trips.length > 0 && (
-        <div className="animate-slide-up mt-12 relative z-10">
+        <div className="animate-slide-up">
           <h3 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
             <MapPin className="w-6 h-6 mr-2 text-forest-500" />
             Your Adventures
@@ -100,7 +91,7 @@ export default function HomePage() {
 
       {/* Empty State */}
       {trips.length === 0 && (
-        <div className="text-center py-16 animate-slide-up relative z-10">
+        <div className="text-center py-16 animate-slide-up">
           <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-forest-100 to-gold-100 rounded-full flex items-center justify-center">
             <MapPin className="w-12 h-12 text-forest-500 animate-bounce-gentle" />
           </div>
