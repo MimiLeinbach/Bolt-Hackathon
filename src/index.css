@@ -8,8 +8,8 @@
   }
   
   body {
-    @apply bg-gradient-to-br from-wanderlust-50 via-white to-adventure-50;
-    @apply text-gray-900;
+    @apply bg-light-gray;
+    @apply text-charcoal;
     @apply font-sans;
     @apply antialiased;
     min-height: 100vh;
@@ -18,31 +18,32 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-xl;
+    @apply bg-white/90 backdrop-blur-sm border border-gray-200/50 shadow-lg;
   }
   
-  .adventure-gradient {
-    @apply bg-gradient-to-r from-adventure-500 to-wanderlust-500;
+  .forest-gradient {
+    @apply bg-gradient-to-r from-forest-500 to-forest-600;
   }
   
-  .adventure-gradient-hover {
-    @apply hover:bg-gradient-to-r hover:from-adventure-600 hover:to-wanderlust-600;
+  .forest-gradient-hover {
+    @apply hover:bg-gradient-to-r hover:from-forest-600 hover:to-forest-700;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/50 backdrop-blur-xs;
-    @apply focus:outline-none focus:ring-2 focus:ring-adventure-400 focus:border-transparent;
+    @apply w-full px-4 py-3 rounded-xl border border-gray-300 bg-white;
+    @apply focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-forest-400;
     @apply transition-all duration-200 ease-out;
-    @apply placeholder:text-gray-400;
+    @apply placeholder:text-gray-500;
+    @apply text-charcoal;
   }
   
   .input-field:focus {
-    @apply bg-white/80 shadow-lg transform scale-[1.02];
+    @apply bg-white shadow-lg transform scale-[1.02];
   }
   
   .btn-primary {
     @apply px-6 py-3 rounded-xl font-semibold text-white;
-    @apply adventure-gradient adventure-gradient-hover;
+    @apply forest-gradient forest-gradient-hover;
     @apply shadow-lg hover:shadow-xl;
     @apply transform transition-all duration-200 ease-out;
     @apply hover:scale-105 active:scale-95;
@@ -50,8 +51,8 @@
   
   .btn-secondary {
     @apply px-6 py-3 rounded-xl font-semibold;
-    @apply bg-white/80 text-gray-700 border border-gray-200;
-    @apply hover:bg-white hover:shadow-lg;
+    @apply bg-white text-charcoal border border-gray-300;
+    @apply hover:bg-light-gray hover:shadow-lg;
     @apply transform transition-all duration-200 ease-out;
     @apply hover:scale-105 active:scale-95;
   }
@@ -67,10 +68,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #f19338, #0ea5e9);
+  background: linear-gradient(to bottom, #2E7D48, #F7C544);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #de5c0a, #0284c7);
+  background: linear-gradient(to bottom, #256640, #f4b429);
 }
