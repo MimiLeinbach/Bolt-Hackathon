@@ -19,13 +19,13 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Hero Section - Compact and Centered */}
+      {/* Hero Section - Larger Text */}
       <div className="text-center mb-12">
         <div className="mb-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-400 bg-clip-text text-transparent leading-tight">
+          <h2 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-400 bg-clip-text text-transparent leading-tight">
             Your next adventure
           </h2>
-          <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-400 bg-clip-text text-transparent leading-tight">
+          <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-400 bg-clip-text text-transparent leading-tight">
             starts here
           </h3>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed px-4">
