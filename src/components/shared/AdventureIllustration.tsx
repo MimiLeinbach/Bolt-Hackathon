@@ -76,22 +76,214 @@ export default function AdventureIllustration() {
         <circle cx="950" cy="150" r="60" fill="#F4C542" opacity="0.9" />
         <circle cx="950" cy="150" r="45" fill="#F7C544" />
         
-        {/* Trees */}
+        {/* FOREST OF TREES - Much more extensive! */}
         <g>
-          {/* Tree 1 */}
-          <rect x="150" y="480" width="8" height="40" fill="#8B4513" rx="4" />
-          <circle cx="154" cy="470" r="25" fill="#2E7D48" />
-          <circle cx="154" cy="460" r="20" fill="#56bc8e" />
+          {/* Background Trees (on hills) */}
+          <g opacity="0.7">
+            {/* Pine trees on distant hills */}
+            <g transform="translate(100, 420)">
+              <polygon points="0,-30 -8,10 8,10" fill="#1f5235" />
+              <polygon points="0,-25 -6,5 6,5" fill="#2E7D48" />
+              <rect x="-2" y="10" width="4" height="8" fill="#8B4513" />
+            </g>
+            
+            <g transform="translate(180, 400)">
+              <polygon points="0,-35 -10,15 10,15" fill="#1f5235" />
+              <polygon points="0,-30 -8,10 8,10" fill="#2E7D48" />
+              <rect x="-2" y="15" width="4" height="10" fill="#8B4513" />
+            </g>
+            
+            <g transform="translate(250, 430)">
+              <polygon points="0,-25 -6,8 6,8" fill="#1f5235" />
+              <polygon points="0,-20 -5,5 5,5" fill="#2E7D48" />
+              <rect x="-1.5" y="8" width="3" height="6" fill="#8B4513" />
+            </g>
+            
+            <g transform="translate(900, 410)">
+              <polygon points="0,-40 -12,20 12,20" fill="#1f5235" />
+              <polygon points="0,-35 -10,15 10,15" fill="#2E7D48" />
+              <rect x="-3" y="20" width="6" height="12" fill="#8B4513" />
+            </g>
+            
+            <g transform="translate(1000, 390)">
+              <polygon points="0,-30 -8,12 8,12" fill="#1f5235" />
+              <polygon points="0,-25 -6,8 6,8" fill="#2E7D48" />
+              <rect x="-2" y="12" width="4" height="8" fill="#8B4513" />
+            </g>
+          </g>
           
-          {/* Tree 2 */}
-          <rect x="320" y="460" width="10" height="50" fill="#8B4513" rx="5" />
-          <circle cx="325" cy="450" r="30" fill="#2E7D48" />
-          <circle cx="325" cy="440" r="25" fill="#56bc8e" />
+          {/* Mid-ground Trees */}
+          <g opacity="0.85">
+            {/* Deciduous trees */}
+            <g transform="translate(80, 480)">
+              <rect x="-3" y="0" width="6" height="25" fill="#8B4513" rx="3" />
+              <circle cx="0" cy="-10" r="18" fill="#2E7D48" />
+              <circle cx="0" cy="-15" r="15" fill="#56bc8e" />
+              <circle cx="-8" cy="-8" r="8" fill="#56bc8e" />
+              <circle cx="8" cy="-8" r="8" fill="#56bc8e" />
+            </g>
+            
+            <g transform="translate(280, 470)">
+              <rect x="-4" y="0" width="8" height="30" fill="#8B4513" rx="4" />
+              <circle cx="0" cy="-8" r="20" fill="#2E7D48" />
+              <circle cx="0" cy="-12" r="16" fill="#56bc8e" />
+              <circle cx="-10" cy="-5" r="10" fill="#56bc8e" />
+              <circle cx="10" cy="-5" r="10" fill="#56bc8e" />
+            </g>
+            
+            <g transform="translate(1100, 475)">
+              <rect x="-3" y="0" width="6" height="28" fill="#8B4513" rx="3" />
+              <circle cx="0" cy="-12" r="19" fill="#2E7D48" />
+              <circle cx="0" cy="-16" r="15" fill="#56bc8e" />
+              <circle cx="-9" cy="-9" r="9" fill="#56bc8e" />
+              <circle cx="9" cy="-9" r="9" fill="#56bc8e" />
+            </g>
+          </g>
           
-          {/* Tree 3 */}
-          <rect x="1050" y="470" width="8" height="45" fill="#8B4513" rx="4" />
-          <circle cx="1054" cy="460" r="28" fill="#2E7D48" />
-          <circle cx="1054" cy="450" r="22" fill="#56bc8e" />
+          {/* Foreground Trees (original + new ones) */}
+          <g>
+            {/* Original Tree 1 - Enhanced */}
+            <g transform="translate(154, 480)">
+              <rect x="-4" y="0" width="8" height="40" fill="#8B4513" rx="4" />
+              <circle cx="0" cy="-10" r="25" fill="#2E7D48" />
+              <circle cx="0" cy="-20" r="20" fill="#56bc8e" />
+              <circle cx="-12" cy="-8" r="12" fill="#56bc8e" />
+              <circle cx="12" cy="-8" r="12" fill="#56bc8e" />
+            </g>
+            
+            {/* Original Tree 2 - Enhanced */}
+            <g transform="translate(325, 460)">
+              <rect x="-5" y="0" width="10" height="50" fill="#8B4513" rx="5" />
+              <circle cx="0" cy="-10" r="30" fill="#2E7D48" />
+              <circle cx="0" cy="-20" r="25" fill="#56bc8e" />
+              <circle cx="-15" cy="-5" r="15" fill="#56bc8e" />
+              <circle cx="15" cy="-5" r="15" fill="#56bc8e" />
+            </g>
+            
+            {/* Original Tree 3 - Enhanced */}
+            <g transform="translate(1054, 470)">
+              <rect x="-4" y="0" width="8" height="45" fill="#8B4513" rx="4" />
+              <circle cx="0" cy="-10" r="28" fill="#2E7D48" />
+              <circle cx="0" cy="-20" r="22" fill="#56bc8e" />
+              <circle cx="-13" cy="-7" r="13" fill="#56bc8e" />
+              <circle cx="13" cy="-7" r="13" fill="#56bc8e" />
+            </g>
+            
+            {/* NEW TREES - Adding many more! */}
+            
+            {/* Left side cluster */}
+            <g transform="translate(50, 490)">
+              <rect x="-3" y="0" width="6" height="35" fill="#8B4513" rx="3" />
+              <circle cx="0" cy="-8" r="22" fill="#2E7D48" />
+              <circle cx="0" cy="-15" r="18" fill="#56bc8e" />
+              <circle cx="-10" cy="-6" r="10" fill="#56bc8e" />
+              <circle cx="10" cy="-6" r="10" fill="#56bc8e" />
+            </g>
+            
+            <g transform="translate(120, 495)">
+              <rect x="-2.5" y="0" width="5" height="30" fill="#8B4513" rx="2.5" />
+              <circle cx="0" cy="-5" r="18" fill="#2E7D48" />
+              <circle cx="0" cy="-12" r="15" fill="#56bc8e" />
+              <circle cx="-8" cy="-3" r="8" fill="#56bc8e" />
+              <circle cx="8" cy="-3" r="8" fill="#56bc8e" />
+            </g>
+            
+            {/* Pine tree cluster left */}
+            <g transform="translate(200, 485)">
+              <polygon points="0,-40 -12,15 12,15" fill="#1f5235" />
+              <polygon points="0,-35 -10,10 10,10" fill="#2E7D48" />
+              <polygon points="0,-25 -8,5 8,5" fill="#56bc8e" />
+              <rect x="-3" y="15" width="6" height="15" fill="#8B4513" />
+            </g>
+            
+            <g transform="translate(240, 490)">
+              <polygon points="0,-35 -10,12 10,12" fill="#1f5235" />
+              <polygon points="0,-30 -8,8 8,8" fill="#2E7D48" />
+              <polygon points="0,-20 -6,4 6,4" fill="#56bc8e" />
+              <rect x="-2.5" y="12" width="5" height="12" fill="#8B4513" />
+            </g>
+            
+            {/* Center-left trees */}
+            <g transform="translate(380, 485)">
+              <rect x="-3.5" y="0" width="7" height="38" fill="#8B4513" rx="3.5" />
+              <circle cx="0" cy="-12" r="24" fill="#2E7D48" />
+              <circle cx="0" cy="-18" r="19" fill="#56bc8e" />
+              <circle cx="-11" cy="-8" r="11" fill="#56bc8e" />
+              <circle cx="11" cy="-8" r="11" fill="#56bc8e" />
+            </g>
+            
+            {/* Right side cluster */}
+            <g transform="translate(780, 480)">
+              <rect x="-4" y="0" width="8" height="42" fill="#8B4513" rx="4" />
+              <circle cx="0" cy="-15" r="26" fill="#2E7D48" />
+              <circle cx="0" cy="-22" r="21" fill="#56bc8e" />
+              <circle cx="-12" cy="-10" r="12" fill="#56bc8e" />
+              <circle cx="12" cy="-10" r="12" fill="#56bc8e" />
+            </g>
+            
+            <g transform="translate(850, 490)">
+              <rect x="-3" y="0" width="6" height="32" fill="#8B4513" rx="3" />
+              <circle cx="0" cy="-8" r="20" fill="#2E7D48" />
+              <circle cx="0" cy="-15" r="16" fill="#56bc8e" />
+              <circle cx="-9" cy="-5" r="9" fill="#56bc8e" />
+              <circle cx="9" cy="-5" r="9" fill="#56bc8e" />
+            </g>
+            
+            {/* Pine trees on the right */}
+            <g transform="translate(920, 485)">
+              <polygon points="0,-38 -11,14 11,14" fill="#1f5235" />
+              <polygon points="0,-33 -9,9 9,9" fill="#2E7D48" />
+              <polygon points="0,-23 -7,4 7,4" fill="#56bc8e" />
+              <rect x="-3" y="14" width="6" height="14" fill="#8B4513" />
+            </g>
+            
+            <g transform="translate(980, 490)">
+              <polygon points="0,-32 -9,10 9,10" fill="#1f5235" />
+              <polygon points="0,-27 -7,6 7,6" fill="#2E7D48" />
+              <polygon points="0,-18 -5,2 5,2" fill="#56bc8e" />
+              <rect x="-2.5" y="10" width="5" height="10" fill="#8B4513" />
+            </g>
+            
+            {/* Far right trees */}
+            <g transform="translate(1120, 485)">
+              <rect x="-3.5" y="0" width="7" height="36" fill="#8B4513" rx="3.5" />
+              <circle cx="0" cy="-10" r="23" fill="#2E7D48" />
+              <circle cx="0" cy="-17" r="18" fill="#56bc8e" />
+              <circle cx="-10" cy="-7" r="10" fill="#56bc8e" />
+              <circle cx="10" cy="-7" r="10" fill="#56bc8e" />
+            </g>
+            
+            {/* Small saplings and bushes */}
+            <g transform="translate(300, 500)">
+              <rect x="-1.5" y="0" width="3" height="15" fill="#8B4513" rx="1.5" />
+              <circle cx="0" cy="-3" r="8" fill="#56bc8e" />
+            </g>
+            
+            <g transform="translate(400, 505)">
+              <rect x="-1" y="0" width="2" height="12" fill="#8B4513" rx="1" />
+              <circle cx="0" cy="-2" r="6" fill="#56bc8e" />
+            </g>
+            
+            <g transform="translate(700, 500)">
+              <rect x="-1.5" y="0" width="3" height="18" fill="#8B4513" rx="1.5" />
+              <circle cx="0" cy="-4" r="9" fill="#56bc8e" />
+            </g>
+            
+            <g transform="translate(1000, 505)">
+              <rect x="-1" y="0" width="2" height="10" fill="#8B4513" rx="1" />
+              <circle cx="0" cy="-1" r="5" fill="#56bc8e" />
+            </g>
+            
+            {/* Bushes without trunks */}
+            <circle cx="350" cy="510" r="12" fill="#2E7D48" />
+            <circle cx="350" cy="515" r="8" fill="#56bc8e" />
+            
+            <circle cx="650" cy="515" r="10" fill="#2E7D48" />
+            <circle cx="650" cy="518" r="7" fill="#56bc8e" />
+            
+            <circle cx="900" cy="512" r="14" fill="#2E7D48" />
+            <circle cx="900" cy="517" r="10" fill="#56bc8e" />
+          </g>
         </g>
         
         {/* Large Tent (positioned to the right) */}
