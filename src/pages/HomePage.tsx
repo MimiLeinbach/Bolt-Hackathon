@@ -42,8 +42,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Start Planning Button - positioned below the people in the illustration */}
-        <div className="text-center mb-12 pt-32">
+        {/* Start Planning Button - positioned much lower, well below the people */}
+        <div className="text-center mb-12 pt-80">
           <Link to="/create-trip">
             <button className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl">
               <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
