@@ -15,23 +15,31 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 px-6 py-6 bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
+      <header className="relative z-10 px-6 py-8 bg-light-gray">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              {/* Junto Logo */}
+          <div className="flex items-center justify-start">
+            {/* Large Junto Logo with Text */}
+            <div className="flex items-center space-x-6">
+              {/* Heart Logo */}
               <div className="relative">
-                <img 
-                  src="/ChatGPT Image Jun 24, 2025 at 03_16_13 PM.jpg" 
-                  alt="Junto Logo" 
-                  className="w-12 h-12 object-contain"
-                />
+                <div className="w-20 h-20 relative">
+                  {/* Green heart shape */}
+                  <div className="absolute inset-0 bg-forest-500 rounded-full transform rotate-45 origin-center scale-75"></div>
+                  <div className="absolute top-2 left-2 w-8 h-8 bg-forest-500 rounded-full"></div>
+                  <div className="absolute top-2 right-2 w-8 h-8 bg-forest-500 rounded-full"></div>
+                  
+                  {/* Yellow heart shape overlapping */}
+                  <div className="absolute inset-0 bg-gold-400 rounded-full transform rotate-45 origin-center scale-75 translate-x-4 translate-y-1"></div>
+                  <div className="absolute top-3 left-6 w-8 h-8 bg-gold-400 rounded-full"></div>
+                  <div className="absolute top-3 right-6 w-8 h-8 bg-gold-400 rounded-full"></div>
+                </div>
               </div>
+              
+              {/* Junto Text */}
               <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-forest-600 to-forest-500 bg-clip-text text-transparent">
-                  AI Itinerary
+                <h1 className="text-6xl font-bold text-charcoal tracking-tight">
+                  Junto
                 </h1>
-                <p className="text-sm text-gray-600 font-medium">Plan adventures together</p>
               </div>
             </div>
           </div>
@@ -39,7 +47,7 @@ export default function Layout({ children }: LayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 px-6 pb-12">
+      <main className="relative z-10 px-6 pb-12 pt-8">
         <div className="max-w-4xl mx-auto">
           {children}
         </div>
