@@ -98,24 +98,6 @@ export default function HomePage() {
             </div>
           </div>
         )}
-
-        {/* Spacer to push empty state to bottom */}
-        {trips.length === 0 && <div className="flex-1"></div>}
-
-        {/* Empty State - Now at bottom and narrower */}
-        {trips.length === 0 && (
-          <div className="text-center py-16 animate-slide-up">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-sm mx-auto">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-forest-100 to-gold-100 rounded-full flex items-center justify-center">
-                <MapPin className="w-8 h-8 text-forest-500 animate-bounce-gentle" />
-              </div>
-              <h3 className="text-xl font-bold text-charcoal mb-3">Ready for your first adventure?</h3>
-              <p className="text-gray-600 text-sm mb-6">
-                Create your first trip and start planning something amazing with your friends.
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )
