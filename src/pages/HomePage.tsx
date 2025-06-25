@@ -48,7 +48,7 @@ export default function HomePage() {
             <button className="bg-white text-black border-2 border-gray-300 hover:bg-gray-50 hover:shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-200 ease-out text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl rounded-xl font-semibold">
               <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300 text-black" />
               <span>Start Planning</span>
-              <Sparkles className="w-5 h-5 animate-pulse text-gray-600" />
+              <Sparkles className="w-5 h-5 animate-pulse" style={{ color: '#F4C542' }} />
             </button>
           </Link>
         </div>
