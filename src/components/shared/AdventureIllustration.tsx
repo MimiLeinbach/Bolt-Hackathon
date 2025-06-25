@@ -94,7 +94,7 @@ export default function AdventureIllustration() {
           <circle cx="1054" cy="450" r="22" fill="#56bc8e" />
         </g>
         
-        {/* Large Tent (much bigger and more prominent) */}
+        {/* Large Tent (positioned to the right) */}
         <g transform="translate(850, 420)" opacity="0.95">
           {/* Tent shadow */}
           <ellipse cx="0" cy="80" rx="50" ry="12" fill="#000000" opacity="0.2" />
@@ -124,10 +124,10 @@ export default function AdventureIllustration() {
           <rect x="53" y="63" width="4" height="8" fill="#8B4513" rx="2" />
         </g>
         
-        {/* Group of friends - positioned across the scene */}
+        {/* Group of friends - repositioned around the central bonfire */}
         <g>
-          {/* Person 1 - Hiker with backpack (left) */}
-          <g transform="translate(180, 450)">
+          {/* Person 1 - Hiker with backpack (left side of fire) */}
+          <g transform="translate(480, 450)">
             <circle cx="0" cy="-25" r="12" fill="#FDBCB4" />
             <rect x="-8" y="-15" width="16" height="25" fill="#4A90E2" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#2C3E50" rx="2" />
@@ -140,8 +140,8 @@ export default function AdventureIllustration() {
             <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#8B4513" />
           </g>
           
-          {/* Person 2 - Taking photos (center-left) */}
-          <g transform="translate(280, 440)">
+          {/* Person 2 - Taking photos (behind fire, left) */}
+          <g transform="translate(520, 430)">
             <circle cx="0" cy="-25" r="12" fill="#D4A574" />
             <rect x="-8" y="-15" width="16" height="25" fill="#27AE60" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#34495E" rx="2" />
@@ -155,8 +155,8 @@ export default function AdventureIllustration() {
             <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#2C3E50" />
           </g>
           
-          {/* Person 3 - Pointing at view (center) */}
-          <g transform="translate(400, 430)">
+          {/* Person 3 - Pointing at view (behind fire, center) */}
+          <g transform="translate(600, 420)">
             <circle cx="0" cy="-25" r="12" fill="#FDBCB4" />
             <rect x="-8" y="-15" width="16" height="25" fill="#F39C12" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#2C3E50" rx="2" />
@@ -169,8 +169,8 @@ export default function AdventureIllustration() {
             <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#E67E22" />
           </g>
           
-          {/* Person 4 - With hiking stick (center-right) */}
-          <g transform="translate(520, 445)">
+          {/* Person 4 - With hiking stick (right side of fire) */}
+          <g transform="translate(720, 445)">
             <circle cx="0" cy="-25" r="12" fill="#C4A484" />
             <rect x="-8" y="-15" width="16" height="25" fill="#8E44AD" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#2C3E50" rx="2" />
@@ -183,8 +183,8 @@ export default function AdventureIllustration() {
             <path d="M-10,-30 Q0,-35 Q10,-30 Q8,-25 Q-8,-25 Z" fill="#2C3E50" />
           </g>
           
-          {/* Person 5 - Sitting on rock (right) */}
-          <g transform="translate(650, 460)">
+          {/* Person 5 - Sitting on rock (right side) */}
+          <g transform="translate(750, 460)">
             <circle cx="0" cy="-20" r="12" fill="#FDBCB4" />
             <rect x="-8" y="-10" width="16" height="20" fill="#E74C3C" rx="8" />
             <rect x="-8" y="10" width="6" height="15" fill="#2C3E50" rx="3" />
@@ -197,8 +197,8 @@ export default function AdventureIllustration() {
             <path d="M-10,-25 Q0,-30 Q10,-25 Q8,-20 Q-8,-20 Z" fill="#8B4513" />
           </g>
           
-          {/* Person 6 - With map (far right) */}
-          <g transform="translate(780, 450)">
+          {/* Person 6 - With map (left side, closer) */}
+          <g transform="translate(450, 450)">
             <circle cx="0" cy="-25" r="12" fill="#D4A574" />
             <rect x="-8" y="-15" width="16" height="25" fill="#16A085" rx="8" />
             <rect x="-6" y="10" width="5" height="20" fill="#34495E" rx="2" />
@@ -213,7 +213,7 @@ export default function AdventureIllustration() {
           </g>
           
           {/* Person 7 - Waving (background left) */}
-          <g transform="translate(120, 470)" opacity="0.8">
+          <g transform="translate(380, 470)" opacity="0.8">
             <circle cx="0" cy="-25" r="10" fill="#FDBCB4" />
             <rect x="-6" y="-15" width="12" height="20" fill="#3498DB" rx="6" />
             <rect x="-4" y="5" width="3" height="15" fill="#2C3E50" rx="1.5" />
@@ -227,7 +227,7 @@ export default function AdventureIllustration() {
           </g>
           
           {/* Person 8 - With water bottle (background right) */}
-          <g transform="translate(900, 465)" opacity="0.8">
+          <g transform="translate(820, 465)" opacity="0.8">
             <circle cx="0" cy="-25" r="10" fill="#C4A484" />
             <rect x="-6" y="-15" width="12" height="20" fill="#E67E22" rx="6" />
             <rect x="-4" y="5" width="3" height="15" fill="#34495E" rx="1.5" />
@@ -242,17 +242,37 @@ export default function AdventureIllustration() {
           </g>
         </g>
         
-        {/* Campfire (foreground) */}
-        <g transform="translate(350, 520)">
-          <ellipse cx="0" cy="15" rx="25" ry="5" fill="#8B4513" opacity="0.3" />
-          {/* Logs */}
-          <rect x="-20" y="10" width="40" height="4" fill="#8B4513" rx="2" />
-          <rect x="-15" y="6" width="30" height="4" fill="#A0522D" rx="2" transform="rotate(15)" />
-          <rect x="-15" y="6" width="30" height="4" fill="#A0522D" rx="2" transform="rotate(-15)" />
-          {/* Fire */}
-          <path d="M-8,10 Q-5,0 Q0,8 Q5,0 Q8,10 Q4,12 Q0,5 Q-4,12 Z" fill="#E74C3C" />
-          <path d="M-6,8 Q-3,-2 Q0,6 Q3,-2 Q6,8 Q3,10 Q0,3 Q-3,10 Z" fill="#F39C12" />
-          <path d="M-4,6 Q-2,-4 Q0,4 Q2,-4 Q4,6 Q2,8 Q0,1 Q-2,8 Z" fill="#F4C542" />
+        {/* CENTRAL BONFIRE - Now the focal point! */}
+        <g transform="translate(600, 520)">
+          {/* Fire shadow/glow effect */}
+          <ellipse cx="0" cy="15" rx="35" ry="8" fill="#F39C12" opacity="0.3" />
+          <ellipse cx="0" cy="15" rx="25" ry="5" fill="#E74C3C" opacity="0.2" />
+          
+          {/* Logs arranged in a circle */}
+          <rect x="-25" y="10" width="50" height="5" fill="#8B4513" rx="2.5" />
+          <rect x="-20" y="6" width="40" height="5" fill="#A0522D" rx="2.5" transform="rotate(30)" />
+          <rect x="-20" y="6" width="40" height="5" fill="#A0522D" rx="2.5" transform="rotate(-30)" />
+          <rect x="-18" y="8" width="36" height="4" fill="#8B4513" rx="2" transform="rotate(60)" />
+          <rect x="-18" y="8" width="36" height="4" fill="#8B4513" rx="2" transform="rotate(-60)" />
+          
+          {/* Main fire flames - larger and more dramatic */}
+          <path d="M-12,10 Q-8,-5 Q-4,8 Q0,-8 Q4,8 Q8,-5 Q12,10 Q8,15 Q4,5 Q0,12 Q-4,5 Q-8,15 Z" fill="#E74C3C" />
+          <path d="M-10,8 Q-6,-8 Q-2,6 Q0,-12 Q2,6 Q6,-8 Q10,8 Q6,12 Q2,2 Q0,8 Q-2,2 Q-6,12 Z" fill="#F39C12" />
+          <path d="M-8,6 Q-4,-10 Q0,4 Q4,-10 Q8,6 Q4,10 Q0,0 Q-4,10 Z" fill="#F4C542" />
+          
+          {/* Inner core of fire */}
+          <path d="M-6,4 Q-3,-12 Q0,2 Q3,-12 Q6,4 Q3,8 Q0,-2 Q-3,8 Z" fill="#FFF3CD" />
+          
+          {/* Sparks and embers */}
+          <circle cx="-15" cy="-5" r="1" fill="#F39C12" opacity="0.8" />
+          <circle cx="18" cy="-8" r="1.5" fill="#E74C3C" opacity="0.7" />
+          <circle cx="-8" cy="-15" r="0.8" fill="#F4C542" opacity="0.9" />
+          <circle cx="12" cy="-12" r="1.2" fill="#F39C12" opacity="0.6" />
+          <circle cx="5" cy="-18" r="0.6" fill="#E74C3C" opacity="0.8" />
+          
+          {/* Smoke wisps */}
+          <path d="M-2,-15 Q-8,-25 Q-4,-35 Q2,-30 Q-3,-40" stroke="#95A5A6" strokeWidth="2" fill="none" opacity="0.4" strokeLinecap="round" />
+          <path d="M2,-15 Q8,-25 Q4,-35 Q-2,-30 Q3,-40" stroke="#95A5A6" strokeWidth="1.5" fill="none" opacity="0.3" strokeLinecap="round" />
         </g>
         
         {/* Hot air balloon (distant) */}
@@ -267,7 +287,7 @@ export default function AdventureIllustration() {
           <line x1="8" y1="15" x2="3" y2="25" stroke="#654321" strokeWidth="1" />
         </g>
         
-        {/* Small birds in distance (original ones) */}
+        {/* Small birds in distance */}
         <g opacity="0.4">
           <path d="M300,180 Q305,175 Q310,180" stroke="#2C3E50" strokeWidth="2" fill="none" />
           <path d="M320,175 Q325,170 Q330,175" stroke="#2C3E50" strokeWidth="2" fill="none" />
@@ -278,8 +298,8 @@ export default function AdventureIllustration() {
         <g opacity="0.3">
           <circle cx="200" cy="520" r="3" fill="#95A5A6" />
           <circle cx="450" cy="530" r="2" fill="#95A5A6" />
-          <circle cx="700" cy="525" r="4" fill="#95A5A6" />
-          <ellipse cx="600" cy="540" rx="8" ry="3" fill="#7F8C8D" />
+          <circle cx="800" cy="525" r="4" fill="#95A5A6" />
+          <ellipse cx="750" cy="540" rx="8" ry="3" fill="#7F8C8D" />
         </g>
       </svg>
     </div>
