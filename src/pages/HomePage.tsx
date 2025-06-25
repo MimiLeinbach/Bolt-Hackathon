@@ -60,4 +60,58 @@ export default function HomePage() {
         {/* Hero CTA */}
         <div className="text-center mb-12">
           <div className="mb-6">
-            <h2 classNam
+            <h2 className="text-4xl font-bold text-charcoal mb-4">
+              Ready to start planning?
+            </h2>
+            <Link
+              to="/create-trip"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Create Your First Trip
+            </Link>
+          </div>
+        </div>
+
+        {/* Existing Trips */}
+        {trips.length > 0 && (
+          <div className="flex-1">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+              <h3 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
+                <Sparkles className="w-6 h-6 mr-2 text-purple-600" />
+                Your Adventures
+              </h3>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {trips.map((trip) => (
+                  <Link
+                    key={trip.id}
+                    to={`/trip/${trip.id}`}
+                    className="block p-6 bg-white rounded-xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-200 group"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <h4 className="font-semibold text-lg text-charcoal group-hover:text-purple-600 transition-colors">
+                        {trip.name}
+                      </h4>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Users className="w-4 h-4 mr-1" />
+                        {trip.participantCount || trip.travelers?.length || 1}
+                      </div>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600 mb-2">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      {format(new Date(trip.startDate), 'MMM d')} - {format(new Date(trip.endDate), 'MMM d, yyyy')}
+                    </div>
+                    <div className="flex items-center text-xs text-gray-500">
+                      <MapPin className="w-3 h-3 mr-1" />
+                      Created {format(new Date(trip.createdAt), 'MMM d, yyyy')}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
