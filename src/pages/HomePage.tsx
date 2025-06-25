@@ -49,11 +49,6 @@ export default function HomePage() {
             <h3 className="text-6xl font-black mb-6 text-charcoal drop-shadow-lg">
               starts here
             </h3>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
-              <p className="text-xl text-gray-700 leading-relaxed">
-                Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
-              </p>
-            </div>
           </div>
         </div>
 
