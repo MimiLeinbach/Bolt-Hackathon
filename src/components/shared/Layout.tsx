@@ -18,12 +18,12 @@ export default function Layout({ children }: LayoutProps) {
       <header className="relative z-10 px-6 py-8 bg-light-gray">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-start">
-            {/* Junto Logo - Using exact JPG image */}
+            {/* Junto Logo - Using exact JPG image at 4x size */}
             <div className="flex items-center">
               <img 
                 src="/ChatGPT Image Jun 24, 2025 at 03_16_13 PM.jpg" 
                 alt="Junto Logo" 
-                className="h-24 w-auto object-contain"
+                className="h-96 w-auto object-contain"
               />
             </div>
           </div>
