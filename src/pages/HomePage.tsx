@@ -11,12 +11,12 @@ export default function HomePage() {
   const error = location.state?.error
 
   return (
-    <div className="animate-fade-in relative">
+    <div className="animate-fade-in relative min-h-screen">
       {/* Background Illustration */}
       <AdventureIllustration />
       
       {/* Content overlay */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col min-h-screen">
         {/* Error Message */}
         {error && (
           <div className="mb-6 p-4 bg-red-50/90 backdrop-blur-sm border border-red-200 rounded-xl flex items-center space-x-3">
@@ -52,7 +52,7 @@ export default function HomePage() {
 
         {/* Recent Trips */}
         {trips.length > 0 && (
-          <div className="animate-slide-up">
+          <div className="animate-slide-up flex-1">
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-6">
               <h3 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
                 <MapPin className="w-6 h-6 mr-2 text-forest-500" />
@@ -99,15 +99,18 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Empty State */}
+        {/* Spacer to push empty state to bottom */}
+        {trips.length === 0 && <div className="flex-1"></div>}
+
+        {/* Empty State - Now at bottom and narrower */}
         {trips.length === 0 && (
           <div className="text-center py-16 animate-slide-up">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-md mx-auto">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-forest-100 to-gold-100 rounded-full flex items-center justify-center">
-                <MapPin className="w-12 h-12 text-forest-500 animate-bounce-gentle" />
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-sm mx-auto">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-forest-100 to-gold-100 rounded-full flex items-center justify-center">
+                <MapPin className="w-8 h-8 text-forest-500 animate-bounce-gentle" />
               </div>
-              <h3 className="text-2xl font-bold text-charcoal mb-3">Ready for your first adventure?</h3>
-              <p className="text-gray-600 mb-8">
+              <h3 className="text-xl font-bold text-charcoal mb-3">Ready for your first adventure?</h3>
+              <p className="text-gray-600 text-sm mb-6">
                 Create your first trip and start planning something amazing with your friends.
               </p>
             </div>
