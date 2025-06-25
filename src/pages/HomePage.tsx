@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Plus, MapPin, Users, Calendar, Sparkles, AlertCircle } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format } from 'date-fns'
+import AdventureIllustration from '../components/shared/AdventureIllustration'
 
 export default function HomePage() {
   const trips = useTripStore((state) => state.trips)
@@ -41,6 +42,9 @@ export default function HomePage() {
           </button>
         </Link>
       </div>
+
+      {/* Adventure Illustration */}
+      <AdventureIllustration />
 
       {/* Recent Trips */}
       {trips.length > 0 && (
