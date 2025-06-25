@@ -26,7 +26,7 @@ export default function HomePage() {
         )}
 
         {/* Hero Section */}
-        <div className="text-center mb-12 pt-20">
+        <div className="text-center mb-8 pt-20">
           <div className="mb-6">
             <h2 className="text-6xl font-black mb-4 text-charcoal drop-shadow-lg">
               Your next adventure
@@ -40,6 +40,17 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Start Planning Button - positioned below the people in the illustration */}
+        <div className="text-center mb-12 pt-32">
+          <Link to="/create-trip">
+            <button className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl">
+              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+              <span>Start Planning</span>
+              <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
+            </button>
+          </Link>
         </div>
 
         {/* Recent Trips */}
@@ -90,17 +101,6 @@ export default function HomePage() {
             </div>
           </div>
         )}
-
-        {/* Start Planning Button - 15 units from bottom */}
-        <div className="text-center pb-15 mt-8">
-          <Link to="/create-trip">
-            <button className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl">
-              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
-              <span>Start Planning</span>
-              <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
-            </button>
-          </Link>
-        </div>
       </div>
     </div>
   )
