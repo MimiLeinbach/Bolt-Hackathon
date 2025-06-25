@@ -91,8 +91,8 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Start Planning Button - Now at the bottom */}
-        <div className="text-center pb-12 mt-auto">
+        {/* Start Planning Button - Moved higher from bottom */}
+        <div className="text-center pb-20 mt-8">
           <Link to="/create-trip">
             <button className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl">
               <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
