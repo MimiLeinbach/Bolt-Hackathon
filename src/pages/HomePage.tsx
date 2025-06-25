@@ -103,8 +103,11 @@ export default function HomePage() {
         <div className="text-center mb-12">
           <div className="mb-6">
             <h2 className="text-4xl font-bold text-charcoal mb-4">
-              Ready to start planning?
+              Plan Trips Better. Together.
             </h2>
+            <p className="text-xl text-gray-700 mb-6 leading-relaxed">
+              Create itineraries, share ideas and make memories together
+            </p>
             <Link
               to="/create-trip"
               className="inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 border border-gray-200"
