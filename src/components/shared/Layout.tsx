@@ -18,16 +18,12 @@ export default function Layout({ children }: LayoutProps) {
       <header className="relative z-10 px-6 py-8 bg-light-gray">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-start">
-            {/* Junto Logo - Using new Juntobig.jpg image with closer crop and half size */}
+            {/* Junto Logo - Full image, reduced to half size (h-24) */}
             <div className="flex items-center">
               <img 
                 src="/Juntobig.jpg" 
                 alt="Junto Logo" 
-                className="h-48 w-auto object-contain object-center"
-                style={{
-                  objectPosition: 'center',
-                  clipPath: 'inset(10% 15% 10% 15%)'
-                }}
+                className="h-24 w-auto object-contain object-center"
               />
             </div>
           </div>
