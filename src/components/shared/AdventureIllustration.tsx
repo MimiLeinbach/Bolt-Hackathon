@@ -2,194 +2,313 @@ import React from 'react'
 
 export default function AdventureIllustration() {
   return (
-    <div className="w-full max-w-md mx-auto my-12 relative">
+    <div className="w-full max-w-lg mx-auto my-12 relative">
       <svg
-        viewBox="0 0 400 300"
-        className="w-full h-auto"
+        viewBox="0 0 500 350"
+        className="w-full h-auto drop-shadow-lg"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Sky gradient background */}
+        {/* Advanced Gradients and Shadows */}
         <defs>
+          {/* Sky gradient */}
           <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#87CEEB" />
-            <stop offset="100%" stopColor="#E0F6FF" />
+            <stop offset="70%" stopColor="#B8E6FF" />
+            <stop offset="100%" stopColor="#E8F4FD" />
           </linearGradient>
-          <linearGradient id="mountainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          
+          {/* Mountain gradients with depth */}
+          <linearGradient id="mountainFar" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#4A90A4" />
+            <stop offset="100%" stopColor="#2E5266" />
+          </linearGradient>
+          
+          <linearGradient id="mountainNear" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#2E7D48" />
-            <stop offset="100%" stopColor="#1f5235" />
+            <stop offset="50%" stopColor="#1f5235" />
+            <stop offset="100%" stopColor="#0f2a1a" />
           </linearGradient>
-          <linearGradient id="tentGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          
+          {/* Ground gradient */}
+          <radialGradient id="groundGradient" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" stopColor="#8dd5b3" />
+            <stop offset="70%" stopColor="#56bc8e" />
+            <stop offset="100%" stopColor="#2E7D48" />
+          </radialGradient>
+          
+          {/* Tent gradient */}
+          <linearGradient id="tentMain" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#F7C544" />
             <stop offset="100%" stopColor="#e89611" />
           </linearGradient>
-          <radialGradient id="fireGradient" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#FF6B35" />
-            <stop offset="50%" stopColor="#F7931E" />
-            <stop offset="100%" stopColor="#FFD23F" />
+          
+          <linearGradient id="tentShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#e89611" />
+            <stop offset="100%" stopColor="#c17510" />
+          </linearGradient>
+          
+          {/* Fire gradient */}
+          <radialGradient id="fireGradient" cx="50%" cy="80%" r="60%">
+            <stop offset="0%" stopColor="#FFD700" />
+            <stop offset="30%" stopColor="#FF8C00" />
+            <stop offset="70%" stopColor="#FF4500" />
+            <stop offset="100%" stopColor="#DC143C" />
           </radialGradient>
+          
+          {/* Balloon gradient */}
+          <linearGradient id="balloonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FF6B9D" />
+            <stop offset="50%" stopColor="#FF8E9B" />
+            <stop offset="100%" stopColor="#FFB3BA" />
+          </linearGradient>
+          
+          {/* Tree gradients */}
+          <radialGradient id="treeGradient" cx="30%" cy="30%" r="70%">
+            <stop offset="0%" stopColor="#56bc8e" />
+            <stop offset="70%" stopColor="#2E7D48" />
+            <stop offset="100%" stopColor="#1f5235" />
+          </radialGradient>
+          
+          {/* Shadow filters */}
+          <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="2" dy="4" stdDeviation="3" floodColor="#000000" floodOpacity="0.2"/>
+          </filter>
+          
+          <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="1" dy="2" stdDeviation="2" floodColor="#000000" floodOpacity="0.15"/>
+          </filter>
         </defs>
 
         {/* Sky */}
-        <rect width="400" height="300" fill="url(#skyGradient)" />
+        <rect width="500" height="350" fill="url(#skyGradient)" />
 
-        {/* Clouds */}
-        <g opacity="0.8">
-          <ellipse cx="80" cy="40" rx="25" ry="12" fill="white" />
-          <ellipse cx="95" cy="35" rx="20" ry="10" fill="white" />
-          <ellipse cx="110" cy="40" rx="15" ry="8" fill="white" />
+        {/* Soft clouds with depth */}
+        <g opacity="0.9" filter="url(#softShadow)">
+          <ellipse cx="90" cy="45" rx="35" ry="18" fill="white" opacity="0.8" />
+          <ellipse cx="110" cy="40" rx="25" ry="14" fill="white" opacity="0.9" />
+          <ellipse cx="125" cy="45" rx="20" ry="12" fill="white" opacity="0.7" />
           
-          <ellipse cx="280" cy="30" rx="20" ry="10" fill="white" />
-          <ellipse cx="295" cy="25" rx="15" ry="8" fill="white" />
+          <ellipse cx="320" cy="35" rx="28" ry="15" fill="white" opacity="0.8" />
+          <ellipse cx="340" cy="30" rx="22" ry="12" fill="white" opacity="0.9" />
           
-          <ellipse cx="320" cy="60" rx="18" ry="9" fill="white" />
-          <ellipse cx="335" cy="55" rx="12" ry="6" fill="white" />
+          <ellipse cx="380" cy="65" rx="25" ry="13" fill="white" opacity="0.7" />
+          <ellipse cx="400" cy="60" rx="18" ry="10" fill="white" opacity="0.8" />
         </g>
 
-        {/* Mountains */}
+        {/* Layered mountains for depth */}
+        {/* Far mountains */}
         <polygon 
-          points="0,180 80,80 160,140 240,60 320,120 400,100 400,300 0,300" 
-          fill="url(#mountainGradient)" 
+          points="0,160 120,70 200,110 280,50 380,90 500,80 500,350 0,350" 
+          fill="url(#mountainFar)" 
+          opacity="0.7"
         />
         
-        {/* Mountain highlights */}
+        {/* Near mountains */}
         <polygon 
-          points="80,80 120,110 80,140" 
+          points="0,200 100,100 180,150 260,80 340,130 420,110 500,120 500,350 0,350" 
+          fill="url(#mountainNear)" 
+          filter="url(#softShadow)"
+        />
+        
+        {/* Mountain highlights for 3D effect */}
+        <polygon 
+          points="100,100 140,125 100,150" 
           fill="#56bc8e" 
-          opacity="0.6"
+          opacity="0.4"
         />
         <polygon 
-          points="240,60 280,90 240,120" 
+          points="260,80 300,105 260,130" 
           fill="#56bc8e" 
-          opacity="0.6"
+          opacity="0.4"
         />
 
-        {/* Ground/grass area */}
-        <ellipse cx="200" cy="280" rx="180" ry="40" fill="#8dd5b3" opacity="0.8" />
-        <ellipse cx="200" cy="285" rx="160" ry="30" fill="#56bc8e" opacity="0.6" />
+        {/* Layered ground with depth */}
+        <ellipse cx="250" cy="320" rx="220" ry="50" fill="url(#groundGradient)" opacity="0.8" />
+        <ellipse cx="250" cy="325" rx="200" ry="40" fill="#56bc8e" opacity="0.6" />
+        <ellipse cx="250" cy="330" rx="180" ry="30" fill="#2E7D48" opacity="0.4" />
 
-        {/* Trees */}
-        <g>
-          {/* Tree 1 */}
-          <rect x="45" y="200" width="8" height="25" fill="#8B4513" />
-          <circle cx="49" cy="195" r="18" fill="#2E7D48" />
-          <circle cx="42" cy="188" r="12" fill="#56bc8e" />
-          <circle cx="56" cy="188" r="12" fill="#56bc8e" />
+        {/* Detailed trees with 3D effect */}
+        <g filter="url(#softShadow)">
+          {/* Tree 1 - Large foreground tree */}
+          <ellipse cx="60" cy="240" rx="4" ry="15" fill="#8B4513" />
+          <ellipse cx="60" cy="225" rx="25" ry="30" fill="url(#treeGradient)" />
+          <ellipse cx="50" cy="215" rx="18" ry="22" fill="#56bc8e" opacity="0.8" />
+          <ellipse cx="70" cy="220" rx="15" ry="18" fill="#56bc8e" opacity="0.8" />
+          <ellipse cx="60" cy="205" rx="12" ry="15" fill="#8dd5b3" opacity="0.6" />
           
-          {/* Tree 2 */}
-          <rect x="320" y="190" width="6" height="20" fill="#8B4513" />
-          <circle cx="323" cy="185" r="15" fill="#2E7D48" />
-          <circle cx="318" cy="180" r="10" fill="#56bc8e" />
-          <circle cx="328" cy="180" r="10" fill="#56bc8e" />
+          {/* Tree 2 - Medium tree */}
+          <ellipse cx="400" cy="235" rx="3" ry="12" fill="#8B4513" />
+          <ellipse cx="400" cy="223" rx="20" ry="25" fill="url(#treeGradient)" />
+          <ellipse cx="392" cy="215" rx="14" ry="18" fill="#56bc8e" opacity="0.8" />
+          <ellipse cx="408" cy="218" rx="12" ry="15" fill="#56bc8e" opacity="0.8" />
           
-          {/* Tree 3 */}
-          <rect x="360" y="195" width="7" height="22" fill="#8B4513" />
-          <circle cx="363.5" cy="190" r="16" fill="#2E7D48" />
-          <circle cx="357" cy="184" r="11" fill="#56bc8e" />
-          <circle cx="370" cy="184" r="11" fill="#56bc8e" />
+          {/* Tree 3 - Background tree */}
+          <ellipse cx="450" cy="230" rx="2.5" ry="10" fill="#8B4513" />
+          <ellipse cx="450" cy="220" rx="15" ry="20" fill="url(#treeGradient)" opacity="0.8" />
+          <ellipse cx="445" cy="213" rx="10" ry="14" fill="#56bc8e" opacity="0.7" />
+          <ellipse cx="455" cy="215" rx="8" ry="12" fill="#56bc8e" opacity="0.7" />
         </g>
 
-        {/* Tent */}
-        <g>
+        {/* Detailed tent with 3D shading */}
+        <g filter="url(#dropShadow)">
           <polygon 
-            points="150,220 180,180 210,220" 
-            fill="url(#tentGradient)" 
+            points="180,240 210,190 240,240" 
+            fill="url(#tentMain)" 
           />
           <polygon 
-            points="180,180 210,220 180,220" 
-            fill="#e89611" 
+            points="210,190 240,240 210,240" 
+            fill="url(#tentShadow)" 
           />
-          <rect x="175" y="215" width="10" height="8" fill="#8B4513" />
+          <polygon 
+            points="210,190 225,200 210,240" 
+            fill="#F7C544" 
+            opacity="0.6"
+          />
+          <rect x="205" y="235" width="10" height="8" rx="2" fill="#654321" />
+          <ellipse cx="210" cy="243" rx="8" ry="2" fill="#2E7D48" opacity="0.3" />
         </g>
 
-        {/* Campfire */}
-        <g>
-          {/* Fire base */}
-          <ellipse cx="120" cy="235" rx="8" ry="3" fill="#8B4513" />
-          {/* Logs */}
-          <rect x="110" y="232" width="20" height="3" rx="1.5" fill="#8B4513" />
-          <rect x="115" y="228" width="15" height="3" rx="1.5" fill="#A0522D" transform="rotate(15 122.5 229.5)" />
-          {/* Flames */}
-          <ellipse cx="120" cy="225" rx="6" ry="12" fill="url(#fireGradient)" opacity="0.9" />
-          <ellipse cx="118" cy="220" rx="4" ry="8" fill="#FF6B35" opacity="0.8" />
-          <ellipse cx="122" cy="218" rx="3" ry="6" fill="#FFD23F" opacity="0.9" />
+        {/* Realistic campfire */}
+        <g filter="url(#softShadow)">
+          {/* Fire base and logs */}
+          <ellipse cx="140" cy="255" rx="12" ry="4" fill="#654321" />
+          <ellipse cx="135" cy="252" rx="15" ry="3" fill="#8B4513" transform="rotate(-15 135 252)" />
+          <ellipse cx="145" cy="252" rx="15" ry="3" fill="#8B4513" transform="rotate(15 145 252)" />
+          <ellipse cx="140" cy="250" rx="12" ry="3" fill="#A0522D" />
+          
+          {/* Layered flames */}
+          <ellipse cx="140" cy="235" rx="8" ry="20" fill="url(#fireGradient)" opacity="0.9" />
+          <ellipse cx="138" cy="230" rx="6" ry="15" fill="#FF8C00" opacity="0.8" />
+          <ellipse cx="142" cy="228" rx="4" ry="12" fill="#FFD700" opacity="0.9" />
+          <ellipse cx="140" cy="225" rx="3" ry="8" fill="#FFFF99" opacity="0.7" />
+          
+          {/* Smoke */}
+          <ellipse cx="140" cy="210" rx="2" ry="8" fill="#D3D3D3" opacity="0.4" />
+          <ellipse cx="142" cy="200" rx="3" ry="6" fill="#D3D3D3" opacity="0.3" />
+          <ellipse cx="138" cy="190" rx="4" ry="5" fill="#D3D3D3" opacity="0.2" />
         </g>
 
-        {/* Hot air balloon */}
-        <g>
-          <ellipse cx="300" cy="90" rx="25" ry="30" fill="#F7C544" />
-          <ellipse cx="290" cy="85" rx="8" ry="25" fill="#e89611" />
-          <ellipse cx="310" cy="85" rx="8" ry="25" fill="#c17510" />
-          <rect x="290" y="120" width="20" height="8" fill="#8B4513" rx="2" />
-          <line x1="290" y1="120" x2="285" y2="110" stroke="#654321" strokeWidth="1" />
-          <line x1="310" y1="120" x2="315" y2="110" stroke="#654321" strokeWidth="1" />
-          <line x1="295" y1="120" x2="295" y2="110" stroke="#654321" strokeWidth="1" />
-          <line x1="305" y1="120" x2="305" y2="110" stroke="#654321" strokeWidth="1" />
+        {/* Detailed hot air balloon */}
+        <g filter="url(#dropShadow)">
+          <ellipse cx="350" cy="100" rx="30" ry="40" fill="url(#balloonGradient)" />
+          <ellipse cx="340" cy="90" rx="10" ry="35" fill="#FF8E9B" opacity="0.7" />
+          <ellipse cx="360" cy="90" rx="10" ry="35" fill="#FFB3BA" opacity="0.7" />
+          <ellipse cx="350" cy="85" rx="8" ry="30" fill="#FF6B9D" opacity="0.5" />
+          
+          <rect x="340" y="140" width="20" height="10" rx="3" fill="#8B4513" />
+          <rect x="342" y="142" width="16" height="6" rx="2" fill="#A0522D" />
+          
+          {/* Balloon strings */}
+          <line x1="340" y1="140" x2="335" y2="125" stroke="#654321" strokeWidth="1" />
+          <line x1="360" y1="140" x2="365" y2="125" stroke="#654321" strokeWidth="1" />
+          <line x1="345" y1="140" x2="345" y2="125" stroke="#654321" strokeWidth="1" />
+          <line x1="355" y1="140" x2="355" y2="125" stroke="#654321" strokeWidth="1" />
         </g>
 
-        {/* People/Travelers */}
-        <g>
-          {/* Person 1 - Hiker with backpack */}
-          <circle cx="90" cy="200" r="8" fill="#FDBCB4" />
-          <rect x="85" y="208" width="10" height="15" fill="#4A90E2" rx="2" />
-          <rect x="83" y="223" width="6" height="12" fill="#2E7D48" rx="1" />
-          <rect x="91" y="223" width="6" height="12" fill="#2E7D48" rx="1" />
-          <ellipse cx="95" cy="210" rx="4" ry="8" fill="#8B4513" />
-          <rect x="88" y="195" width="4" height="3" fill="#654321" />
+        {/* Well-defined people with realistic proportions */}
+        <g filter="url(#softShadow)">
+          {/* Person 1 - Hiker with backpack (diverse skin tone) */}
+          <ellipse cx="110" cy="220" r="10" fill="#D4A574" />
+          <ellipse cx="110" cy="218" rx="8" ry="6" fill="#8B4513" /> {/* Hair */}
+          <rect x="105" y="230" width="10" height="18" rx="3" fill="#4A90E2" />
+          <ellipse cx="100" cy="235" rx="6" ry="12" fill="#2E7D48" /> {/* Backpack */}
+          <ellipse cx="105" cy="248" rx="3" ry="8" fill="#34495E" />
+          <ellipse cx="115" cy="248" rx="3" ry="8" fill="#34495E" />
+          <ellipse cx="105" cy="256" rx="4" ry="2" fill="#654321" />
+          <ellipse cx="115" cy="256" rx="4" ry="2" fill="#654321" />
+          <ellipse cx="110" cy="265" rx="8" ry="2" fill="#2E7D48" opacity="0.3" />
           
-          {/* Person 2 - Sitting by fire */}
-          <circle cx="105" cy="225" r="7" fill="#D4A574" />
-          <rect x="100" y="232" width="10" height="8" fill="#E74C3C" rx="2" />
-          <rect x="98" y="240" width="6" height="8" fill="#34495E" rx="1" />
-          <rect x="106" y="240" width="6" height="8" fill="#34495E" rx="1" />
+          {/* Person 2 - Sitting by fire (different skin tone) */}
+          <ellipse cx="125" cy="245" r="9" fill="#FDBCB4" />
+          <ellipse cx="125" cy="243" rx="7" ry="5" fill="#654321" />
+          <rect x="120" y="254" width="10" height="12" rx="3" fill="#E74C3C" />
+          <ellipse cx="118" cy="266" rx="3" ry="6" fill="#2C3E50" />
+          <ellipse cx="132" cy="266" rx="3" ry="6" fill="#2C3E50" />
+          <ellipse cx="125" cy="275" rx="6" ry="2" fill="#2E7D48" opacity="0.3" />
           
-          {/* Person 3 - Standing with arms up */}
-          <circle cx="250" cy="200" r="8" fill="#8D5524" />
-          <rect x="245" y="208" width="10" height="15" fill="#9B59B6" rx="2" />
-          <rect x="243" y="223" width="6" height="12" fill="#2C3E50" rx="1" />
-          <rect x="251" y="223" width="6" height="12" fill="#2C3E50" rx="1" />
-          <rect x="235" y="205" width="8" height="3" fill="#9B59B6" transform="rotate(-30 239 206.5)" />
-          <rect x="257" y="205" width="8" height="3" fill="#9B59B6" transform="rotate(30 261 206.5)" />
+          {/* Person 3 - Standing with arms raised (celebrating) */}
+          <ellipse cx="280" cy="215" r="10" fill="#8D5524" />
+          <ellipse cx="280" cy="213" rx="8" ry="6" fill="#2C3E50" />
+          <rect x="275" y="225" width="10" height="18" rx="3" fill="#9B59B6" />
+          <ellipse cx="275" cy="243" rx="3" ry="8" fill="#34495E" />
+          <ellipse cx="285" cy="243" rx="3" ry="8" fill="#34495E" />
+          <ellipse cx="275" cy="251" rx="4" ry="2" fill="#8B4513" />
+          <ellipse cx="285" cy="251" rx="4" ry="2" fill="#8B4513" />
+          {/* Raised arms */}
+          <ellipse cx="265" cy="225" rx="8" ry="3" fill="#9B59B6" transform="rotate(-45 265 225)" />
+          <ellipse cx="295" cy="225" rx="8" ry="3" fill="#9B59B6" transform="rotate(45 295 225)" />
+          <ellipse cx="280" cy="260" rx="8" ry="2" fill="#2E7D48" opacity="0.3" />
           
-          {/* Person 4 - Photographer */}
-          <circle cx="280" cy="210" r="7" fill="#FDBCB4" />
-          <rect x="275" y="217" width="10" height="12" fill="#27AE60" rx="2" />
-          <rect x="273" y="229" width="6" height="10" fill="#8B4513" rx="1" />
-          <rect x="281" y="229" width="6" height="10" fill="#8B4513" rx="1" />
-          <rect x="285" y="215" width="6" height="4" fill="#2C3E50" rx="1" />
+          {/* Person 4 - Photographer with camera */}
+          <ellipse cx="320" cy="225" r="9" fill="#F4D1AE" />
+          <ellipse cx="320" cy="223" rx="7" ry="5" fill="#8B4513" />
+          <rect x="315" y="234" width="10" height="15" rx="3" fill="#27AE60" />
+          <ellipse cx="313" cy="249" rx="3" ry="7" fill="#654321" />
+          <ellipse cx="327" cy="249" rx="3" ry="7" fill="#654321" />
+          <ellipse cx="320" cy="256" rx="4" ry="2" fill="#2C3E50" />
+          {/* Camera */}
+          <rect x="325" y="232" width="8" height="6" rx="2" fill="#2C3E50" />
+          <circle cx="329" cy="235" r="2" fill="#34495E" />
+          <ellipse cx="320" cy="265" rx="7" ry="2" fill="#2E7D48" opacity="0.3" />
           
-          {/* Person 5 - Sitting on log */}
-          <circle cx="140" cy="225" r="6" fill="#F4D1AE" />
-          <rect x="136" y="231" width="8" height="8" fill="#E67E22" rx="2" />
-          <rect x="134" y="239" width="5" height="6" fill="#95A5A6" rx="1" />
-          <rect x="141" y="239" width="5" height="6" fill="#95A5A6" rx="1" />
+          {/* Person 5 - Sitting relaxed */}
+          <ellipse cx="160" cy="245" r="8" fill="#C0392B" />
+          <ellipse cx="160" cy="243" rx="6" ry="4" fill="#E67E22" />
+          <rect x="156" y="253" width="8" height="12" rx="2" fill="#F39C12" />
+          <ellipse cx="154" cy="265" rx="2.5" ry="5" fill="#7F8C8D" />
+          <ellipse cx="166" cy="265" rx="2.5" ry="5" fill="#7F8C8D" />
+          <ellipse cx="160" cy="272" rx="6" ry="2" fill="#2E7D48" opacity="0.3" />
           
           {/* Person 6 - Walking with hiking stick */}
-          <circle cx="200" cy="205" r="7" fill="#C0392B" />
-          <rect x="196" y="212" width="8" height="13" fill="#F39C12" rx="2" />
-          <rect x="194" y="225" width="5" height="10" fill="#7F8C8D" rx="1" />
-          <rect x="201" y="225" width="5" height="10" fill="#7F8C8D" rx="1" />
-          <line x1="190" y1="200" x2="190" y2="220" stroke="#8B4513" strokeWidth="2" />
-          <circle cx="190" cy="198" r="2" fill="#654321" />
+          <ellipse cx="240" cy="220" r="9" fill="#FDBCB4" />
+          <ellipse cx="240" cy="218" rx="7" ry="5" fill="#654321" />
+          <rect x="235" y="229" width="10" height="16" rx="3" fill="#E74C3C" />
+          <ellipse cx="233" cy="245" rx="3" ry="7" fill="#2C3E50" />
+          <ellipse cx="247" cy="245" rx="3" ry="7" fill="#2C3E50" />
+          <ellipse cx="233" cy="252" rx="4" ry="2" fill="#654321" />
+          <ellipse cx="247" cy="252" rx="4" ry="2" fill="#654321" />
+          {/* Hiking stick */}
+          <line x1="225" y1="210" x2="225" y2="240" stroke="#8B4513" strokeWidth="3" />
+          <ellipse cx="225" cy="208" rx="2" ry="3" fill="#654321" />
+          <ellipse cx="240" cy="260" rx="7" ry="2" fill="#2E7D48" opacity="0.3" />
         </g>
 
-        {/* Birds */}
+        {/* Flying birds with realistic movement */}
         <g stroke="#2C3E50" strokeWidth="2" fill="none" opacity="0.6">
-          <path d="M 60 70 Q 65 65 70 70" />
-          <path d="M 75 75 Q 80 70 85 75" />
-          <path d="M 340 45 Q 345 40 350 45" />
+          <path d="M 80 80 Q 85 75 90 80 Q 95 75 100 80" />
+          <path d="M 110 85 Q 115 80 120 85" />
+          <path d="M 370 50 Q 375 45 380 50 Q 385 45 390 50" />
+          <path d="M 395 55 Q 400 50 405 55" />
         </g>
 
-        {/* Sun */}
-        <circle cx="350" cy="50" r="20" fill="#FFD700" opacity="0.9" />
-        <g stroke="#FFD700" strokeWidth="2" opacity="0.7">
-          <line x1="350" y1="20" x2="350" y2="30" />
-          <line x1="350" y1="70" x2="350" y2="80" />
-          <line x1="320" y1="50" x2="330" y2="50" />
-          <line x1="370" y1="50" x2="380" y2="50" />
-          <line x1="330" y1="30" x2="336" y2="36" />
-          <line x1="364" y1="64" x2="370" y2="70" />
-          <line x1="370" y1="30" x2="364" y2="36" />
-          <line x1="336" y1="64" x2="330" y2="70" />
+        {/* Detailed sun with rays */}
+        <g filter="url(#softShadow)">
+          <circle cx="420" cy="60" r="25" fill="#FFD700" opacity="0.9" />
+          <circle cx="420" cy="60" r="20" fill="#FFFF99" opacity="0.7" />
+          <circle cx="420" cy="60" r="15" fill="#FFFACD" opacity="0.5" />
+          
+          <g stroke="#FFD700" strokeWidth="3" opacity="0.6">
+            <line x1="420" y1="25" x2="420" y2="35" />
+            <line x1="420" y1="85" x2="420" y2="95" />
+            <line x1="385" y1="60" x2="395" y2="60" />
+            <line x1="445" y1="60" x2="455" y2="60" />
+            <line x1="395" y1="35" x2="402" y2="42" />
+            <line x1="438" y1="78" x2="445" y2="85" />
+            <line x1="445" y1="35" x2="438" y2="42" />
+            <line x1="402" y1="78" x2="395" y2="85" />
+          </g>
+        </g>
+
+        {/* Subtle ground shadows for depth */}
+        <g opacity="0.2">
+          <ellipse cx="110" cy="265" rx="8" ry="2" fill="#000000" />
+          <ellipse cx="125" cy="275" rx="6" ry="2" fill="#000000" />
+          <ellipse cx="280" cy="260" rx="8" ry="2" fill="#000000" />
+          <ellipse cx="320" cy="265" rx="7" ry="2" fill="#000000" />
+          <ellipse cx="160" cy="272" rx="6" ry="2" fill="#000000" />
+          <ellipse cx="240" cy="260" rx="7" ry="2" fill="#000000" />
+          <ellipse cx="210" cy="250" rx="15" ry="3" fill="#000000" />
+          <ellipse cx="140" cy="260" rx="10" ry="2" fill="#000000" />
         </g>
       </svg>
     </div>
