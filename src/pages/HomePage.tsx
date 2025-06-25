@@ -22,10 +22,10 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="text-center mb-12">
         <div className="mb-6">
-          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-500 bg-clip-text text-transparent">
+          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-400 bg-clip-text text-transparent">
             Your next adventure
           </h2>
-          <h3 className="text-5xl font-bold mb-6 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-500 bg-clip-text text-transparent">
+          <h3 className="text-5xl font-bold mb-6 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-400 bg-clip-text text-transparent">
             starts here
           </h3>
           <p className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
@@ -70,7 +70,7 @@ export default function HomePage() {
                     </div>
                     
                     <div className="flex items-center space-x-2">
-                      <Users className="w-4 h-4 text-gold-500" />
+                      <Users className="w-4 h-4 text-gold-400" />
                       <span className="text-sm">
                         {trip.travelers?.length || trip.participantCount} {(trip.travelers?.length || trip.participantCount) === 1 ? 'traveler' : 'travelers'}
                       </span>

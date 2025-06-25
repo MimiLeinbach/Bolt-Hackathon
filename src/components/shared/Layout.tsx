@@ -1,5 +1,4 @@
 import React from 'react'
-import { Compass, Sparkles } from 'lucide-react'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -19,10 +18,14 @@ export default function Layout({ children }: LayoutProps) {
       <header className="relative z-10 px-6 py-6 bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-4">
+              {/* Junto Logo */}
               <div className="relative">
-                <Compass className="w-8 h-8 text-forest-500 animate-bounce-gentle" />
-                <Sparkles className="w-4 h-4 text-gold-400 absolute -top-1 -right-1 animate-pulse" />
+                <img 
+                  src="/ChatGPT Image Jun 24, 2025 at 03_16_13 PM.jpg" 
+                  alt="Junto Logo" 
+                  className="w-12 h-12 object-contain"
+                />
               </div>
               <div>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-forest-600 to-forest-500 bg-clip-text text-transparent">
