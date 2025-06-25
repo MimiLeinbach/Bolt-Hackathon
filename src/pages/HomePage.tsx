@@ -52,9 +52,31 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Existing Trips */}
+        {/* Spacer to push CTA lower */}
+        <div className="flex-1 min-h-[200px]"></div>
+
+        {/* Hero CTA - Moved much lower */}
+        <div className="text-center mb-12">
+          <div className="mb-6">
+            <h2 className="text-4xl font-bold text-charcoal mb-4">
+              Plan Trips Better. Together.
+            </h2>
+            <p className="text-xl text-white font-bold mb-6 leading-relaxed drop-shadow-lg">
+              Create itineraries, share ideas and make memories together
+            </p>
+            <Link
+              to="/create-trip"
+              className="inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 border border-gray-200"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Create Your First Trip
+            </Link>
+          </div>
+        </div>
+
+        {/* Existing Trips - Now below the CTA button */}
         {trips.length > 0 && (
-          <div className="mb-12">
+          <div className="flex-1">
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
               <h3 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
                 <Sparkles className="w-6 h-6 mr-2 text-purple-600" />
@@ -90,28 +112,6 @@ export default function HomePage() {
             </div>
           </div>
         )}
-
-        {/* Spacer to push CTA lower */}
-        <div className="flex-1 min-h-[200px]"></div>
-
-        {/* Hero CTA - Moved much lower */}
-        <div className="text-center mb-12">
-          <div className="mb-6">
-            <h2 className="text-4xl font-bold text-charcoal mb-4">
-              Plan Trips Better. Together.
-            </h2>
-            <p className="text-xl text-white font-bold mb-6 leading-relaxed drop-shadow-lg">
-              Create itineraries, share ideas and make memories together
-            </p>
-            <Link
-              to="/create-trip"
-              className="inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 border border-gray-200"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Create Your First Trip
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   )
