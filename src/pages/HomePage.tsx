@@ -42,66 +42,94 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Start Planning Button - positioned much lower, well below the people */}
-        <div className="text-center mb-12 pt-80">
-          <Link to="/create-trip">
-            <button className="bg-white text-black border-2 border-gray-300 hover:bg-gray-50 hover:shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-200 ease-out text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl rounded-xl font-semibold">
-              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300 text-black" />
-              <span>Start Planning</span>
-              <Sparkles className="w-5 h-5 animate-pulse" style={{ color: '#F4C542' }} />
-            </button>
-          </Link>
+      {/* Hero Section - Larger Text */}
+      <div className="text-center mb-12">
+        <div className="mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-400 bg-clip-text text-transparent leading-tight">
+            Your next adventure
+          </h2>
+          <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-forest-600 via-forest-500 to-gold-400 bg-clip-text text-transparent leading-tight">
+            starts here
+          </h3>
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed px-4">
+            Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
+          </p>
         </div>
+        
+        <Link to="/create-trip">
+          <button className="btn-primary text-lg px-10 py-4 inline-flex items-center space-x-3 group shadow-xl">
+            <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+            <span>Start Planning</span>
+            <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
+          </button>
+        </Link>
+      </div>
 
-        {/* Recent Trips */}
-        {trips.length > 0 && (
-          <div className="animate-slide-up flex-1 mb-8">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-6">
-              <h3 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
-                <MapPin className="w-6 h-6 mr-2 text-forest-500" />
-                Your Adventures
-              </h3>
-            </div>
-            
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {trips.map((trip) => (
-                <Link key={trip.id} to={`/trip/${trip.id}`}>
-                  <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group border border-white/50">
-                    <div className="flex items-start justify-between mb-4">
-                      <h4 className="text-xl font-bold text-charcoal group-hover:text-forest-600 transition-colors">
-                        {trip.name}
-                      </h4>
-                      <div className="w-3 h-3 bg-gradient-to-r from-forest-400 to-gold-400 rounded-full animate-pulse"></div>
+      {/* Recent Trips - Compact Layout */}
+      {trips.length > 0 && (
+        <div className="animate-slide-up">
+          <h3 className="text-xl font-bold text-charcoal mb-6 flex items-center justify-center md:justify-start">
+            <MapPin className="w-5 h-5 mr-2 text-forest-500" />
+            Your Adventures
+          </h3>
+          
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+            {trips.map((trip) => (
+              <Link key={trip.id} to={`/trip/${trip.id}`}>
+                <div className="glass-card rounded-xl p-5 hover:shadow-xl transform hover:scale-105 transition-all duration-300 group h-full">
+                  <div className="flex items-start justify-between mb-3">
+                    <h4 className="text-lg font-bold text-charcoal group-hover:text-forest-600 transition-colors line-clamp-2">
+                      {trip.name}
+                    </h4>
+                    <div className="w-2 h-2 bg-gradient-to-r from-forest-400 to-gold-400 rounded-full animate-pulse flex-shrink-0 ml-2"></div>
+                  </div>
+                  
+                  <div className="space-y-2 text-gray-600 mb-3">
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="w-3 h-3 text-forest-500 flex-shrink-0" />
+                      <span className="text-sm">
+                        {format(new Date(trip.startDate), 'MMM d')} - {format(new Date(trip.endDate), 'MMM d, yyyy')}
+                      </span>
                     </div>
                     
-                    <div className="space-y-3 text-gray-600">
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="w-4 h-4 text-forest-500" />
-                        <span className="text-sm">
-                          {format(new Date(trip.startDate), 'MMM d')} - {format(new Date(trip.endDate), 'MMM d, yyyy')}
-                        </span>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2">
-                        <Users className="w-4 h-4 text-gold-500" />
-                        <span className="text-sm">
-                          {trip.travelers?.length || trip.participantCount} {(trip.travelers?.length || trip.participantCount) === 1 ? 'traveler' : 'travelers'}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <span className="text-xs text-gray-500">
-                        Created {format(new Date(trip.createdAt), 'MMM d, yyyy')}
+                    <div className="flex items-center space-x-2">
+                      <Users className="w-3 h-3 text-gold-400 flex-shrink-0" />
+                      <span className="text-sm">
+                        {trip.travelers?.length || trip.participantCount} {(trip.travelers?.length || trip.participantCount) === 1 ? 'traveler' : 'travelers'}
                       </span>
                     </div>
                   </div>
-                </Link>
-              ))}
-            </div>
+                  
+                  <div className="pt-3 border-t border-gray-200">
+                    <span className="text-xs text-gray-500">
+                      Created {format(new Date(trip.createdAt), 'MMM d, yyyy')}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
+      {/* Empty State - Compact */}
+      {trips.length === 0 && (
+        <div className="text-center py-12 animate-slide-up max-w-lg mx-auto">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-forest-100 to-gold-100 rounded-full flex items-center justify-center">
+            <MapPin className="w-8 h-8 text-forest-500 animate-bounce-gentle" />
+          </div>
+          <h3 className="text-xl font-bold text-charcoal mb-3">Ready for your first adventure?</h3>
+          <p className="text-gray-600 mb-6 leading-relaxed">
+            Create your first trip and start planning something amazing with your friends.
+          </p>
+          <Link to="/create-trip">
+            <button className="btn-primary inline-flex items-center space-x-2">
+              <Plus className="w-4 h-4" />
+              <span>Create Your First Trip</span>
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

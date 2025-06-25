@@ -1,5 +1,4 @@
 import React from 'react'
-import { Compass, Sparkles } from 'lucide-react'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -8,35 +7,31 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-light-gray">
-      {/* Background Elements */}
+      {/* Subtle Background Elements Only */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 bg-forest-200/20 rounded-full blur-xl animate-float"></div>
         <div className="absolute top-40 right-20 w-24 h-24 bg-gold-200/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
         <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-forest-300/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 px-6 py-6 bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
+      {/* Header - Compact */}
+      <header className="relative z-10 px-6 py-4 bg-light-gray">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="relative">
-                <Compass className="w-8 h-8 text-forest-500 animate-bounce-gentle" />
-                <Sparkles className="w-4 h-4 text-gold-400 absolute -top-1 -right-1 animate-pulse" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-forest-600 to-forest-500 bg-clip-text text-transparent">
-                  AI Itinerary
-                </h1>
-                <p className="text-sm text-gray-600 font-medium">Plan adventures together</p>
-              </div>
+          <div className="flex items-center justify-start">
+            {/* Junto Logo */}
+            <div className="flex items-center">
+              <img 
+                src="/Juntobig.jpg" 
+                alt="Junto Logo" 
+                className="h-24 w-auto object-contain object-center"
+              />
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="relative z-10 px-6 pb-12">
+      {/* Main Content - Moved Up */}
+      <main className="relative z-10 px-6 pb-8">
         <div className="max-w-4xl mx-auto">
           {children}
         </div>

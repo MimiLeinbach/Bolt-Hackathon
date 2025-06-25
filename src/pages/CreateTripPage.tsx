@@ -111,7 +111,7 @@ export default function CreateTripPage() {
           <ArrowLeft className="w-6 h-6 text-charcoal" />
         </button>
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-forest-600 to-gold-500 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-forest-600 to-gold-400 bg-clip-text text-transparent">
             Plan Your Adventure
           </h1>
           <p className="text-gray-600 mt-1">Tell us about your upcoming trip</p>
@@ -145,7 +145,7 @@ export default function CreateTripPage() {
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-charcoal mb-2 flex items-center">
-                  <Calendar className="w-4 h-4 mr-2 text-gold-500" />
+                  <Calendar className="w-4 h-4 mr-2 text-gold-400" />
                   Start Date
                 </label>
                 <input
@@ -163,7 +163,7 @@ export default function CreateTripPage() {
 
               <div>
                 <label className="block text-sm font-semibold text-charcoal mb-2 flex items-center">
-                  <Calendar className="w-4 h-4 mr-2 text-gold-500" />
+                  <Calendar className="w-4 h-4 mr-2 text-gold-400" />
                   End Date
                 </label>
                 <input
@@ -226,7 +226,7 @@ export default function CreateTripPage() {
         <div className="space-y-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
           <div className="glass-card rounded-2xl p-8">
             <h3 className="text-xl font-bold text-charcoal mb-6 flex items-center">
-              <Sparkles className="w-5 h-5 mr-2 text-gold-500" />
+              <Sparkles className="w-5 h-5 mr-2 text-gold-400" />
               Trip Preview
             </h3>
             

@@ -25,11 +25,11 @@ export default {
         },
         gold: {
           50: '#fefbf0',
-          100: '#fef7e0',
-          200: '#fdecc0',
+          100: '#fef6e0',
+          200: '#fdebc0',
           300: '#fbdc95',
-          400: '#F7C544', // Main yellow/gold
-          500: '#f4b429',
+          400: '#F4C542', // Updated Warm Mustard Yellow
+          500: '#f1b429',
           600: '#e89611',
           700: '#c17510',
           800: '#9b5d14',
@@ -55,11 +55,11 @@ export default {
         },
         wanderlust: {
           50: '#fefbf0',
-          100: '#fef7e0',
-          200: '#fdecc0',
+          100: '#fef6e0',
+          200: '#fdebc0',
           300: '#fbdc95',
-          400: '#F7C544',
-          500: '#f4b429',
+          400: '#F4C542',
+          500: '#f1b429',
           600: '#e89611',
           700: '#c17510',
           800: '#9b5d14',
