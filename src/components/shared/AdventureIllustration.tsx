@@ -43,6 +43,21 @@ export default function AdventureIllustration() {
           <ellipse cx="1020" cy="135" rx="30" ry="15" fill="white" />
         </g>
         
+        {/* Birds in the sky */}
+        <g opacity="0.6">
+          {/* Bird 1 - Higher up, near the sun */}
+          <g transform="translate(850, 120)">
+            <path d="M-8,-2 Q-4,-6 Q0,-2 Q4,-6 Q8,-2" stroke="#2C3E50" strokeWidth="2" fill="none" strokeLinecap="round" />
+            <circle cx="0" cy="-1" r="1.5" fill="#2C3E50" />
+          </g>
+          
+          {/* Bird 2 - Lower, flying towards the left */}
+          <g transform="translate(600, 180)">
+            <path d="M-10,-3 Q-5,-7 Q0,-3 Q5,-7 Q10,-3" stroke="#2C3E50" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+            <circle cx="0" cy="-1.5" r="2" fill="#2C3E50" />
+          </g>
+        </g>
+        
         {/* Mountains (background) */}
         <path
           d="M0 400 L200 250 L400 300 L600 200 L800 280 L1000 220 L1200 300 L1200 800 L0 800 Z"
@@ -230,7 +245,7 @@ export default function AdventureIllustration() {
           <line x1="8" y1="15" x2="3" y2="25" stroke="#654321" strokeWidth="1" />
         </g>
         
-        {/* Birds */}
+        {/* Small birds in distance (original ones) */}
         <g opacity="0.4">
           <path d="M300,180 Q305,175 Q310,180" stroke="#2C3E50" strokeWidth="2" fill="none" />
           <path d="M320,175 Q325,170 Q330,175" stroke="#2C3E50" strokeWidth="2" fill="none" />
