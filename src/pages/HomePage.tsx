@@ -57,25 +57,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero CTA */}
-        <div className="text-center mb-12">
-          <div className="mb-6">
-            <h2 className="text-4xl font-bold text-charcoal mb-4">
-              Ready to start planning?
-            </h2>
-            <Link
-              to="/create-trip"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Create Your First Trip
-            </Link>
-          </div>
-        </div>
-
         {/* Existing Trips */}
         {trips.length > 0 && (
-          <div className="flex-1">
+          <div className="mb-12">
             <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
               <h3 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
                 <Sparkles className="w-6 h-6 mr-2 text-purple-600" />
@@ -111,6 +95,25 @@ export default function HomePage() {
             </div>
           </div>
         )}
+
+        {/* Spacer to push CTA lower */}
+        <div className="flex-1 min-h-[200px]"></div>
+
+        {/* Hero CTA - Moved much lower */}
+        <div className="text-center mb-12">
+          <div className="mb-6">
+            <h2 className="text-4xl font-bold text-charcoal mb-4">
+              Ready to start planning?
+            </h2>
+            <Link
+              to="/create-trip"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Create Your First Trip
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   )
