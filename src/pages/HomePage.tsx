@@ -100,7 +100,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-bold text-charcoal mb-4">
               Plan Trips Better. Together.
             </h2>
-            <p className="text-xl text-gray-700 mb-6 leading-relaxed">
+            <p className="text-xl text-white font-bold mb-6 leading-relaxed drop-shadow-lg">
               Create itineraries, share ideas and make memories together
             </p>
             <Link
