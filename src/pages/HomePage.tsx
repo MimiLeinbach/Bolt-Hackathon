@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { Plus, MapPin, Users, Calendar, Sparkles, AlertCircle } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format } from 'date-fns'
-import AdventureIllustration from '../components/shared/AdventureIllustration'
 
 export default function HomePage() {
   const trips = useTripStore((state) => state.trips)
@@ -41,9 +40,6 @@ export default function HomePage() {
             <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
           </button>
         </Link>
-
-        {/* Adventure Illustration */}
-        <AdventureIllustration />
       </div>
 
       {/* Recent Trips */}
