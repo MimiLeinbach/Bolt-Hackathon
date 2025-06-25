@@ -40,19 +40,11 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-          
-          <Link to="/create-trip">
-            <button className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl">
-              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
-              <span>Start Planning</span>
-              <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
-            </button>
-          </Link>
         </div>
 
         {/* Recent Trips */}
         {trips.length > 0 && (
-          <div className="animate-slide-up flex-1">
+          <div className="animate-slide-up flex-1 mb-8">
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-6">
               <h3 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
                 <MapPin className="w-6 h-6 mr-2 text-forest-500" />
@@ -98,6 +90,17 @@ export default function HomePage() {
             </div>
           </div>
         )}
+
+        {/* Start Planning Button - Now at the bottom */}
+        <div className="text-center pb-12 mt-auto">
+          <Link to="/create-trip">
+            <button className="btn-primary text-lg px-8 py-4 inline-flex items-center space-x-3 group shadow-2xl">
+              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+              <span>Start Planning</span>
+              <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   )
