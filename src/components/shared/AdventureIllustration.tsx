@@ -94,6 +94,36 @@ export default function AdventureIllustration() {
           <circle cx="1054" cy="450" r="22" fill="#56bc8e" />
         </g>
         
+        {/* Large Tent (much bigger and more prominent) */}
+        <g transform="translate(850, 420)" opacity="0.95">
+          {/* Tent shadow */}
+          <ellipse cx="0" cy="80" rx="50" ry="12" fill="#000000" opacity="0.2" />
+          
+          {/* Main tent body */}
+          <path d="M0,0 L-45,70 L45,70 Z" fill="#E74C3C" />
+          <path d="M0,0 L-40,70 L40,70 Z" fill="#C0392B" />
+          
+          {/* Tent entrance */}
+          <rect x="-20" y="45" width="12" height="25" fill="#2C3E50" rx="2" />
+          <circle cx="-14" cy="50" r="2" fill="#F4C542" />
+          
+          {/* Tent details */}
+          <path d="M-35,60 L35,60" stroke="#A93226" strokeWidth="2" />
+          <path d="M-30,50 L30,50" stroke="#A93226" strokeWidth="2" />
+          
+          {/* Tent poles/stakes */}
+          <rect x="-42" y="65" width="2" height="8" fill="#8B4513" />
+          <rect x="40" y="65" width="2" height="8" fill="#8B4513" />
+          
+          {/* Guy ropes */}
+          <line x1="-35" y1="20" x2="-55" y2="65" stroke="#654321" strokeWidth="1.5" />
+          <line x1="35" y1="20" x2="55" y2="65" stroke="#654321" strokeWidth="1.5" />
+          
+          {/* Stakes for guy ropes */}
+          <rect x="-57" y="63" width="4" height="8" fill="#8B4513" rx="2" />
+          <rect x="53" y="63" width="4" height="8" fill="#8B4513" rx="2" />
+        </g>
+        
         {/* Group of friends - positioned across the scene */}
         <g>
           {/* Person 1 - Hiker with backpack (left) */}
@@ -223,14 +253,6 @@ export default function AdventureIllustration() {
           <path d="M-8,10 Q-5,0 Q0,8 Q5,0 Q8,10 Q4,12 Q0,5 Q-4,12 Z" fill="#E74C3C" />
           <path d="M-6,8 Q-3,-2 Q0,6 Q3,-2 Q6,8 Q3,10 Q0,3 Q-3,10 Z" fill="#F39C12" />
           <path d="M-4,6 Q-2,-4 Q0,4 Q2,-4 Q4,6 Q2,8 Q0,1 Q-2,8 Z" fill="#F4C542" />
-        </g>
-        
-        {/* Tent (background) */}
-        <g transform="translate(850, 480)" opacity="0.9">
-          <path d="M0,0 L-25,30 L25,30 Z" fill="#E74C3C" />
-          <path d="M0,0 L-20,30 L20,30 Z" fill="#C0392B" />
-          <rect x="-15" y="20" width="8" height="10" fill="#2C3E50" rx="1" />
-          <circle cx="-11" cy="22" r="1" fill="#F4C542" />
         </g>
         
         {/* Hot air balloon (distant) */}
