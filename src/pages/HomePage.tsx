@@ -56,30 +56,29 @@ export default function HomePage() {
             <h3 className="text-5xl font-black mb-3 text-charcoal drop-shadow-lg">
               starts here
             </h3>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 max-w-2xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 max-w-2xl mx-auto mb-4">
               <p className="text-lg text-gray-700 leading-relaxed">
                 Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
               </p>
             </div>
+            {/* "Ready to start planning?" moved closer to white text box */}
+            <h2 className="text-3xl font-bold text-charcoal mb-6">
+              Ready to start planning?
+            </h2>
           </div>
         </div>
 
         {/* Spacer to push button to desired position */}
         <div className="flex-1 flex flex-col justify-center">
-          {/* Hero CTA - Button stays in same position */}
+          {/* Green button positioned where "Ready to start planning?" was */}
           <div className="text-center mb-8">
-            <div className="mb-4">
-              <h2 className="text-3xl font-bold text-charcoal mb-3">
-                Ready to start planning?
-              </h2>
-              <Link
-                to="/create-trip"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-forest-500 to-gold-400 text-white font-semibold rounded-xl hover:from-forest-600 hover:to-gold-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-              >
-                <Plus className="w-5 h-5 mr-2" />
-                Create Your First Trip
-              </Link>
-            </div>
+            <Link
+              to="/create-trip"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-forest-500 to-gold-400 text-white font-semibold rounded-xl hover:from-forest-600 hover:to-gold-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Create Your First Trip
+            </Link>
           </div>
         </div>
 
