@@ -18,20 +18,23 @@ export default function Layout({ children }: LayoutProps) {
       <header className="relative z-20 px-4 sm:px-6 py-3 sm:py-4 bg-transparent">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-start">
-            {/* Logo - Using reliable placeholder with error handling */}
+            {/* Logo - Fixed path and fallback */}
             <div className="flex items-center">
               <img 
-                src="https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&w=200&h=80&fit=crop"
+                src="/Juntobig.jpg" 
                 alt="Junto Logo" 
                 className="h-12 sm:h-16 lg:h-20 w-auto object-contain object-center drop-shadow-lg"
                 onError={(e) => {
                   // Fallback to text logo if image fails
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
-                  const textLogo = document.createElement('div');
-                  textLogo.className = 'text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-forest-600 to-gold-400 bg-clip-text text-transparent';
-                  textLogo.textContent = 'Junto';
-                  target.parentNode?.appendChild(textLogo);
+                  const parent = target.parentNode as HTMLElement;
+                  if (parent && !parent.querySelector('.text-logo')) {
+                    const textLogo = document.createElement('div');
+                    textLogo.className = 'text-logo text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-forest-600 to-gold-400 bg-clip-text text-transparent';
+                    textLogo.textContent = 'Junto';
+                    parent.appendChild(textLogo);
+                  }
                 }}
               />
             </div>

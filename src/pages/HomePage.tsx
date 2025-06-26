@@ -26,20 +26,26 @@ export default function HomePage() {
 
   return (
     <div className="animate-fade-in relative min-h-screen">
-      {/* Background Image - Using reliable Pexels image with error handling */}
+      {/* Background Image - Fixed path with fallback */}
       <div 
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080')`,
+          backgroundImage: `url('/ChatGPT Image Jun 26, 2025, 12_37_10 PM.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           zIndex: -1
         }}
+        onError={(e) => {
+          // If background image fails to load, show gradient fallback
+          const target = e.target as HTMLElement;
+          target.style.backgroundImage = 'none';
+          target.classList.add('bg-gradient-to-br', 'from-forest-100', 'via-gold-50', 'to-forest-200');
+        }}
       >
-        {/* Fallback gradient background */}
+        {/* Fallback gradient background - always present as backup */}
         <div 
-          className="absolute inset-0 bg-gradient-to-br from-forest-100 via-gold-50 to-forest-200"
-          style={{ zIndex: -1 }}
+          className="absolute inset-0 bg-gradient-to-br from-forest-100 via-gold-50 to-forest-200 opacity-50"
+          style={{ zIndex: -2 }}
         />
       </div>
 
