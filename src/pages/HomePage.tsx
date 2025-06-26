@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { Plus, MapPin, Users, Calendar, Sparkles, AlertCircle } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format } from 'date-fns'
-import AdventureIllustration from '../components/shared/AdventureIllustration'
 
 interface Trip {
   id: string
@@ -27,9 +26,6 @@ export default function HomePage() {
 
   return (
     <div className="animate-fade-in relative min-h-screen">
-      {/* Background Illustration */}
-      <AdventureIllustration />
-
       {/* Content overlay */}
       <div className="relative z-10 flex flex-col min-h-screen p-4">
         {/* Error Message */}
