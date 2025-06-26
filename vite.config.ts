@@ -12,15 +12,15 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     minify: 'esbuild',
+    target: 'es2015',
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          utils: ['zustand', 'date-fns', 'lucide-react']
-        }
+        manualChunks: undefined
       }
     }
   },
-  base: './'
+  base: './',
+  define: {
+    'process.env': {}
+  }
 })

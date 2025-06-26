@@ -96,10 +96,10 @@ export const useTripStore = create<TripStore>()(
         // If trip already has the new structure, return as is
         if (trip.travelers && trip.ownerId) {
           // Ensure activities have participants array
-          const migratedActivities = trip.activities?.map((activity: any) => ({
+          const migratedActivities = (trip.activities || []).map((activity: any) => ({
             ...activity,
             participants: activity.participants || []
-          })) || []
+          }))
           
           return {
             ...trip,
@@ -109,10 +109,10 @@ export const useTripStore = create<TripStore>()(
 
         // Migrate old trip structure to new structure
         const travelerId = get().generateTravelerId()
-        const migratedActivities = trip.activities?.map((activity: any) => ({
+        const migratedActivities = (trip.activities || []).map((activity: any) => ({
           ...activity,
           participants: activity.participants || []
-        })) || []
+        }))
 
         return {
           ...trip,
@@ -202,7 +202,7 @@ export const useTripStore = create<TripStore>()(
         }
         
         // If still not found, try localStorage with multiple key formats
-        if (!trip) {
+        if (!trip && typeof localStorage !== 'undefined') {
           const possibleKeys = [
             `ai_itinerary_shared_${id}`,
             `shared_trip_${id}`,
@@ -245,16 +245,18 @@ export const useTripStore = create<TripStore>()(
             console.log(`🔄 Trip ${id} was migrated, updating storage directly`)
             // Update storage directly without calling shareTrip to avoid recursion
             try {
-              const keys = [
-                `ai_itinerary_shared_${id}`,
-                `shared_trip_${id}`
-              ]
-              
-              const tripData = JSON.stringify(migratedTrip)
-              
-              keys.forEach(key => {
-                localStorage.setItem(key, tripData)
-              })
+              if (typeof localStorage !== 'undefined') {
+                const keys = [
+                  `ai_itinerary_shared_${id}`,
+                  `shared_trip_${id}`
+                ]
+                
+                const tripData = JSON.stringify(migratedTrip)
+                
+                keys.forEach(key => {
+                  localStorage.setItem(key, tripData)
+                })
+              }
               
               // Also store in memory for immediate access
               set((state) => ({
@@ -274,7 +276,9 @@ export const useTripStore = create<TripStore>()(
         }
         
         console.log(`❌ Trip ${id} not found anywhere`)
-        console.log('🔍 Available localStorage keys:', Object.keys(localStorage).filter(k => k.includes('trip') || k.includes('itinerary')))
+        if (typeof localStorage !== 'undefined') {
+          console.log('🔍 Available localStorage keys:', Object.keys(localStorage).filter(k => k.includes('trip') || k.includes('itinerary')))
+        }
         return undefined
       },
 
@@ -698,7 +702,7 @@ export const useTripStore = create<TripStore>()(
 
       // Sharing functions
       shareTrip: (trip) => {
-        if (trip) {
+        if (trip && typeof localStorage !== 'undefined') {
           try {
             // Store in localStorage with multiple key formats for compatibility
             const keys = [
@@ -726,7 +730,7 @@ export const useTripStore = create<TripStore>()(
             console.error('❌ Error sharing trip:', error)
           }
         } else {
-          console.log(`⚠️ Cannot share trip - trip object is null/undefined`)
+          console.log(`⚠️ Cannot share trip - trip object is null/undefined or localStorage unavailable`)
         }
       },
 
