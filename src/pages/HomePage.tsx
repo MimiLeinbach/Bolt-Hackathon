@@ -26,13 +26,14 @@ export default function HomePage() {
 
   return (
     <div className="animate-fade-in relative min-h-screen">
-      {/* Background Image - Full bleed */}
+      {/* Background Image - Full bleed, behind everything */}
       <div 
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/ChatGPT Image Jun 26, 2025, 12_37_10 PM.png')`,
+          backgroundImage: `url('/ChatGPT Image Jun 24, 2025 at 03_16_13 PM.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          zIndex: -2
         }}
       />
       
@@ -40,7 +41,7 @@ export default function HomePage() {
       <div 
         className="fixed inset-0 w-full h-full"
         style={{
-          background: 'linear-gradient(to bottom, #D4E4E0 0%, #D4E4E0 100%)',
+          background: 'linear-gradient(to bottom, #E8F4FD 0%, #E8F4FD 100%)',
           zIndex: -1
         }}
       />
@@ -55,27 +56,27 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Hero Section */}
-        <div className="text-center mb-8 pt-20">
-          <div className="mb-6">
-            <h2 className="text-6xl font-black mb-4 text-charcoal drop-shadow-lg">
+        {/* Hero Section - Reduced padding to fit 16:9 */}
+        <div className="text-center mb-6 pt-8">
+          <div className="mb-4">
+            <h2 className="text-5xl font-black mb-3 text-charcoal drop-shadow-lg">
               Your next adventure
             </h2>
-            <h3 className="text-6xl font-black mb-6 text-charcoal drop-shadow-lg">
+            <h3 className="text-5xl font-black mb-4 text-charcoal drop-shadow-lg">
               starts here
             </h3>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
-              <p className="text-xl text-gray-700 leading-relaxed">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-700 leading-relaxed">
                 Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Hero CTA */}
-        <div className="text-center mb-12">
-          <div className="mb-6">
-            <h2 className="text-4xl font-bold text-charcoal mb-4">
+        {/* Hero CTA - Reduced spacing */}
+        <div className="text-center mb-8">
+          <div className="mb-4">
+            <h2 className="text-3xl font-bold text-charcoal mb-3">
               Ready to start planning?
             </h2>
             <Link
