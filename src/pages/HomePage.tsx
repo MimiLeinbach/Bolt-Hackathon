@@ -47,13 +47,13 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Hero Section - Reduced padding to fit 16:9 */}
-        <div className="text-center mb-6 pt-8">
-          <div className="mb-4">
-            <h2 className="text-5xl font-black mb-3 text-charcoal drop-shadow-lg">
+        {/* Hero Section - Moved much higher */}
+        <div className="text-center mb-4 pt-2">
+          <div className="mb-3">
+            <h2 className="text-5xl font-black mb-2 text-charcoal drop-shadow-lg">
               Your next adventure
             </h2>
-            <h3 className="text-5xl font-black mb-4 text-charcoal drop-shadow-lg">
+            <h3 className="text-5xl font-black mb-3 text-charcoal drop-shadow-lg">
               starts here
             </h3>
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 max-w-2xl mx-auto">
@@ -64,19 +64,22 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero CTA - Reduced spacing */}
-        <div className="text-center mb-8">
-          <div className="mb-4">
-            <h2 className="text-3xl font-bold text-charcoal mb-3">
-              Ready to start planning?
-            </h2>
-            <Link
-              to="/create-trip"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-forest-500 to-gold-400 text-white font-semibold rounded-xl hover:from-forest-600 hover:to-gold-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Create Your First Trip
-            </Link>
+        {/* Spacer to push button to desired position */}
+        <div className="flex-1 flex flex-col justify-center">
+          {/* Hero CTA - Button stays in same position */}
+          <div className="text-center mb-8">
+            <div className="mb-4">
+              <h2 className="text-3xl font-bold text-charcoal mb-3">
+                Ready to start planning?
+              </h2>
+              <Link
+                to="/create-trip"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-forest-500 to-gold-400 text-white font-semibold rounded-xl hover:from-forest-600 hover:to-gold-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                Create Your First Trip
+              </Link>
+            </div>
           </div>
         </div>
 
