@@ -36,8 +36,8 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Hero Section - Moved up and made more compact */}
-        <div className="text-center mb-6 pt-8">
+        {/* Hero Section - Moved up further */}
+        <div className="text-center mb-12 pt-4">
           <div className="mb-4">
             <h2 className="text-4xl md:text-5xl font-black mb-2 text-charcoal">
               Your next adventure
@@ -53,7 +53,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero CTA - More compact */}
+        {/* Hero CTA - Added more space above */}
         <div className="text-center mb-8">
           <div className="mb-4">
             <h2 className="text-2xl md:text-3xl font-bold text-charcoal mb-3">
