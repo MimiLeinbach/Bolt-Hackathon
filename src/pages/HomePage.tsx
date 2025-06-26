@@ -39,10 +39,10 @@ export default function HomePage() {
         {/* Hero Section - Equal spacing above white rectangle */}
         <div className="text-center mb-6 pt-4">
           <div className="mb-6">
-            <h2 className="text-4xl md:text-5xl font-black mb-2 text-charcoal">
+            <h2 className="text-5xl md:text-6xl font-black mb-2 text-charcoal">
               Your next adventure
             </h2>
-            <h3 className="text-4xl md:text-5xl font-black mb-6 text-charcoal">
+            <h3 className="text-5xl md:text-6xl font-black mb-6 text-charcoal">
               starts here
             </h3>
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 max-w-xl mx-auto">
