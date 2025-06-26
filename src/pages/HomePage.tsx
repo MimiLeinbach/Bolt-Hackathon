@@ -26,16 +26,22 @@ export default function HomePage() {
 
   return (
     <div className="animate-fade-in relative min-h-screen">
-      {/* Background Image - Responsive */}
+      {/* Background Image - Using reliable Pexels image with error handling */}
       <div 
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/ChatGPT Image Jun 26, 2025, 12_37_10 PM.png')`,
+          backgroundImage: `url('https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           zIndex: -1
         }}
-      />
+      >
+        {/* Fallback gradient background */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-forest-100 via-gold-50 to-forest-200"
+          style={{ zIndex: -1 }}
+        />
+      </div>
 
       {/* Content overlay - Responsive padding */}
       <div className="relative z-10 flex flex-col min-h-screen p-2 sm:p-4">

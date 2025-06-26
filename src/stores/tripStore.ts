@@ -96,10 +96,10 @@ export const useTripStore = create<TripStore>()(
         // If trip already has the new structure, return as is
         if (trip.travelers && trip.ownerId) {
           // Ensure activities have participants array
-          const migratedActivities = trip.activities.map((activity: any) => ({
+          const migratedActivities = trip.activities?.map((activity: any) => ({
             ...activity,
             participants: activity.participants || []
-          }))
+          })) || []
           
           return {
             ...trip,
