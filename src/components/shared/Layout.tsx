@@ -14,8 +14,8 @@ export default function Layout({ children }: LayoutProps) {
         <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-forest-300/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
       </div>
 
-      {/* Header - Compact */}
-      <header className="relative z-10 px-6 py-4 bg-light-gray">
+      {/* Header - Compact and ABOVE background */}
+      <header className="relative z-20 px-6 py-4 bg-transparent">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-start">
             {/* Junto Logo */}
@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps) {
               <img 
                 src="/Juntobig.jpg" 
                 alt="Junto Logo" 
-                className="h-24 w-auto object-contain object-center"
+                className="h-20 w-auto object-contain object-center drop-shadow-lg"
               />
             </div>
           </div>
