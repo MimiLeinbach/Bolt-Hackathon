@@ -26,7 +26,7 @@ export default function HomePage() {
 
   return (
     <div className="animate-fade-in relative min-h-screen">
-      {/* Background Image - Fixed path with fallback */}
+      {/* Background Image - Full intensity, no fade */}
       <div 
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
@@ -38,16 +38,9 @@ export default function HomePage() {
         onError={(e) => {
           // If background image fails to load, show gradient fallback
           const target = e.target as HTMLElement;
-          target.style.backgroundImage = 'none';
-          target.classList.add('bg-gradient-to-br', 'from-forest-100', 'via-gold-50', 'to-forest-200');
+          target.style.backgroundImage = 'linear-gradient(135deg, #f0f9f4 0%, #fefbf0 50%, #f0f9f4 100%)';
         }}
-      >
-        {/* Fallback gradient background - always present as backup */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-forest-100 via-gold-50 to-forest-200 opacity-50"
-          style={{ zIndex: -2 }}
-        />
-      </div>
+      />
 
       {/* Content overlay - Responsive padding */}
       <div className="relative z-10 flex flex-col min-h-screen p-2 sm:p-4">
