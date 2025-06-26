@@ -33,15 +33,6 @@ export default function HomePage() {
           backgroundImage: `url('/ChatGPT Image Jun 26, 2025, 12_37_10 PM.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          zIndex: -2
-        }}
-      />
-      
-      {/* Blue background extension for extra vertical space */}
-      <div 
-        className="fixed inset-0 w-full h-full"
-        style={{
-          background: 'linear-gradient(to bottom, #E8F4FD 0%, #E8F4FD 100%)',
           zIndex: -1
         }}
       />
