@@ -36,13 +36,13 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Hero Section - Moved up further */}
-        <div className="text-center mb-12 pt-4">
-          <div className="mb-4">
+        {/* Hero Section - Balanced spacing above white rectangle */}
+        <div className="text-center mb-8 pt-4">
+          <div className="mb-6">
             <h2 className="text-4xl md:text-5xl font-black mb-2 text-charcoal">
               Your next adventure
             </h2>
-            <h3 className="text-4xl md:text-5xl font-black mb-4 text-charcoal">
+            <h3 className="text-4xl md:text-5xl font-black mb-6 text-charcoal">
               starts here
             </h3>
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 max-w-xl mx-auto">
@@ -53,7 +53,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero CTA - Added more space above */}
+        {/* Hero CTA - Balanced spacing below white rectangle */}
         <div className="text-center mb-8">
           <div className="mb-4">
             <h2 className="text-2xl md:text-3xl font-bold text-charcoal mb-3">
