@@ -76,72 +76,73 @@ export default function ActivityCard({
 
   return (
     <div 
-      className="bg-white/60 rounded-lg p-4 border border-gray-100 hover:shadow-md transition-all duration-200 relative group"
+      className="bg-white/60 rounded-lg p-3 sm:p-4 border border-gray-100 hover:shadow-md transition-all duration-200 relative group"
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
       <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
-          <h4 className="font-semibold text-gray-800 mb-1">{activity.title}</h4>
+        <div className="flex-1 min-w-0">
+          <h4 className="font-semibold text-gray-800 mb-1 text-sm sm:text-base leading-tight pr-2">{activity.title}</h4>
           {activity.description && (
-            <p className="text-sm text-gray-600 mb-2">{activity.description}</p>
+            <p className="text-xs sm:text-sm text-gray-600 mb-2 leading-relaxed">{activity.description}</p>
           )}
         </div>
         
-        {/* Action Buttons */}
-        <div className={`flex items-center space-x-2 ml-4 transition-opacity ${showActions ? 'opacity-100' : 'opacity-0'}`}>
+        {/* Action Buttons - Responsive */}
+        <div className={`flex items-center space-x-1 sm:space-x-2 ml-2 sm:ml-4 transition-opacity ${showActions ? 'opacity-100' : 'opacity-0 sm:opacity-0'} opacity-100 sm:opacity-0 group-hover:opacity-100`}>
           <button
             onClick={onEdit}
-            className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-adventure-600 transition-colors"
+            className="p-1.5 sm:p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-adventure-600 transition-colors"
             title="Edit activity"
           >
-            <Edit className="w-4 h-4" />
+            <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
           </button>
           <button
             onClick={onDelete}
-            className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-red-600 transition-colors"
+            className="p-1.5 sm:p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-red-600 transition-colors"
             title="Delete activity"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
           </button>
         </div>
       </div>
 
-      {/* Activity Details */}
-      <div className="flex items-center space-x-4 text-xs text-gray-500 mb-3">
+      {/* Activity Details - Responsive layout */}
+      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs text-gray-500 mb-3">
         {activity.time && (
           <div className="flex items-center space-x-1">
-            <Clock className="w-3 h-3" />
+            <Clock className="w-3 h-3 flex-shrink-0" />
             <span>{activity.time}</span>
           </div>
         )}
         
         {activity.location && (
-          <div className="flex items-center space-x-1">
-            <MapPin className="w-3 h-3" />
-            <span>{activity.location}</span>
+          <div className="flex items-center space-x-1 min-w-0">
+            <MapPin className="w-3 h-3 flex-shrink-0" />
+            <span className="truncate">{activity.location}</span>
           </div>
         )}
         
         {activity.cost && (
           <div className="flex items-center space-x-1">
-            <DollarSign className="w-3 h-3" />
+            <DollarSign className="w-3 h-3 flex-shrink-0" />
             <span>${activity.cost}</span>
           </div>
         )}
       </div>
 
-      {/* Participation Section */}
-      <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+      {/* Participation Section - Responsive */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 border-t border-gray-100 space-y-3 sm:space-y-0">
         <div className="flex items-center space-x-3">
-          {/* Participant Avatars */}
+          {/* Participant Count */}
           <div className="flex items-center space-x-1">
-            <Users className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600">
+            <Users className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" />
+            <span className="text-xs sm:text-sm text-gray-600">
               {participantCount} {participantCount === 1 ? 'person' : 'people'}
             </span>
           </div>
           
+          {/* Participant Avatars - Responsive */}
           {participantCount > 0 && (
             <div className="flex items-center space-x-1">
               {activity.participants.slice(0, 3).map((participantId, index) => {
@@ -151,7 +152,7 @@ export default function ActivityCard({
                 return (
                   <div
                     key={participantId}
-                    className={`w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-medium ${getAvatarColor(index)}`}
+                    className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-white text-xs font-medium ${getAvatarColor(index)}`}
                     title={traveler.name}
                   >
                     {getTravelerInitials(traveler.name)}
@@ -160,7 +161,7 @@ export default function ActivityCard({
               })}
               
               {participantCount > 3 && (
-                <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 text-xs font-medium">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 text-xs font-medium">
                   +{participantCount - 3}
                 </div>
               )}
@@ -168,12 +169,12 @@ export default function ActivityCard({
           )}
         </div>
 
-        {/* Join/Leave Button */}
+        {/* Join/Leave Button - Responsive */}
         {currentTraveler && (
           <button
             onClick={handleToggleParticipation}
             disabled={isJoining}
-            className={`flex items-center space-x-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+            className={`flex items-center justify-center space-x-1 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all w-full sm:w-auto ${
               isParticipating
                 ? 'bg-red-50 text-red-700 hover:bg-red-100 border border-red-200'
                 : 'bg-adventure-50 text-adventure-700 hover:bg-adventure-100 border border-adventure-200'
@@ -199,10 +200,10 @@ export default function ActivityCard({
         )}
       </div>
 
-      {/* Participant Names Tooltip */}
+      {/* Participant Names - Responsive */}
       {participantCount > 0 && (
         <div className="mt-2 text-xs text-gray-500">
-          <span>
+          <span className="leading-relaxed">
             {participantNames.length > 0 && (
               <>
                 Going: {participantNames.join(', ')}
@@ -213,9 +214,10 @@ export default function ActivityCard({
         </div>
       )}
 
+      {/* Notes - Responsive */}
       {activity.notes && (
         <div className="mt-3 pt-3 border-t border-gray-100">
-          <p className="text-xs text-gray-600">{activity.notes}</p>
+          <p className="text-xs text-gray-600 leading-relaxed">{activity.notes}</p>
         </div>
       )}
     </div>

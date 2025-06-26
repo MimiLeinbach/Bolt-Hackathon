@@ -98,81 +98,85 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header with Add Activity Button */}
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      {/* Header with Add Activity Button - Responsive */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-            <Calendar className="w-6 h-6 mr-3 text-adventure-500" />
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center">
+            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-adventure-500" />
             Itinerary
           </h2>
-          <p className="text-gray-600 mt-1">
-            {days.length} {days.length === 1 ? 'day' : 'days'} • {getTotalActivities()} {getTotalActivities() === 1 ? 'activity' : 'activities'}
+          <div className="text-gray-600 mt-1 text-sm sm:text-base">
+            <span>{days.length} {days.length === 1 ? 'day' : 'days'} • {getTotalActivities()} {getTotalActivities() === 1 ? 'activity' : 'activities'}</span>
             {currentTraveler && getTotalParticipations() > 0 && (
-              <span className="text-adventure-600 font-medium ml-2">
+              <span className="text-adventure-600 font-medium ml-2 block sm:inline">
                 • You're joining {getTotalParticipations()}
               </span>
             )}
-          </p>
+          </div>
         </div>
         
         <button 
           onClick={() => handleAddActivity()}
-          className="btn-primary flex items-center space-x-2"
+          className="btn-primary flex items-center justify-center space-x-2 w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Add Activity</span>
         </button>
       </div>
 
-      {/* Days List */}
-      <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+      {/* Days List - Responsive */}
+      <div className="space-y-3 sm:space-y-4 max-h-[500px] sm:max-h-[600px] overflow-y-auto pr-1 sm:pr-2">
         {days.map((day) => (
-          <div key={day.dayIndex} className="glass-card rounded-xl overflow-hidden">
-            {/* Day Header */}
+          <div key={day.dayIndex} className="glass-card rounded-lg sm:rounded-xl overflow-hidden">
+            {/* Day Header - Responsive */}
             <button
               onClick={() => toggleDay(day.dayIndex)}
-              className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/50 transition-colors"
+              className="w-full px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between hover:bg-white/50 transition-colors"
             >
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3 sm:space-x-4">
                 <div className="flex items-center space-x-2">
                   {expandedDays.has(day.dayIndex) ? (
-                    <ChevronDown className="w-5 h-5 text-gray-500" />
+                    <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
                   ) : (
-                    <ChevronRight className="w-5 h-5 text-gray-500" />
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
                   )}
                 </div>
                 
                 <div className="text-left">
-                  <div className="flex items-center space-x-3">
-                    <h3 className="text-lg font-semibold text-gray-800">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800">
                       Day {day.dayIndex + 1}
                     </h3>
-                    <span className="text-sm text-gray-500">•</span>
-                    <span className="text-sm font-medium text-gray-600">
-                      {day.dayName}
-                    </span>
+                    <div className="flex items-center space-x-2 sm:space-x-3 text-xs sm:text-sm">
+                      <span className="text-gray-500 hidden sm:inline">•</span>
+                      <span className="font-medium text-gray-600">
+                        {day.dayName}
+                      </span>
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                     {format(day.date, 'MMMM d, yyyy')}
                   </p>
                 </div>
               </div>
               
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 sm:space-x-4">
                 <div className="text-right">
-                  <div className="text-sm font-medium text-gray-700">
+                  <div className="text-xs sm:text-sm font-medium text-gray-700">
                     {day.activities.length} {day.activities.length === 1 ? 'activity' : 'activities'}
                   </div>
                   {day.activities.length > 0 && (
-                    <div className="text-xs text-gray-500">
-                      {day.activities.filter(a => a.cost).reduce((sum, a) => sum + (a.cost || 0), 0) > 0 && 
-                        `$${day.activities.filter(a => a.cost).reduce((sum, a) => sum + (a.cost || 0), 0)} total`
-                      }
+                    <div className="text-xs text-gray-500 space-y-0.5 sm:space-y-0">
+                      {day.activities.filter(a => a.cost).reduce((sum, a) => sum + (a.cost || 0), 0) > 0 && (
+                        <div className="block sm:inline">
+                          ${day.activities.filter(a => a.cost).reduce((sum, a) => sum + (a.cost || 0), 0)} total
+                        </div>
+                      )}
                       {currentTraveler && (
-                        <span className="ml-2 text-adventure-600">
+                        <div className="text-adventure-600 block sm:inline sm:ml-2">
                           • {day.activities.filter(a => a.participants.includes(currentTraveler.id)).length} joined
-                        </span>
+                        </div>
                       )}
                     </div>
                   )}
@@ -180,9 +184,9 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
               </div>
             </button>
 
-            {/* Day Content */}
+            {/* Day Content - Responsive */}
             {expandedDays.has(day.dayIndex) && (
-              <div className="px-6 pb-6 border-t border-gray-100">
+              <div className="px-4 sm:px-6 pb-4 sm:pb-6 border-t border-gray-100">
                 {day.activities.length > 0 ? (
                   <div className="space-y-3 mt-4">
                     {day.activities.map((activity) => (
@@ -198,9 +202,9 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-8">
-                    <div className="w-12 h-12 bg-gradient-to-br from-adventure-100 to-wanderlust-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Clock className="w-6 h-6 text-adventure-500" />
+                  <div className="text-center py-6 sm:py-8">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-adventure-100 to-wanderlust-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-adventure-500" />
                     </div>
                     <h4 className="text-sm font-medium text-gray-700 mb-1">No activities planned</h4>
                     <p className="text-xs text-gray-500 mb-4">Add your first activity for this day</p>
@@ -219,14 +223,14 @@ export default function ItineraryView({ trip }: ItineraryViewProps) {
         ))}
       </div>
 
-      {/* Empty State for No Days */}
+      {/* Empty State for No Days - Responsive */}
       {days.length === 0 && (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gradient-to-br from-adventure-100 to-wanderlust-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Calendar className="w-8 h-8 text-adventure-500" />
+        <div className="text-center py-8 sm:py-12">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-adventure-100 to-wanderlust-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Calendar className="w-6 h-6 sm:w-8 sm:h-8 text-adventure-500" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">No itinerary available</h3>
-          <p className="text-gray-500">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-2">No itinerary available</h3>
+          <p className="text-gray-500 text-sm sm:text-base">
             Please check your trip dates to generate the itinerary.
           </p>
         </div>
