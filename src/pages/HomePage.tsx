@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { Plus, MapPin, Users, Calendar, Sparkles, AlertCircle } from 'lucide-react'
 import { useTripStore } from '../stores/tripStore'
 import { format } from 'date-fns'
-import AdventureIllustration from '../components/shared/AdventureIllustration'
 
 interface Trip {
   id: string
@@ -27,8 +26,14 @@ export default function HomePage() {
 
   return (
     <div className="animate-fade-in relative min-h-screen">
-      {/* Background Illustration */}
-      <AdventureIllustration />
+      {/* Background Image */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <img 
+          src="/ChatGPT Image Jun 26, 2025, 12_37_10 PM copy.png" 
+          alt="Adventure Background" 
+          className="w-full h-full object-cover opacity-90"
+        />
+      </div>
 
       {/* Content overlay */}
       <div className="relative z-10 flex flex-col min-h-screen p-4">
