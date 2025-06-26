@@ -45,18 +45,29 @@ export default function HomePage() {
         }}
       />
 
+      {/* Logo in upper left corner */}
+      <div className="absolute top-4 left-6 z-20">
+        <Link to="/">
+          <img 
+            src="/Juntobig.jpg" 
+            alt="Junto Logo" 
+            className="h-16 w-auto object-contain object-center drop-shadow-lg"
+          />
+        </Link>
+      </div>
+
       {/* Content overlay */}
       <div className="relative z-10 flex flex-col min-h-screen p-4">
         {/* Error Message */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50/90 backdrop-blur-sm border border-red-200 rounded-xl flex items-center space-x-3">
+          <div className="mb-4 p-3 bg-red-50/90 backdrop-blur-sm border border-red-200 rounded-xl flex items-center space-x-3 mt-20">
             <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
             <p className="text-red-700 text-sm">{error}</p>
           </div>
         )}
 
         {/* Hero Section - Equal spacing above white rectangle */}
-        <div className="text-center mb-6 pt-4">
+        <div className="text-center mb-6 pt-20">
           <div className="mb-6">
             <h2 className="text-5xl md:text-6xl font-black mb-2 text-charcoal drop-shadow-lg">
               Your next adventure
