@@ -67,35 +67,36 @@ export default function ResetUserButton({ className = '' }: ResetUserButtonProps
     return (
       <button
         onClick={() => setShowOptions(true)}
-        className={`btn-secondary flex items-center space-x-2 text-sm ${className}`}
+        className={`btn-secondary flex items-center space-x-2 text-xs sm:text-sm ${className}`}
         title="Login as existing traveler"
       >
-        <Users className="w-4 h-4" />
-        <span>Login As...</span>
+        <Users className="w-3 h-3 sm:w-4 sm:h-4" />
+        <span className="hidden sm:inline">Login As...</span>
+        <span className="sm:hidden">Login</span>
       </button>
     )
   }
 
   if (showConfirm) {
     return (
-      <div className={`bg-yellow-50 border border-yellow-300 rounded-lg p-3 ${className}`}>
+      <div className={`bg-yellow-50 border border-yellow-300 rounded-lg p-3 max-w-xs sm:max-w-none ${className}`}>
         <div className="flex items-start space-x-3">
-          <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
-          <div className="flex-1">
-            <h4 className="font-medium text-yellow-800 mb-1">Reset User Session?</h4>
-            <p className="text-sm text-yellow-700 mb-3">
+          <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+          <div className="flex-1 min-w-0">
+            <h4 className="font-medium text-yellow-800 mb-1 text-sm">Reset User Session?</h4>
+            <p className="text-xs sm:text-sm text-yellow-700 mb-3 leading-relaxed">
               This will log you out and let you test the app as a new user. You can rejoin trips later.
             </p>
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
               <button
                 onClick={handleReset}
-                className="btn-primary text-sm px-3 py-1.5 bg-yellow-600 hover:bg-yellow-700"
+                className="w-full sm:w-auto btn-primary text-xs px-3 py-1.5 bg-yellow-600 hover:bg-yellow-700"
               >
                 Yes, Reset
               </button>
               <button
                 onClick={() => setShowConfirm(false)}
-                className="btn-secondary text-sm px-3 py-1.5"
+                className="w-full sm:w-auto btn-secondary text-xs px-3 py-1.5"
               >
                 Cancel
               </button>
@@ -108,12 +109,12 @@ export default function ResetUserButton({ className = '' }: ResetUserButtonProps
 
   if (showOptions) {
     return (
-      <div className={`bg-white border border-gray-200 rounded-lg shadow-lg p-4 min-w-[280px] ${className}`}>
+      <div className={`bg-white border border-gray-200 rounded-lg shadow-lg p-3 sm:p-4 min-w-[250px] sm:min-w-[280px] max-w-xs sm:max-w-none ${className}`}>
         <div className="flex items-center justify-between mb-3">
-          <h4 className="font-medium text-gray-800">🧪 Testing Options</h4>
+          <h4 className="font-medium text-gray-800 text-sm">🧪 Testing Options</h4>
           <button
             onClick={() => setShowOptions(false)}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 text-lg leading-none"
           >
             ×
           </button>
@@ -122,12 +123,12 @@ export default function ResetUserButton({ className = '' }: ResetUserButtonProps
         <div className="space-y-3">
           {/* Reset to New User */}
           <div>
-            <h5 className="text-sm font-medium text-gray-700 mb-2">Become New User</h5>
+            <h5 className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Become New User</h5>
             <button
               onClick={() => setShowConfirm(true)}
-              className="w-full btn-secondary text-sm flex items-center space-x-2 justify-center"
+              className="w-full btn-secondary text-xs sm:text-sm flex items-center space-x-2 justify-center"
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>Reset to New User</span>
             </button>
           </div>
@@ -135,21 +136,21 @@ export default function ResetUserButton({ className = '' }: ResetUserButtonProps
           {/* Switch to Existing Traveler */}
           {otherTravelers.length > 0 && (
             <div>
-              <h5 className="text-sm font-medium text-gray-700 mb-2">
+              <h5 className="text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 Login as Existing Traveler
               </h5>
-              <div className="space-y-2 max-h-40 overflow-y-auto">
+              <div className="space-y-2 max-h-32 sm:max-h-40 overflow-y-auto">
                 {otherTravelers.map((traveler, index) => (
                   <button
                     key={traveler.id}
                     onClick={() => handleSwitchToTraveler(traveler)}
                     className="w-full p-2 rounded-lg hover:bg-gray-50 border border-gray-200 flex items-center space-x-3 text-left transition-colors"
                   >
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium ${getAvatarColor(index)}`}>
+                    <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white text-xs font-medium ${getAvatarColor(index)}`}>
                       {getTravelerInitials(traveler.name)}
                     </div>
-                    <div className="flex-1">
-                      <div className="font-medium text-gray-800">{traveler.name}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-gray-800 text-sm truncate">{traveler.name}</div>
                       <div className="text-xs text-gray-500">
                         {traveler.isOwner ? 'Trip Owner' : 'Traveler'}
                       </div>
@@ -177,12 +178,13 @@ export default function ResetUserButton({ className = '' }: ResetUserButtonProps
     <div className="relative">
       <button
         onClick={() => setShowOptions(true)}
-        className={`btn-secondary flex items-center space-x-2 text-sm ${className}`}
+        className={`btn-secondary flex items-center space-x-2 text-xs sm:text-sm ${className}`}
         title="Testing options"
       >
-        <RotateCcw className="w-4 h-4" />
-        <span>Switch User</span>
-        <ChevronDown className="w-3 h-3" />
+        <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4" />
+        <span className="hidden sm:inline">Switch User</span>
+        <span className="sm:hidden">Switch</span>
+        <ChevronDown className="w-2 h-2 sm:w-3 sm:h-3" />
       </button>
     </div>
   )

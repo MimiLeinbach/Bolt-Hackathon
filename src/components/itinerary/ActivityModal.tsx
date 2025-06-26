@@ -167,17 +167,17 @@ export default function ActivityModal({
         onClick={handleClose}
       />
       
-      {/* Modal */}
-      <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl animate-slide-up">
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-100">
+      {/* Modal - Responsive sizing */}
+      <div className="flex min-h-full items-center justify-center p-3 sm:p-4">
+        <div className="relative w-full max-w-lg sm:max-w-2xl bg-white rounded-xl sm:rounded-2xl shadow-2xl animate-slide-up max-h-[90vh] overflow-y-auto">
+          {/* Header - Responsive */}
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-100">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-                <Sparkles className="w-6 h-6 mr-3 text-adventure-500" />
+              <h2 className="text-lg sm:text-2xl font-bold text-gray-800 flex items-center">
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-adventure-500" />
                 {editActivity ? 'Edit Activity' : 'Add New Activity'}
               </h2>
-              <p className="text-gray-600 mt-1">
+              <p className="text-gray-600 mt-1 text-xs sm:text-base">
                 {editActivity ? 'Update your activity details' : 'Plan something amazing for your trip'}
               </p>
             </div>
@@ -186,12 +186,12 @@ export default function ActivityModal({
               disabled={isSubmitting}
               className="p-2 rounded-xl hover:bg-gray-100 transition-colors disabled:opacity-50"
             >
-              <X className="w-6 h-6 text-gray-500" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-500" />
             </button>
           </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* Form - Responsive spacing */}
+          <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-6">
             {/* Day Selection */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
@@ -245,8 +245,8 @@ export default function ActivityModal({
               />
             </div>
 
-            {/* Location and Time Row */}
-            <div className="grid md:grid-cols-2 gap-4">
+            {/* Location and Time Row - Responsive grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
                   <MapPin className="w-4 h-4 mr-2 text-wanderlust-500" />
@@ -317,20 +317,20 @@ export default function ActivityModal({
               />
             </div>
 
-            {/* Form Actions */}
-            <div className="flex items-center justify-end space-x-4 pt-6 border-t border-gray-100">
+            {/* Form Actions - Responsive layout */}
+            <div className="flex flex-col sm:flex-row items-center justify-end space-y-3 sm:space-y-0 sm:space-x-4 pt-4 sm:pt-6 border-t border-gray-100">
               <button
                 type="button"
                 onClick={handleClose}
                 disabled={isSubmitting}
-                className="btn-secondary disabled:opacity-50"
+                className="w-full sm:w-auto btn-secondary disabled:opacity-50 order-2 sm:order-1"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn-primary flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed order-1 sm:order-2"
               >
                 {isSubmitting ? (
                   <>

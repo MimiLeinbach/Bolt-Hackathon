@@ -102,25 +102,26 @@ export default function CreateTripPage() {
 
   return (
     <div className="animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center mb-8">
+      {/* Header - Responsive */}
+      <div className="flex items-center mb-6 sm:mb-8">
         <button
           onClick={() => navigate('/')}
-          className="mr-4 p-2 rounded-xl hover:bg-white/50 transition-colors"
+          className="mr-3 sm:mr-4 p-2 rounded-xl hover:bg-white/50 transition-colors"
         >
-          <ArrowLeft className="w-6 h-6 text-charcoal" />
+          <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-charcoal" />
         </button>
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-forest-600 to-gold-400 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-forest-600 to-gold-400 bg-clip-text text-transparent">
             Plan Your Adventure
           </h1>
-          <p className="text-gray-600 mt-1">Tell us about your upcoming trip</p>
+          <p className="text-gray-600 mt-1 text-sm sm:text-base">Tell us about your upcoming trip</p>
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-12">
-        {/* Form */}
-        <div className="glass-card rounded-2xl p-8 animate-slide-up">
+      {/* Responsive layout - stacks on mobile, side-by-side on desktop */}
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+        {/* Form - Full width on mobile */}
+        <div className="glass-card rounded-xl sm:rounded-2xl p-6 sm:p-8 animate-slide-up">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Trip Name */}
             <div>
@@ -141,8 +142,8 @@ export default function CreateTripPage() {
               )}
             </div>
 
-            {/* Dates */}
-            <div className="grid md:grid-cols-2 gap-4">
+            {/* Dates - Responsive grid */}
+            <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-charcoal mb-2 flex items-center">
                   <Calendar className="w-4 h-4 mr-2 text-gold-400" />
@@ -200,30 +201,30 @@ export default function CreateTripPage() {
               )}
             </div>
 
-            {/* Submit Button */}
+            {/* Submit Button - Responsive sizing */}
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full btn-primary text-lg py-4 flex items-center justify-center space-x-3 group disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full btn-primary text-base sm:text-lg py-3 sm:py-4 flex items-center justify-center space-x-3 group disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                   <span>Creating your adventure...</span>
                 </>
               ) : (
                 <>
-                  <Plane className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <Plane className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                   <span>Create Trip</span>
-                  <Sparkles className="w-5 h-5 animate-pulse text-gold-300" />
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse text-gold-300" />
                 </>
               )}
             </button>
           </form>
         </div>
 
-        {/* Preview */}
-        <div className="space-y-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+        {/* Preview - Hidden on small screens, shown on large */}
+        <div className="space-y-6 animate-slide-up hidden lg:block" style={{ animationDelay: '0.2s' }}>
           <div className="glass-card rounded-2xl p-8">
             <h3 className="text-xl font-bold text-charcoal mb-6 flex items-center">
               <Sparkles className="w-5 h-5 mr-2 text-gold-400" />

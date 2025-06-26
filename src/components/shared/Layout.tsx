@@ -14,25 +14,25 @@ export default function Layout({ children }: LayoutProps) {
         <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-forest-300/20 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }}></div>
       </div>
 
-      {/* Header - Compact and ABOVE background */}
-      <header className="relative z-20 px-6 py-4 bg-transparent">
+      {/* Header - Responsive and mobile-friendly */}
+      <header className="relative z-20 px-4 sm:px-6 py-3 sm:py-4 bg-transparent">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-start">
-            {/* Junto Logo */}
+            {/* Junto Logo - Responsive sizing */}
             <div className="flex items-center">
               <img 
                 src="/Juntobig.jpg" 
                 alt="Junto Logo" 
-                className="h-20 w-auto object-contain object-center drop-shadow-lg"
+                className="h-12 sm:h-16 lg:h-20 w-auto object-contain object-center drop-shadow-lg"
               />
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content - Moved Up */}
-      <main className="relative z-10 px-6 pb-8">
-        <div className="max-w-4xl mx-auto">
+      {/* Main Content - Responsive padding and max-width */}
+      <main className="relative z-10 px-4 sm:px-6 pb-6 sm:pb-8">
+        <div className="max-w-7xl mx-auto">
           {children}
         </div>
       </main>
