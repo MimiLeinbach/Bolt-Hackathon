@@ -85,7 +85,9 @@ export default function TravelersList({ tripId, travelers, currentTraveler }: Tr
                       )}
                     </span>
                     {traveler.isOwner && (
-                      <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500 flex-shrink-0" title="Trip Owner" />
+                      <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500 flex-shrink-0">
+                        <title>Trip Owner</title>
+                      </Crown>
                     )}
                   </div>
                   
