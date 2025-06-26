@@ -53,8 +53,8 @@ export default function TravelersList({ tripId, travelers, currentTraveler }: Tr
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="font-bold text-gray-800 flex items-center">
-          <Users className="w-5 h-5 mr-2 text-wanderlust-500" />
+        <h3 className="font-bold text-gray-800 flex items-center text-sm sm:text-base">
+          <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-wanderlust-500" />
           Travelers ({travelers.length})
         </h3>
       </div>
@@ -68,47 +68,52 @@ export default function TravelersList({ tripId, travelers, currentTraveler }: Tr
           return (
             <div 
               key={traveler.id}
-              className="flex items-center justify-between p-4 bg-white/60 rounded-xl border border-gray-100 hover:shadow-md transition-shadow"
+              className="flex items-center justify-between p-3 sm:p-4 bg-white/60 rounded-xl border border-gray-100 hover:shadow-md transition-shadow"
             >
-              <div className="flex items-center space-x-3">
-                {/* Avatar */}
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm ${getAvatarColor(index)}`}>
+              <div className="flex items-center space-x-3 flex-1 min-w-0">
+                {/* Avatar - Responsive sizing */}
+                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white font-semibold text-xs sm:text-sm flex-shrink-0 ${getAvatarColor(index)}`}>
                   {getTravelerInitials(traveler.name)}
                 </div>
                 
-                <div>
+                <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-2">
-                    <span className="font-medium text-gray-800">
+                    <span className="font-medium text-gray-800 text-sm sm:text-base truncate">
                       {traveler.name}
                       {isCurrentTraveler && (
                         <span className="text-xs text-gray-500 ml-1">(You)</span>
                       )}
                     </span>
                     {traveler.isOwner && (
-                      <Crown className="w-4 h-4 text-yellow-500" title="Trip Owner" />
+                      <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500 flex-shrink-0" title="Trip Owner" />
                     )}
                   </div>
-                  <div className="flex items-center space-x-4 text-xs text-gray-500">
+                  
+                  {/* Details - Responsive layout */}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-xs text-gray-500 mt-1">
                     <div className="flex items-center space-x-1">
-                      <Calendar className="w-3 h-3" />
+                      <Calendar className="w-3 h-3 flex-shrink-0" />
                       <span>Joined {format(new Date(traveler.joinedAt), 'MMM d')}</span>
                     </div>
-                    {activityCount > 0 && (
-                      <div className="flex items-center space-x-1 text-adventure-600">
-                        <Activity className="w-3 h-3" />
-                        <span>{activityCount} activities</span>
-                      </div>
-                    )}
-                    {travelerCost > 0 && (
-                      <div className="text-forest-600 font-medium">
-                        ${travelerCost.toFixed(2)}
-                      </div>
-                    )}
+                    
+                    <div className="flex items-center space-x-3 mt-1 sm:mt-0">
+                      {activityCount > 0 && (
+                        <div className="flex items-center space-x-1 text-adventure-600">
+                          <Activity className="w-3 h-3" />
+                          <span>{activityCount} activities</span>
+                        </div>
+                      )}
+                      {travelerCost > 0 && (
+                        <div className="text-forest-600 font-medium">
+                          ${travelerCost.toFixed(2)}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Actions */}
+              {/* Actions - Only show for current traveler who isn't owner */}
               {isCurrentTraveler && !traveler.isOwner && (
                 <div className="relative">
                   <button
@@ -137,11 +142,11 @@ export default function TravelersList({ tripId, travelers, currentTraveler }: Tr
       </div>
 
       {travelers.length === 0 && (
-        <div className="text-center py-8">
-          <div className="w-12 h-12 bg-gradient-to-br from-wanderlust-100 to-forest-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Users className="w-6 h-6 text-wanderlust-500" />
+        <div className="text-center py-6 sm:py-8">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-wanderlust-100 to-forest-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Users className="w-5 h-5 sm:w-6 sm:h-6 text-wanderlust-500" />
           </div>
-          <p className="text-sm text-gray-500">No travelers yet</p>
+          <p className="text-xs sm:text-sm text-gray-500">No travelers yet</p>
         </div>
       )}
     </div>

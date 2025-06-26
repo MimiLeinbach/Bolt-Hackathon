@@ -59,7 +59,7 @@ export default function TripSummaryPage() {
         setCurrentTrip(trip)
         
         // Ensure trip is shared for future access
-        shareTrip(tripId)
+        shareTrip(trip)
         
         // Check if this is an invite link and user isn't already part of the trip
         let currentTraveler = getCurrentTravelerForTrip(tripId)
@@ -119,10 +119,10 @@ export default function TripSummaryPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-[400px] px-4">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-forest-200 border-t-forest-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-charcoal">Loading your adventure...</p>
+          <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-forest-200 border-t-forest-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-charcoal text-sm sm:text-base">Loading your adventure...</p>
           <p className="text-xs text-gray-500 mt-2">Trip ID: {tripId}</p>
           <p className="text-xs text-gray-500">Store hydrated: {isHydrated ? 'Yes' : 'No'}</p>
           <p className="text-xs text-gray-500">Is invite link: {isInviteLink ? 'Yes' : 'No'}</p>
@@ -134,13 +134,13 @@ export default function TripSummaryPage() {
 
   if (!currentTrip) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-[400px] px-4">
         <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-4">
-            <MapPin className="w-8 h-8 text-red-500" />
+          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-4">
+            <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
           </div>
-          <h3 className="text-xl font-bold text-charcoal mb-2">Trip Not Found</h3>
-          <p className="text-gray-600 mb-2">
+          <h3 className="text-lg sm:text-xl font-bold text-charcoal mb-2">Trip Not Found</h3>
+          <p className="text-gray-600 mb-2 text-sm sm:text-base px-4">
             The trip you're looking for doesn't exist or may have been deleted.
           </p>
           <p className="text-xs text-gray-500 mb-6">Trip ID: {tripId}</p>
@@ -178,20 +178,20 @@ export default function TripSummaryPage() {
 
   return (
     <div className="animate-fade-in">
-      {/* Test Mode Banner */}
+      {/* Test Mode Banner - Responsive */}
       {testMode && (
-        <div className="mb-4 p-4 bg-gold-50 border-2 border-gold-300 rounded-lg">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Bug className="w-5 h-5 text-gold-600" />
+        <div className="mb-4 p-3 sm:p-4 bg-gold-50 border-2 border-gold-300 rounded-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+            <div className="flex items-start space-x-2">
+              <Bug className="w-5 h-5 text-gold-600 mt-0.5 sm:mt-0 flex-shrink-0" />
               <div>
-                <h4 className="font-medium text-gold-800">🧪 Test Mode Active</h4>
-                <p className="text-sm text-gold-700">You're viewing this as a new user who hasn't joined the trip yet.</p>
+                <h4 className="font-medium text-gold-800 text-sm sm:text-base">🧪 Test Mode Active</h4>
+                <p className="text-xs sm:text-sm text-gold-700">You're viewing this as a new user who hasn't joined the trip yet.</p>
               </div>
             </div>
             <button
               onClick={handleExitTestMode}
-              className="btn-secondary text-sm bg-gold-100 border-gold-300 text-gold-800 hover:bg-gold-200"
+              className="btn-secondary text-xs sm:text-sm bg-gold-100 border-gold-300 text-gold-800 hover:bg-gold-200 self-start sm:self-auto"
             >
               Exit Test Mode
             </button>
@@ -199,52 +199,53 @@ export default function TripSummaryPage() {
         </div>
       )}
 
-      {/* Debug Info */}
+      {/* Debug Info - Responsive */}
       {(isInviteLink || testMode) && (
         <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-          <h4 className="font-medium text-blue-800 mb-1">🔧 Debug Info</h4>
+          <h4 className="font-medium text-blue-800 mb-1 text-sm">🔧 Debug Info</h4>
           <div className="text-xs text-blue-700 space-y-1">
-            <div>Trip ID: <code>{tripId}</code></div>
-            <div>Is invite link: <code>{isInviteLink ? 'Yes' : 'No'}</code></div>
-            <div>Force join (test): <code>{forceJoin ? 'Yes' : 'No'}</code></div>
-            <div>Test mode: <code>{testMode ? 'Yes' : 'No'}</code></div>
-            <div>Current traveler: <code>{currentTraveler ? currentTraveler.name : 'None'}</code></div>
-            <div>Show join modal: <code>{showJoinModal ? 'Yes' : 'No'}</code></div>
-            <div>URL: <code className="break-all">{window.location.href}</code></div>
+            <div>Trip ID: <code className="bg-blue-100 px-1 rounded text-xs">{tripId}</code></div>
+            <div>Is invite link: <code className="bg-blue-100 px-1 rounded">{isInviteLink ? 'Yes' : 'No'}</code></div>
+            <div>Force join (test): <code className="bg-blue-100 px-1 rounded">{forceJoin ? 'Yes' : 'No'}</code></div>
+            <div>Test mode: <code className="bg-blue-100 px-1 rounded">{testMode ? 'Yes' : 'No'}</code></div>
+            <div>Current traveler: <code className="bg-blue-100 px-1 rounded">{currentTraveler ? currentTraveler.name : 'None'}</code></div>
+            <div>Show join modal: <code className="bg-blue-100 px-1 rounded">{showJoinModal ? 'Yes' : 'No'}</code></div>
+            <div className="break-all">URL: <code className="bg-blue-100 px-1 rounded text-xs">{window.location.href}</code></div>
           </div>
         </div>
       )}
 
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      {/* Header - Responsive layout */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 space-y-4 sm:space-y-0">
         <div className="flex items-center">
           <button
             onClick={() => navigate('/')}
-            className="mr-4 p-2 rounded-xl hover:bg-white/50 transition-colors"
+            className="mr-3 sm:mr-4 p-2 rounded-xl hover:bg-white/50 transition-colors"
           >
-            <ArrowLeft className="w-6 h-6 text-charcoal" />
+            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-charcoal" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-charcoal mb-2">{currentTrip.name}</h1>
-            <p className="text-lg text-gray-600">
-              {formatTripDates()}
+            <h1 className="text-2xl sm:text-3xl font-bold text-charcoal mb-1 sm:mb-2 leading-tight">{currentTrip.name}</h1>
+            <div className="text-sm sm:text-lg text-gray-600">
+              <div>{formatTripDates()}</div>
               {currentTraveler && (
-                <span className="ml-2 text-sm">
+                <div className="text-xs sm:text-sm mt-1">
                   • You're {currentTraveler.name}
-                </span>
+                </div>
               )}
               {testMode && (
-                <span className="ml-2 text-sm text-gold-600">
+                <div className="text-xs sm:text-sm text-gold-600 mt-1">
                   • 🧪 Test Mode
-                </span>
+                </div>
               )}
-            </p>
+            </div>
           </div>
         </div>
         
-        <div className="flex items-center space-x-3">
+        {/* Action buttons - Responsive layout */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           {/* Reset User Button for Testing */}
-          <ResetUserButton />
+          <ResetUserButton className="order-last sm:order-first" />
           
           {!currentTraveler ? (
             <button 
@@ -252,7 +253,7 @@ export default function TripSummaryPage() {
                 console.log('🚪 Manual join button clicked')
                 setShowJoinModal(true)
               }}
-              className="btn-primary flex items-center space-x-2"
+              className="btn-primary flex items-center space-x-2 flex-1 sm:flex-none justify-center"
             >
               <UserPlus className="w-4 h-4" />
               <span>Join Trip</span>
@@ -261,12 +262,12 @@ export default function TripSummaryPage() {
             <>
               <button 
                 onClick={() => setShowInviteModal(true)}
-                className="btn-secondary flex items-center space-x-2"
+                className="btn-secondary flex items-center space-x-2 flex-1 sm:flex-none justify-center"
               >
                 <Share2 className="w-4 h-4" />
                 <span>Invite</span>
               </button>
-              <button className="btn-primary flex items-center space-x-2">
+              <button className="btn-primary flex items-center space-x-2 flex-1 sm:flex-none justify-center">
                 <Edit3 className="w-4 h-4" />
                 <span>Edit</span>
               </button>
@@ -275,54 +276,56 @@ export default function TripSummaryPage() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
-        {/* Trip Details */}
+      {/* Main content - Responsive grid */}
+      <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* Trip Details - Full width on mobile, 2/3 on desktop */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Overview Card */}
-          <div className="glass-card rounded-2xl p-8 animate-slide-up">
-            <h2 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
-              <Sparkles className="w-6 h-6 mr-3 text-gold-500" />
+          {/* Overview Card - Responsive */}
+          <div className="glass-card rounded-xl sm:rounded-2xl p-6 sm:p-8 animate-slide-up">
+            <h2 className="text-xl sm:text-2xl font-bold text-charcoal mb-4 sm:mb-6 flex items-center">
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-gold-500" />
               Trip Overview
             </h2>
             
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-6 bg-gradient-to-br from-forest-50 to-forest-100 rounded-xl border border-forest-200/50">
-                <Calendar className="w-8 h-8 text-forest-600 mx-auto mb-3" />
-                <div className="text-sm text-gray-600 mb-1">Duration</div>
-                <div className="text-2xl font-bold text-charcoal">{dayCount}</div>
-                <div className="text-sm text-gray-600">{dayCount === 1 ? 'day' : 'days'}</div>
+            {/* Stats grid - Responsive */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              <div className="text-center p-4 sm:p-6 bg-gradient-to-br from-forest-50 to-forest-100 rounded-xl border border-forest-200/50">
+                <Calendar className="w-6 h-6 sm:w-8 sm:h-8 text-forest-600 mx-auto mb-2 sm:mb-3" />
+                <div className="text-xs sm:text-sm text-gray-600 mb-1">Duration</div>
+                <div className="text-xl sm:text-2xl font-bold text-charcoal">{dayCount}</div>
+                <div className="text-xs sm:text-sm text-gray-600">{dayCount === 1 ? 'day' : 'days'}</div>
               </div>
               
-              <div className="text-center p-6 bg-gradient-to-br from-gold-50 to-gold-100 rounded-xl border border-gold-200/50">
-                <Users className="w-8 h-8 text-gold-600 mx-auto mb-3" />
-                <div className="text-sm text-gray-600 mb-1">Travelers</div>
-                <div className="text-2xl font-bold text-charcoal">{currentTrip.travelers.length}</div>
-                <div className="text-sm text-gray-600">{currentTrip.travelers.length === 1 ? 'person' : 'people'}</div>
+              <div className="text-center p-4 sm:p-6 bg-gradient-to-br from-gold-50 to-gold-100 rounded-xl border border-gold-200/50">
+                <Users className="w-6 h-6 sm:w-8 sm:h-8 text-gold-600 mx-auto mb-2 sm:mb-3" />
+                <div className="text-xs sm:text-sm text-gray-600 mb-1">Travelers</div>
+                <div className="text-xl sm:text-2xl font-bold text-charcoal">{currentTrip.travelers.length}</div>
+                <div className="text-xs sm:text-sm text-gray-600">{currentTrip.travelers.length === 1 ? 'person' : 'people'}</div>
               </div>
               
-              <div className="text-center p-6 bg-gradient-to-br from-forest-50 to-gold-50 rounded-xl border border-forest-200/50">
-                <MapPin className="w-8 h-8 text-forest-600 mx-auto mb-3" />
-                <div className="text-sm text-gray-600 mb-1">Destination</div>
-                <div className="text-lg font-bold text-charcoal leading-tight">{currentTrip.name}</div>
+              <div className="text-center p-4 sm:p-6 bg-gradient-to-br from-forest-50 to-gold-50 rounded-xl border border-forest-200/50 sm:col-span-1 col-span-1">
+                <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-forest-600 mx-auto mb-2 sm:mb-3" />
+                <div className="text-xs sm:text-sm text-gray-600 mb-1">Destination</div>
+                <div className="text-sm sm:text-lg font-bold text-charcoal leading-tight">{currentTrip.name}</div>
               </div>
             </div>
           </div>
 
           {/* Itinerary Section - Only show if user has joined */}
           {currentTraveler && (
-            <div className="glass-card rounded-2xl p-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <div className="glass-card rounded-xl sm:rounded-2xl p-6 sm:p-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
               <ItineraryView trip={currentTrip} />
             </div>
           )}
 
-          {/* Join Prompt for non-members */}
+          {/* Join Prompt for non-members - Responsive */}
           {!currentTraveler && (
-            <div className="glass-card rounded-2xl p-8 animate-slide-up text-center" style={{ animationDelay: '0.1s' }}>
-              <div className="w-16 h-16 bg-gradient-to-br from-gold-100 to-forest-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <UserPlus className="w-8 h-8 text-forest-600" />
+            <div className="glass-card rounded-xl sm:rounded-2xl p-6 sm:p-8 animate-slide-up text-center" style={{ animationDelay: '0.1s' }}>
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-gold-100 to-forest-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <UserPlus className="w-6 h-6 sm:w-8 sm:h-8 text-forest-600" />
               </div>
-              <h3 className="text-xl font-bold text-charcoal mb-2">Join the Adventure!</h3>
-              <p className="text-gray-600 mb-6">
+              <h3 className="text-lg sm:text-xl font-bold text-charcoal mb-2">Join the Adventure!</h3>
+              <p className="text-gray-600 mb-6 text-sm sm:text-base px-4">
                 Enter your name to join this trip and start collaborating on the itinerary.
               </p>
               <button 
@@ -339,10 +342,10 @@ export default function TripSummaryPage() {
           )}
         </div>
 
-        {/* Sidebar */}
+        {/* Sidebar - Full width on mobile, 1/3 on desktop */}
         <div className="space-y-6">
-          {/* Travelers List */}
-          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          {/* Travelers List - Responsive */}
+          <div className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <TravelersList 
               tripId={currentTrip.id}
               travelers={currentTrip.travelers}
@@ -350,9 +353,9 @@ export default function TripSummaryPage() {
             />
           </div>
 
-          {/* Trip Stats */}
-          <div className="glass-card rounded-2xl p-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <h3 className="font-bold text-charcoal mb-4">Trip Stats</h3>
+          {/* Trip Stats - Responsive */}
+          <div className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <h3 className="font-bold text-charcoal mb-4 text-sm sm:text-base">Trip Stats</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-600">Created</span>
