@@ -65,8 +65,8 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold text-charcoal mb-2">
               Ready to start planning?
             </h2>
-            {/* Green button moved up - positioned right after the "Ready to start planning?" text */}
-            <div className="text-center mb-8">
+            {/* Green button moved down by ~100px using mt-24 (96px) */}
+            <div className="text-center mb-8 mt-24">
               <Link
                 to="/create-trip"
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-forest-500 to-gold-400 text-white font-semibold rounded-xl hover:from-forest-600 hover:to-gold-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
