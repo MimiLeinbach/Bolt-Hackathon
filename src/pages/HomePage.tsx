@@ -25,8 +25,27 @@ export default function HomePage() {
   const error = state?.error
 
   return (
-    <div className="animate-fade-in relative min-h-screen">
-      {/* Content */}
+    <div className="animate-fade-in relative min-h-screen bg-[#D4E4E0]">
+      {/* Background Image - Full bleed */}
+      <div 
+        className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/ChatGPT Image Jun 26, 2025, 12_37_10 PM.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      
+      {/* Blue background extension for extra vertical space */}
+      <div 
+        className="fixed inset-0 w-full h-full"
+        style={{
+          background: 'linear-gradient(to bottom, #D4E4E0 0%, #D4E4E0 100%)',
+          zIndex: -1
+        }}
+      />
+
+      {/* Content overlay */}
       <div className="relative z-10 flex flex-col min-h-screen p-4">
         {/* Error Message */}
         {error && (
@@ -39,13 +58,13 @@ export default function HomePage() {
         {/* Hero Section - Equal spacing above white rectangle */}
         <div className="text-center mb-6 pt-4">
           <div className="mb-6">
-            <h2 className="text-5xl md:text-6xl font-black mb-2 text-charcoal">
+            <h2 className="text-5xl md:text-6xl font-black mb-2 text-charcoal drop-shadow-lg">
               Your next adventure
             </h2>
-            <h3 className="text-5xl md:text-6xl font-black mb-6 text-charcoal">
+            <h3 className="text-5xl md:text-6xl font-black mb-6 text-charcoal drop-shadow-lg">
               starts here
             </h3>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 max-w-xl mx-auto">
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 max-w-xl mx-auto shadow-lg">
               <p className="text-lg text-gray-700 leading-relaxed">
                 Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
               </p>
@@ -56,7 +75,7 @@ export default function HomePage() {
         {/* Hero CTA - Equal spacing below white rectangle */}
         <div className="text-center mb-6">
           <div className="mb-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-charcoal mb-3">
+            <h2 className="text-2xl md:text-3xl font-bold text-charcoal mb-3 drop-shadow-md">
               Ready to start planning?
             </h2>
             <Link
