@@ -26,7 +26,7 @@ export default function HomePage() {
 
   return (
     <div className="animate-fade-in relative min-h-screen">
-      {/* Background Image - Full bleed, behind everything */}
+      {/* Background Image - Responsive */}
       <div 
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
@@ -37,41 +37,46 @@ export default function HomePage() {
         }}
       />
 
-      {/* Content overlay */}
-      <div className="relative z-10 flex flex-col min-h-screen p-4">
-        {/* Error Message */}
+      {/* Content overlay - Responsive padding */}
+      <div className="relative z-10 flex flex-col min-h-screen p-2 sm:p-4">
+        {/* Error Message - Responsive */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50/90 backdrop-blur-sm border border-red-200 rounded-xl flex items-center space-x-3">
-            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-            <p className="text-red-700 text-sm">{error}</p>
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-50/90 backdrop-blur-sm border border-red-200 rounded-xl flex items-start sm:items-center space-x-3">
+            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5 sm:mt-0" />
+            <p className="text-red-700 text-sm leading-relaxed">{error}</p>
           </div>
         )}
 
-        {/* Hero Section - Moved much higher */}
+        {/* Hero Section - Mobile-first responsive */}
         <div className="text-center mb-4 pt-2">
           <div className="mb-3">
-            <h2 className="text-5xl font-black mb-2 text-charcoal drop-shadow-lg">
+            {/* Main headlines - Responsive text sizing */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 text-charcoal drop-shadow-lg leading-tight">
               Your next adventure
             </h2>
-            <h3 className="text-5xl font-black mb-3 text-charcoal drop-shadow-lg">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 text-charcoal drop-shadow-lg leading-tight">
               starts here
             </h3>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 max-w-2xl mx-auto mb-4">
-              <p className="text-lg text-gray-700 leading-relaxed">
+            
+            {/* Description box - Responsive */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 max-w-xs sm:max-w-2xl mx-auto mb-4">
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
                 Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
               </p>
             </div>
-            {/* "Ready to start planning?" moved closer to white text box */}
-            <h2 className="text-3xl font-bold text-charcoal mb-2">
+            
+            {/* Call to action text - Responsive */}
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-charcoal mb-2">
               Ready to start planning?
             </h2>
-            {/* Green button moved down by ~100px using mt-24 (96px) */}
-            <div className="text-center mb-8 mt-24">
+            
+            {/* CTA Button - Responsive spacing and sizing */}
+            <div className="text-center mb-6 sm:mb-8 mt-12 sm:mt-16 lg:mt-24">
               <Link
                 to="/create-trip"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-forest-500 to-gold-400 text-white font-semibold rounded-xl hover:from-forest-600 hover:to-gold-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-forest-500 to-gold-400 text-white font-semibold rounded-xl hover:from-forest-600 hover:to-gold-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base"
               >
-                <Plus className="w-5 h-5 mr-2" />
+                <Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Create Your First Trip
               </Link>
             </div>
@@ -80,37 +85,45 @@ export default function HomePage() {
 
         {/* Spacer for remaining content */}
         <div className="flex-1">
-          {/* Existing Trips */}
+          {/* Existing Trips - Responsive grid */}
           {trips.length > 0 && (
-            <div className="mt-8">
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-                <h3 className="text-2xl font-bold text-charcoal mb-6 flex items-center">
-                  <Sparkles className="w-6 h-6 mr-2 text-purple-600" />
+            <div className="mt-6 sm:mt-8">
+              <div className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+                <h3 className="text-xl sm:text-2xl font-bold text-charcoal mb-4 sm:mb-6 flex items-center">
+                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-purple-600" />
                   Your Adventures
                 </h3>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                
+                {/* Responsive grid - stacks on mobile, 2 cols on tablet, 3 on desktop */}
+                <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {trips.map((trip) => (
                     <Link
                       key={trip.id}
                       to={`/trip/${trip.id}`}
-                      className="block p-6 bg-white rounded-xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-200 group"
+                      className="block p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-200 group"
                     >
                       <div className="flex items-start justify-between mb-3">
-                        <h4 className="font-semibold text-lg text-charcoal group-hover:text-purple-600 transition-colors">
+                        <h4 className="font-semibold text-base sm:text-lg text-charcoal group-hover:text-purple-600 transition-colors leading-tight pr-2">
                           {trip.name}
                         </h4>
-                        <div className="flex items-center text-sm text-gray-500">
-                          <Users className="w-4 h-4 mr-1" />
+                        <div className="flex items-center text-xs sm:text-sm text-gray-500 flex-shrink-0">
+                          <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                           {trip.participantCount || trip.travelers?.length || 1}
                         </div>
                       </div>
-                      <div className="flex items-center text-sm text-gray-600 mb-2">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        {format(new Date(trip.startDate), 'MMM d')} - {format(new Date(trip.endDate), 'MMM d, yyyy')}
+                      
+                      <div className="flex items-center text-xs sm:text-sm text-gray-600 mb-2">
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-2 flex-shrink-0" />
+                        <span className="truncate">
+                          {format(new Date(trip.startDate), 'MMM d')} - {format(new Date(trip.endDate), 'MMM d, yyyy')}
+                        </span>
                       </div>
+                      
                       <div className="flex items-center text-xs text-gray-500">
-                        <MapPin className="w-3 h-3 mr-1" />
-                        Created {format(new Date(trip.createdAt), 'MMM d, yyyy')}
+                        <MapPin className="w-3 h-3 mr-1 flex-shrink-0" />
+                        <span className="truncate">
+                          Created {format(new Date(trip.createdAt), 'MMM d, yyyy')}
+                        </span>
                       </div>
                     </Link>
                   ))}

@@ -30,37 +30,49 @@
   }
   
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl border border-gray-300 bg-white;
+    @apply w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-gray-300 bg-white;
     @apply focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-forest-400;
     @apply transition-all duration-200 ease-out;
     @apply placeholder:text-gray-500;
-    @apply text-charcoal;
+    @apply text-charcoal text-sm sm:text-base;
   }
   
   .input-field:focus {
-    @apply bg-white shadow-lg transform scale-[1.02];
+    @apply bg-white shadow-lg transform scale-[1.01] sm:scale-[1.02];
   }
   
   .btn-primary {
-    @apply px-6 py-3 rounded-xl font-semibold text-white;
+    @apply px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold text-white;
     @apply forest-gradient forest-gradient-hover;
     @apply shadow-lg hover:shadow-xl;
     @apply transform transition-all duration-200 ease-out;
     @apply hover:scale-105 active:scale-95;
+    @apply text-sm sm:text-base;
+    /* Ensure minimum touch target size on mobile */
+    min-height: 44px;
   }
   
   .btn-secondary {
-    @apply px-6 py-3 rounded-xl font-semibold;
+    @apply px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold;
     @apply bg-white text-charcoal border border-gray-300;
     @apply hover:bg-light-gray hover:shadow-lg;
     @apply transform transition-all duration-200 ease-out;
     @apply hover:scale-105 active:scale-95;
+    @apply text-sm sm:text-base;
+    /* Ensure minimum touch target size on mobile */
+    min-height: 44px;
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - responsive */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
+}
+
+@media (min-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
 }
 
 ::-webkit-scrollbar-track {
@@ -74,4 +86,30 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #256640, #f1b429);
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  /* Improve touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Prevent zoom on input focus on iOS */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Better modal positioning on mobile */
+  .fixed.inset-0 {
+    padding: 1rem;
+  }
+}
+
+/* Tablet improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Optimize for tablet touch */
+  button, a {
+    min-height: 48px;
+  }
 }
