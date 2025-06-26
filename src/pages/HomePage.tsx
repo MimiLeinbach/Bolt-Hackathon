@@ -30,7 +30,7 @@ export default function HomePage() {
       <div 
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/ChatGPT Image Jun 24, 2025 at 03_16_13 PM.jpg')`,
+          backgroundImage: `url('/ChatGPT Image Jun 26, 2025, 12_37_10 PM.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           zIndex: -2
