@@ -36,8 +36,8 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Hero Section - Balanced spacing above white rectangle */}
-        <div className="text-center mb-8 pt-4">
+        {/* Hero Section - Equal spacing above white rectangle */}
+        <div className="text-center mb-6 pt-4">
           <div className="mb-6">
             <h2 className="text-4xl md:text-5xl font-black mb-2 text-charcoal">
               Your next adventure
@@ -53,8 +53,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero CTA - Balanced spacing below white rectangle */}
-        <div className="text-center mb-8">
+        {/* Hero CTA - Equal spacing below white rectangle */}
+        <div className="text-center mb-6">
           <div className="mb-4">
             <h2 className="text-2xl md:text-3xl font-bold text-charcoal mb-3">
               Ready to start planning?
