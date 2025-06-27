@@ -63,10 +63,13 @@ export default function HomePage() {
               starts here
             </h3>
             
-            {/* Description text - Narrower width to match header with tighter spacing */}
+            {/* Description text - Updated with new copy */}
             <div className="max-w-sm sm:max-w-lg mx-auto mb-3 sm:mb-4">
               <p className="text-base sm:text-lg text-charcoal font-medium leading-relaxed drop-shadow-sm">
-                Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
+                Plan unforgettable trips together.
+              </p>
+              <p className="text-base sm:text-lg text-charcoal font-medium leading-relaxed drop-shadow-sm">
+                Create shared itineraries, swap ideas, and get everyone on the same page...without the spreadsheets.
               </p>
             </div>
             
