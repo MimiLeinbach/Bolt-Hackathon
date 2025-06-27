@@ -63,8 +63,8 @@ export default function HomePage() {
               starts here
             </h3>
             
-            {/* Description text - Minimal accessible size */}
-            <div className="max-w-xs sm:max-w-2xl mx-auto mb-6 sm:mb-8">
+            {/* Description text - Narrower width to match header */}
+            <div className="max-w-sm sm:max-w-lg mx-auto mb-6 sm:mb-8">
               <p className="text-base sm:text-lg text-charcoal font-medium leading-relaxed drop-shadow-sm">
                 Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
               </p>
