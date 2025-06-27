@@ -63,9 +63,9 @@ export default function HomePage() {
               starts here
             </h3>
             
-            {/* Description text - No white box, improved accessibility */}
+            {/* Description text - Minimal accessible size */}
             <div className="max-w-xs sm:max-w-2xl mx-auto mb-6 sm:mb-8">
-              <p className="text-lg sm:text-xl lg:text-2xl text-charcoal font-semibold leading-relaxed drop-shadow-md">
+              <p className="text-base sm:text-lg text-charcoal font-medium leading-relaxed drop-shadow-sm">
                 Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
               </p>
             </div>
