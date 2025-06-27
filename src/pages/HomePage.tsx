@@ -59,19 +59,19 @@ export default function HomePage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 text-charcoal drop-shadow-lg leading-tight">
               Your next adventure
             </h2>
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 text-charcoal drop-shadow-lg leading-tight">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 sm:mb-8 text-charcoal drop-shadow-lg leading-tight">
               starts here
             </h3>
             
-            {/* Description box - Responsive */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 max-w-xs sm:max-w-2xl mx-auto mb-4">
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+            {/* Description text - No white box, improved accessibility */}
+            <div className="max-w-xs sm:max-w-2xl mx-auto mb-6 sm:mb-8">
+              <p className="text-lg sm:text-xl lg:text-2xl text-charcoal font-semibold leading-relaxed drop-shadow-md">
                 Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
               </p>
             </div>
             
             {/* Call to action text - Responsive */}
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-charcoal mb-2">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-charcoal mb-2 drop-shadow-md">
               Ready to start planning?
             </h2>
             
