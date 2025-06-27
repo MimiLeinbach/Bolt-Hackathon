@@ -55,8 +55,8 @@ export default function HomePage() {
         {/* Hero Section - Mobile-first responsive with tighter spacing */}
         <div className="text-center mb-4 pt-2">
           <div className="mb-3">
-            {/* Main headlines - Responsive text sizing with closer spacing */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-charcoal drop-shadow-lg leading-tight">
+            {/* Main headlines - Increased font size for first line */}
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-charcoal drop-shadow-lg leading-tight">
               Your next adventure
             </h2>
             <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 text-charcoal drop-shadow-lg leading-tight">
