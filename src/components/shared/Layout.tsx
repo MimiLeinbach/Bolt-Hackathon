@@ -39,25 +39,33 @@ export default function Layout({ children }: LayoutProps) {
               />
             </div>
 
-            {/* Bolt Logo - Right side */}
+            {/* Bolt Logo - Right side - Now clickable */}
             <div className="flex items-center">
-              <img 
-                src="/black_circle_360x360.png" 
-                alt="Powered by Bolt" 
-                className="h-8 sm:h-10 lg:h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
-                onError={(e) => {
-                  // Fallback to text if image fails
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const parent = target.parentNode as HTMLElement;
-                  if (parent && !parent.querySelector('.bolt-text')) {
-                    const boltText = document.createElement('div');
-                    boltText.className = 'bolt-text text-xs sm:text-sm text-gray-500 font-medium';
-                    boltText.textContent = 'Powered by Bolt';
-                    parent.appendChild(boltText);
-                  }
-                }}
-              />
+              <a 
+                href="https://bolt.new/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="transition-all duration-200 hover:scale-105 active:scale-95"
+                title="Powered by Bolt - Click to visit bolt.new"
+              >
+                <img 
+                  src="/black_circle_360x360.png" 
+                  alt="Powered by Bolt" 
+                  className="h-8 sm:h-10 lg:h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+                  onError={(e) => {
+                    // Fallback to text if image fails
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const parent = target.parentNode as HTMLElement;
+                    if (parent && !parent.querySelector('.bolt-text')) {
+                      const boltText = document.createElement('div');
+                      boltText.className = 'bolt-text text-xs sm:text-sm text-gray-500 font-medium hover:text-gray-700 transition-colors cursor-pointer';
+                      boltText.textContent = 'Powered by Bolt';
+                      parent.appendChild(boltText);
+                    }
+                  }}
+                />
+              </a>
             </div>
           </div>
         </div>
