@@ -42,7 +42,7 @@ export default function Layout({ children }: LayoutProps) {
             {/* Bolt Logo - Right side */}
             <div className="flex items-center">
               <img 
-                src="/white_circle_360x360.png" 
+                src="/black_circle_360x360.png" 
                 alt="Powered by Bolt" 
                 className="h-8 sm:h-10 lg:h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
                 onError={(e) => {
