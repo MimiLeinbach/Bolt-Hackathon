@@ -52,31 +52,31 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Hero Section - Mobile-first responsive */}
+        {/* Hero Section - Mobile-first responsive with tighter spacing */}
         <div className="text-center mb-4 pt-2">
           <div className="mb-3">
-            {/* Main headlines - Responsive text sizing */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 text-charcoal drop-shadow-lg leading-tight">
+            {/* Main headlines - Responsive text sizing with tighter spacing */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1 text-charcoal drop-shadow-lg leading-tight">
               Your next adventure
             </h2>
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 sm:mb-8 text-charcoal drop-shadow-lg leading-tight">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-5 text-charcoal drop-shadow-lg leading-tight">
               starts here
             </h3>
             
-            {/* Description text - Narrower width to match header */}
-            <div className="max-w-sm sm:max-w-lg mx-auto mb-6 sm:mb-8">
+            {/* Description text - Narrower width to match header with tighter spacing */}
+            <div className="max-w-sm sm:max-w-lg mx-auto mb-4 sm:mb-5">
               <p className="text-base sm:text-lg text-charcoal font-medium leading-relaxed drop-shadow-sm">
                 Plan unforgettable trips with friends. Create itineraries, share ideas, and make memories together.
               </p>
             </div>
             
-            {/* Call to action text - Responsive */}
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-charcoal mb-2 drop-shadow-md">
+            {/* Call to action text - Responsive with tighter spacing */}
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-charcoal mb-1 drop-shadow-md">
               Ready to start planning?
             </h2>
             
-            {/* CTA Button - Responsive spacing and sizing */}
-            <div className="text-center mb-6 sm:mb-8 mt-12 sm:mt-16 lg:mt-24">
+            {/* CTA Button - Responsive spacing and sizing with reduced top margin */}
+            <div className="text-center mb-6 sm:mb-8 mt-6 sm:mt-8 lg:mt-12">
               <Link
                 to="/create-trip"
                 className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-forest-500 to-gold-400 text-white font-semibold rounded-xl hover:from-forest-600 hover:to-gold-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base"
@@ -90,9 +90,9 @@ export default function HomePage() {
 
         {/* Spacer for remaining content */}
         <div className="flex-1">
-          {/* Existing Trips - Responsive grid */}
+          {/* Existing Trips - Responsive grid with tighter spacing */}
           {trips.length > 0 && (
-            <div className="mt-6 sm:mt-8">
+            <div className="mt-4 sm:mt-6">
               <div className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
                 <h3 className="text-xl sm:text-2xl font-bold text-charcoal mb-4 sm:mb-6 flex items-center">
                   <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-purple-600" />
