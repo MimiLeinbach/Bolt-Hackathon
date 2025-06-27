@@ -17,8 +17,8 @@ export default function Layout({ children }: LayoutProps) {
       {/* Header - Responsive and mobile-friendly */}
       <header className="relative z-20 px-4 sm:px-6 py-3 sm:py-4 bg-transparent">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-start">
-            {/* Logo - Fixed path and fallback */}
+          <div className="flex items-center justify-between">
+            {/* Junto Logo - Left side */}
             <div className="flex items-center">
               <img 
                 src="/Juntobig.jpg" 
@@ -34,6 +34,27 @@ export default function Layout({ children }: LayoutProps) {
                     textLogo.className = 'text-logo text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-forest-600 to-gold-400 bg-clip-text text-transparent';
                     textLogo.textContent = 'Junto';
                     parent.appendChild(textLogo);
+                  }
+                }}
+              />
+            </div>
+
+            {/* Bolt Logo - Right side */}
+            <div className="flex items-center">
+              <img 
+                src="/white_circle_360x360.png" 
+                alt="Powered by Bolt" 
+                className="h-8 sm:h-10 lg:h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+                onError={(e) => {
+                  // Fallback to text if image fails
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const parent = target.parentNode as HTMLElement;
+                  if (parent && !parent.querySelector('.bolt-text')) {
+                    const boltText = document.createElement('div');
+                    boltText.className = 'bolt-text text-xs sm:text-sm text-gray-500 font-medium';
+                    boltText.textContent = 'Powered by Bolt';
+                    parent.appendChild(boltText);
                   }
                 }}
               />
